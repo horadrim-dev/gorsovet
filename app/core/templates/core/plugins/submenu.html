@@ -1,0 +1,28 @@
+{% load menu_tags sekizai_tags static %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+
+
+{% if layout == "blocks" %}
+
+    <div class="grid-list ">
+        <div class="grid-box row">
+            {% if parent_page %}
+                {% show_menu_below_id parent_page 0 100 100 100 "core/plugins/submenu_blocks_tmpl.html" %}
+            {% else %}
+                {% show_sub_menu 1 None 100 "core/plugins/submenu_blocks_tmpl.html" %}
+            {% endif %}
+        </div>
+    </div>
+
+{% elif layout == "list" %}
+
+    <div class="list-items text-left">
+        {% if parent_page %}
+            {% show_menu_below_id parent_page 0 100 100 100 "core/plugins/submenu_list_tmpl.html" %}
+        {% else %}
+            {% show_sub_menu 1 None 100 "core/plugins/submenu_list_tmpl.html" %}
+        {% endif %}
+    </div>
+{% endif %}

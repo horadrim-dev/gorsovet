@@ -1,0 +1,29 @@
+{% load cms_tags sekizai_tags thumbnail static %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'news/css/news.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'news/css/taggit_labels.css' %}">{% endaddtoblock %} 
+
+<div class="news-container">
+
+  <div class="row">
+    {% for obj in object_list %}
+
+      <div class="col-md-4 col-sm-6">
+        {% render_model_block obj %}
+          {% include 'news/includes/post.item.vertical.html' %}
+        {% endrender_model_block %}
+      </div>
+
+    {% empty %}
+      <p> Записей не найдено.</p>
+    {% endfor %}
+
+    <hr class="space m" />
+
+    <div class="text-center">
+      <a href="{% url 'news:index' %}" class="btn btn-lg">Все новости</a>
+    </div>
+  </div>
+</div>

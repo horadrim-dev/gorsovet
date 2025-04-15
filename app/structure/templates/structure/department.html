@@ -1,0 +1,19 @@
+{% extends 'structure/base.html' %}
+{% load cms_tags sekizai_tags static structure_tags %}
+
+
+{% block app_content %}
+
+
+{% include './includes/department_filter.html' %}
+
+{% comment %} {% if 'activity' in request.GET %} {% endcomment %}
+
+  <hr class="space m">
+
+  {% include './includes/department_list.html' %}
+
+  {% include 'core/includes/pagination.html' %}
+{% comment %} {% endif %} {% endcomment %}
+
+{% endblock app_content %}

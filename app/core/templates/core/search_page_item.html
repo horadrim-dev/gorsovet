@@ -1,0 +1,25 @@
+{% load cms_tags %}
+
+<div class="docs-item horizontal advs-box advs-box-side-icon">
+    <div class="caption-box">
+        <div class="row vertical-row">
+            <div class="col-xs-1">
+                <div class="icon-box">
+                    <i class="icon fa fa-file-text-o text-lg"></i>
+                </div>
+            </div>
+            <div class="col-xs-9">
+                <a href="{{ object.get_absolute_url }}">
+                    <h4>
+                        {% comment %} {% page_attribute 'title' object %} {% endcomment %}
+                        {{ object.get_menu_title }}
+                    </h4>
+                    <p>Страница</p>
+                </a>
+            </div>
+            <div class="col-xs-2 text-right">
+                <a href="{{ object.get_absolute_url }}" class="btn btn-border">Перейти</a>
+            </div>
+        </div>
+    </div>
+</div>

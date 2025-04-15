@@ -1,0 +1,13 @@
+{% load sekizai_tags %}
+
+{% if css %}
+    {% addtoblock "css" %}<style>{{ css | safe }}</style>{% endaddtoblock %}
+{% endif %}
+
+{% if js %}
+{% addtoblock "dynamic-js" %}<script>{{ js | safe }}</script>{% endaddtoblock %}
+{% endif %}
+
+{% if code %}
+    {{ code | safe }}
+{% endif %}

@@ -1,0 +1,74 @@
+{% load cms_tags core_tags tz %}
+
+<div class="events-item">
+    {% render_model_block object.event %}
+    <div class="row vertical-row">
+        <div class="col-md-2 text-center">
+            {% if LAYOUT == 'NORMAL' %}
+            <h2>{{ object.start_time }}</h2>
+            {% elif LAYOUT == 'SMALL' %}
+            <h3>{{ object.start_time }}</h3>
+            {% endif %}
+        </div>
+        {% if object.poster and LAYOUT == 'NORMAL' %}
+        <div class="col-md-3">
+            <a class="img-box lightbox thumbnail" href="#event-{{object.id}}" data-lightbox-anima="show-scale">
+                <img src="{{ object.poster_thumb_src }}" alt="">
+            </a>
+        </div>
+        <div class="col-md-5">
+        {% else %}
+        <div class="col-md-7">
+        {% endif %}
+            <a class="lightbox dashed" href="#event-{{object.id}}" data-lightbox-anima="show-scale">
+                {% if LAYOUT == 'NORMAL' %}
+                <span class="h3">{{ object.name }}</span>
+                {% elif LAYOUT == 'SMALL' %}
+                <span class="h4">{{ object.name }}</span>
+                {% endif %}
+            </a>
+            {% if LAYOUT != 'SMALL' %}
+            <hr class="space xs">
+            {{ object.description|striptags|truncatechars_html:150}}
+            {% endif %}
+
+            {% if object.place %}
+            <hr class="space xs">
+            <h4><i class="fa fa-map-marker"></i> {{ object.place }}</h4>
+            {% endif %}
+
+        </div> 
+        <div class="col-md-3">
+            {% if LAYOUT == 'NORMAL' %}
+                {% render_share_buttons url=object.get_absolute_url title=object.name image_src=object.poster.url description=object.description|striptags|truncatechars_html:150 style="list" %}
+            {% elif LAYOUT == 'SMALL' %}
+                {% render_share_buttons url=object.get_absolute_url title=object.name image_src=object.poster.url description=object.description|striptags|truncatechars_html:150 style="list" size="micro" %}
+            {% endif %}
+        </div> 
+    </div>
+    {% endrender_model_block %}
+
+    {# LIGTHBOX #}
+    <div id="event-{{object.id}}" class="box-lightbox mfp-hide">
+        <div class="subtitle g">
+            <h1>{{ object.name }}</h1>
+            <hr>
+            <h3>Начало мероприятия: <i class="fa fa-calendar"></i> {{ object.start_at|date }} {{ object.start_time }}</h3>
+            {% if object.place %}
+            <h3>Место проведения: <i class="fa fa-map-marker"></i> {{ object.place }}</h3>
+            {% endif %}
+            <hr>
+        </div> 
+
+        {% if object.poster %}
+            <img src="{{ object.poster.url }}" width="100%" />
+            <hr class="space m">
+        {% endif %}
+
+        <div class="text-right">
+            {% render_share_buttons url=object.get_absolute_url title=object.name image_src=object.poster.url description=object.description|striptags|truncatechars_html:150 style="list" %}
+        </div>
+        <hr class="space m">
+        {{ object.description | safe }}
+    </div>
+</div>

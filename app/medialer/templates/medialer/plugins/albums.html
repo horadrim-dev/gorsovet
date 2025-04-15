@@ -1,0 +1,42 @@
+{% load sekizai_tags easy_thumbnails_tags static %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'medialer/css/albums.css' %}">{% endaddtoblock %} 
+
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/isotope.min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.twbsPagination.min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "js" %}<script src="{% static 'core/scripts/imagesloaded.min.js' %}"></script>{% endaddtoblock %}
+
+<h1>Альбомы</h1>
+
+<div class="albums maso-list">
+    <div class="maso-box row" data-options="anima:fade-in">
+        {% for album in album_list %}
+        <div data-sort="{{forloop.counter}}" class="maso-item col-md-3 row-7">
+
+            <a href="{% url 'medialer:index' %}?album={{album.id}}">
+                <div class="img-box adv-circle circle adv-circle-center white"
+                >
+                    <img src="{{ album.thumb_src}}" alt="" />
+                    <div class="caption">
+                        <h2>{{ album.title }}</h2>
+                        {% if album.description %}
+                            <p>{{ album.description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+
+        </div>
+        {% endfor %}
+        <div class="clear"></div>
+    </div>
+    <hr class="space m">
+    {% if album_list|length > 8 %}
+    <div class="list-nav">
+        <a href="#" class="btn btn-lg load-more-maso" data-page-items="8">Показать больше <i class="fa fa-arrow-down"></i></a>
+    </div>
+    {% endif %}
+</div>
+

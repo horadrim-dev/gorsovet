@@ -1,0 +1,85 @@
+{% extends 'news/base.html' %}
+{% load sekizai_tags thumbnail static core_tags %}
+
+{% block app_content %}
+{% addtoblock "js" %}<script src="{% static 'core/js/taggit_labels.js' %}"></script>{% endaddtoblock %} 
+
+<div class="news-list-controls">
+  <button id="filter-toggler" class="btn-border btn-radius btn-sm" path="{% url "news:index" %}">
+    {# html содержимое кнопки дублируется в news.js #}
+    {% if news_filter_state == "visible" %}
+      <i class="fa fa-angle-left"></i>
+    {% else %}
+      <i class="fa fa-filter"></i>
+    {% endif %}
+  </button>
+  <div class="text-right hidden-xs display-md">
+    <button class="layout-toggler btn-border btn-radius btn-sm" data="grid" path="{% url "news:index" %}"
+      {% if news_list_layout == "grid" %}disabled{% endif %}
+      >
+      <i class="fa fa-th-large"></i>
+    </button>
+    <button class="layout-toggler btn-border btn-radius btn-sm" data="list" path="{% url "news:index" %}"
+      {% if news_list_layout == "list" %}disabled{% endif %}
+      >
+      <i class="fa fa-th-list"></i>
+    </button>
+    {# PAGINATE_BY #}
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="paginate-button btn btn-border btn-sm btn-default dropdown-toggle demo" data-toggle="dropdown" aria-expanded="false">
+        {{ active_paginate_by }} <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        {% for choice in PAGINATE_BY_CHOICES %}
+          <li>
+            <a href="{% url "news:index" %}?{% param_replace page="" count=choice %}">{{ choice }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="space m" />
+
+<div class="row pb-5">
+  <div id="news-sidebar" class="{% if news_filter_state == "hidden" %}hidden {% endif %}col-md-4 col-sm-12">
+    {% include './includes/filter.html' %}
+  </div>
+  <div id="news-content" class="col-md-12 {% if news_filter_state == "visible" %}col-md-8{% endif %} col-sm-12">
+    {# классы настроены так, чтобы при сворачивании фильтра этот блок расширялся #}
+
+    {% if news_list_layout == "grid" %}
+    <div class="maso-list">
+        <div class="maso-box row">
+            {% for obj in object_list %}
+            <div class="maso-item col-lg-4 col-md-6">
+              {% include 'news/includes/post.item.vertical.html' %}
+            </div>
+            {% empty %}
+            <p>Ничего не найдено.</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% elif news_list_layout == "list" %}
+      <div class="grid-list one-row-list">
+        <div class="grid-box row">
+            {% for obj in object_list %}
+            <div class="grid-item col-md-12">
+                {% include 'news/includes/post.item.horizontal.html' %}
+            </div>
+            {% comment %} <hr class="space m" /> {% endcomment %}
+            {% empty %}
+            <p>Ничего не найдено.</p>
+            {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    <div class="clear"></div>
+    {% include 'core/includes/pagination.html' %}
+  </div>
+</div>
+
+  
+
+{% endblock %}

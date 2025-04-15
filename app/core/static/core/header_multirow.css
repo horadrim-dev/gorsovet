@@ -1,0 +1,59 @@
+.navbar-header::before,
+.navbar-header::after {
+    display: none;
+}
+.navbar-mini > .container {
+  padding-left: 15px !important;
+}
+/* .navbar-collapse {
+    top: 60px;
+} */
+.navbar-middle {
+    border-bottom: 1px solid #E4E4E4;
+    padding: 10px 0;
+}
+.navbar-middle .navbar-brand {
+    margin-top: 0;
+    display: contents;
+}
+.navbar-middle form.search-input .search-button {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    font-size: 24px;
+    border-radius: 0px;
+}
+.navbar-middle form.search-input .form-group {
+    width: calc(100% - 60px);
+}
+.navbar-middle form.search-input .form-group input {
+    width: 100%;
+    height: 50px;
+    border-radius: 0px;
+    background-color: #F4F7FF;
+    color: var(--main-color);
+    
+}
+.navbar-middle form.search-input .form-group input::placeholder {
+  color: var(--main-color);
+  opacity: 1; /* Firefox */
+}
+.navbar-middle ul.navbar-links {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+}
+.navbar-middle ul.navbar-links li a {
+    white-space: nowrap;
+    border-bottom: dashed 1px var(--main-color);
+    text-decoration: none;
+}
+.navbar-middle ul.navbar-links li a:hover {
+    border-bottom-color: var(--main-color-3);
+    color: var(--main-color-3);
+}
+header .priem-button {
+    margin-top: 15px;
+    color: var(--menu-font-color) !important;
+    border-color: var(--menu-font-color);
+}

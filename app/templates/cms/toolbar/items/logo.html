@@ -1,0 +1,28 @@
+{% load i18n easy_thumbnails_tags %}
+{# OVERRIDING STANDART DJANGO-CMS LOGO TEMPLATE #}
+{% comment %} <div class="cms-toolbar-item cms-toolbar-item-logo"><a href="/" title="{{ cms_version }}"><span>{% trans "django CMS" %}</span></a></div> {% endcomment %}
+<style>
+.admin-panel-logo {
+    margin-right: 0 !important;
+}
+.admin-panel-logo i::before {
+    line-height: 46px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 24px;
+}
+{% comment %} .admin-panel-logo i {
+    color: #919191;
+} {% endcomment %}
+.admin-panel-logo i:hover {
+    color: #00f;
+}
+</style>
+<div class="cms-toolbar-item admin-panel-logo">
+    <a href="/" >
+        <div class="">
+            <i class="fa fa-cogs"></i>
+            {% comment %} <label class="text-m">Панель управления:</label> {% endcomment %}
+        </div>
+    </a>
+</div>

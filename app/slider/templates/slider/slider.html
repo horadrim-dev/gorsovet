@@ -1,0 +1,74 @@
+{% load cms_tags static sekizai_tags thumbnail %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/flexslider/flexslider.css' %}">{% endaddtoblock %}
+{% addtoblock "js" %}<script src="{% static 'core/scripts/flexslider/jquery.flexslider-min.js' %}"></script>{% endaddtoblock %}
+
+
+{% comment %} {% addtoblock "css" %}<link rel="stylesheet" type="text/css" href="{% static 'slider/css/owl.carousel.min.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" type="text/css" href="{% static 'slider/css/owl.theme.default.min.css' %}">{% endaddtoblock %}
+{% addtoblock "js" %}<script src="{% static 'slider/js/owl.carousel.min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "js" %}
+<script type="text/javascript">
+  $(document).ready(function(){
+  $("#owl-slider-{{ id }}").owlCarousel({
+    loop:true,
+    autoplay: true,
+    margin:0,
+    animateOut: 'fadeOut',
+    animateIn: 'fadeIn',
+    touchDrag: true,
+    mouseDrag: false,
+    nav:false,
+    autoplayHoverPause: false,
+    items: 1,
+    responsive:{
+      0:{
+        items:1
+      },
+      600:{
+        items:1
+      },
+      1000:{
+        items:1
+      }
+    }
+
+  });
+});
+</script>
+{% endaddtoblock %} {% endcomment %}
+{% comment %} 
+<div id="owl-slider-{{ id }}" class="owl-carousel">
+  {% for slide in slides %}
+  <div class="slider-item" style="background-image:url({% thumbnail slide.image "1800x600" upscale crop %});">
+      <div class="overlay"></div>
+      <div class="container">
+          <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
+              <div class="col text-center ftco-animate">
+                  {% if slide.title %}<h1 class="mb-4 text-light">{{slide.title}}</h1>{% endif %}
+                  {% if slide.subtitle %}<h2 class="mb-4 text-light">{{slide.subtitle}}</h2>{% endif %}
+              </div>
+              <div class="col">
+                  <img src="{% static 'core/images/logo.png' %}">
+              </div>
+          </div>
+      </div>
+  </div>
+  {% endfor %} 
+</div>{% endcomment %}
+<div id="slider-{{id }}" class="flexslider carousel outer-navs png-over text-center" 
+  data-options="{% spaceless %}
+  numItems:{{instance.num_items}},
+  minWidth:100,
+  itemMargin:30,
+  controlNav:false,
+  directionNav:true{% endspaceless %}"
+  >
+  <ul class="slides">
+    {% for plugin in instance.child_plugin_instances %}
+      {% with forloop.counter as item_number %}
+      {% render_plugin plugin %}
+      {% endwith %}
+    {% endfor %}
+  </ul>
+</div>

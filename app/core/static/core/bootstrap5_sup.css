@@ -1,0 +1,12 @@
+.w-100 {
+    width:100% !important;
+}
+.justify-content-center {
+    display: flex !important;
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important;
+}
+.d-none {
+    display: none;
+}

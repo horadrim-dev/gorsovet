@@ -1,0 +1,26 @@
+{% load cms_tags %}
+ 
+<div class="article-summary">
+	<h3>Содержание:</h3>
+	<hr class="space xs">
+	<div class="list-items text-left">
+		{% for plugin in instance.child_plugin_instances %}
+		<div class="list-item">
+			<a href="#razdel-{{ plugin.id }}">{{ plugin.name }}</a>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+<hr class="space m">
+<div class="">
+	{% for plugin in instance.child_plugin_instances %}
+	 	<a name="razdel-{{ plugin.id }}" class="anchor-target"></a> 
+		<div class="title-modern st-icon text-left">
+			<h2>{{ plugin.name }}</h2>
+			<hr>
+		</div>
+		<div class="clear"></div>
+		{% render_plugin plugin %}
+		{% if not foorloop.last %}<hr class="space m">{% endif %}
+	{% endfor %}
+</div>

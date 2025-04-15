@@ -1,0 +1,21 @@
+<div class="list-item">
+    <a href="{{ object.url }}">
+        <div class="row ">
+            <div class="col-xs-1">
+                <div class="icon-box">
+                    <i class="icon fa {{ object.fa_icon }} text-l"></i>
+                </div>
+            </div>
+            <div class="col-xs-11">
+                    {% comment %} <h4>{% if object.document_type %}{{ object.document_type }}{% endif %} {% if object.number %}№{{ object.number }}{% endif %} {% if object.date %}от {{ object.date }}{% endif %}</h4> {% endcomment %}
+                    <h4 class="no-margins">{{ object.name }}</h4>
+                <div class="text-s">
+                    <p class="no-paddings">
+                        .{{ object.extension }} ({{ object.file.size|filesizeformat }})
+                        <i class="fa fa-download"></i> {{ object.hits }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

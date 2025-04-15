@@ -1,0 +1,73 @@
+{% load static cms_tags menu_tags sekizai_tags easy_thumbnails_tags %}
+{% comment %} <div class="row mb-5">
+  <div class="col">
+    <div class="ftco-footer-widget mb-5 ml-md-4">
+      <h2 class="ftco-heading-2">Меню</h2>
+      <ul class="list-unstyled">
+        {% show_menu 0 0 100 100 %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-5">
+       {% static_placeholder 'footer_2_column' %}
+  </div>
+  <div class="col-12 col-lg-3">
+    {% static_placeholder 'footer_3_column' %}
+  </div>
+</div> {% endcomment %}
+
+<i class="scroll-top scroll-top-mobile show fa fa-sort-asc"></i>
+<footer class="footer-base">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                {% comment %} <div class="col-md-2 footer-left text-left"> {% endcomment %}
+                {% comment %} </div> {% endcomment %}
+                <div class="col-md-8 footer-center text-left">
+                    {% comment %} <img width="120" src="{% static 'core/template-images/logo.png' %}" alt="" /> {% endcomment %}
+                    <img class="navbar-brand-logo" src="{% thumbnail site_settings.logo 200x250 upscale %}" />
+                    <span class="text-l">{{ site_settings.title }} {{ site_settings.subtitle }}</span>
+                    <br><br>
+                    <p class="text-m">{{ site_settings.address }}</p>
+                    <div class="tag-row text-m">
+                        <span>{{ site_settings.email }}</span>
+                        <span>{{ site_settings.phone }}</span>
+                    </div>
+                    <br>
+                    <div class="btn-group social-group btn-group-icons">
+                        {% comment %} <a target="_blank" href="#" data-social="share-facebook">
+                            <i class="fa fa-facebook text-xs circle"></i>
+                        </a>
+                        <a target="_blank" href="#" data-social="share-twitter">
+                            <i class="fa fa-twitter text-xs circle"></i>
+                        </a>
+                        <a target="_blank" href="#" data-social="share-google">
+                            <i class="fa fa-google-plus text-xs circle"></i>
+                        </a>
+                        <a target="_blank" href="#" data-social="share-linkedin">
+                            <i class="fa fa-linkedin text-xs circle"></i>
+                        </a> {% endcomment %}
+                        {% for social in site_settings.socials %}
+                        <a target="_blank" href="{{social.url}}" alt="{{social.text}}">
+                            <i class="fa fa-{{social.icon}}"></i>
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="col-md-4 footer-left text-center">
+                    <h3>Меню</h3>
+                    <ul class="list-unstyled">
+                    {% show_menu 0 0 100 100 %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row copy-row">
+            <div class="col-md-12 copy-text">
+                ©<script>document.write(new Date().getFullYear());</script>
+            </div>
+        </div>
+    </div>
+
+</footer>

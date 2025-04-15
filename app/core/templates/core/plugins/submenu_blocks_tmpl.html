@@ -1,0 +1,49 @@
+{% load menu_tags %}
+
+{% for child in children %}
+<div class="grid-item col-md-3 text-center
+	{% if child.get_menu_title == 'Главная' %}home{% endif %}
+	{% if child.children %}
+		dropdown
+	 	{% if child.attr.dropdown_mega %}mega-dropdown{% endif %}
+	{% endif %} 
+	{% if child.children and child.level != 0  %}dropdown-submenu{% endif %} 
+	{% if child.selected %}active selected{% endif %}
+	{% if child.ancestor %} ancestor{% endif %}
+	{% if child.sibling %} sibling{% endif %}
+	{% if child.descendant %} descendant{% endif %}
+	">
+	<div class="menu-item-container">
+		<a class="nav-link 
+			{% if child.attr.icon %}has-icon{% endif %}
+			" 
+			href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
+			{% comment %} {% if child.attr.icon %}<i class="fa fa-{{child.attr.icon}} text-m"></i>{% endif %} {% endcomment %}
+			<div class="menu-blocks-item">
+				{{ child.get_menu_title }}
+			</div>
+		</a>
+	</div>
+	{% comment %} {% if child.children %}
+		<button type="button" class="btn btn-default dropdown-toggle mobile-dropdown visible-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		{% if child.attr.dropdown_mega %}
+			<div class="mega-menu dropdown-menu multi-level row bg-menu "
+				>
+				
+				<ul class="mega-dropdown-menu fa-ul multi-level">
+					{% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+				</ul>
+
+			</div>
+
+		{% else %}
+		<ul class="dropdown-menu multi-level">
+			{% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+		</ul>
+		{% endif %}
+	{% endif %} {% endcomment %}
+	</div>
+{% endfor %}

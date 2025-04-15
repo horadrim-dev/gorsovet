@@ -1,0 +1,11 @@
+{% load  easy_thumbnails_tags %}
+<div class="img-box adv-img adv-img-side-content i-top-right" data-anima="scale-up" data-trigger="hover">
+    <i class="im-thumb anima"></i>
+    <a class="img-box" target="_blank" href="{% if instance.url %}{{instance.url}}{%else%}#{% endif %}">
+        <img class="anima" src="{% thumbnail instance.image "500x150" upscale crop %}" alt="" />
+    </a>
+    <div class="caption">
+        <h3>{{instance.title}}</h3>
+        {% if instance.url %}<p>{{instance.url}}</p>{% endif %}
+    </div>
+</div>              

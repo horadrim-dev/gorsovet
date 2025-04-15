@@ -1,0 +1,40 @@
+{% load cms_tags core_tags easy_thumbnails_tags %}
+
+    <div class="advs-box advs-box-top-icon">
+        {% if SHOW_ICON %}
+        <i class="icon fa {{ obj.fa_icon }} text-lg"></i>
+        {% endif %}
+
+        <h4>
+            {% if obj.document_file %}
+            <a href="{{ obj.url }}" class="dashed">
+                {{ obj.full_name }}
+            </a>
+            {% endif %}
+            {% if obj.document_url %}
+            <a href="{{ obj.url }}" target="_blank">{{ obj.full_name }} <i class="fa fa-external-link text-s"></i> </a>
+            {% endif %}
+        </h4>
+
+        {% if SHOW_DESCRIPTION and obj.subname %}
+        <p>«{{ obj.subname }}»</p>
+        {% endif %}
+
+        {% if SHOW_FILE_ATTRS and obj.document_file %}
+        <span>.{{ obj.extension }} ({{ obj.document_file.size|filesizeformat }})</span>
+        {% endif %}
+
+        {% if SHOW_TAGS %}
+        <div class="tag-row">
+            <div class="taggit-labels taggit-list">
+                {% for tag in obj.tags.all %}
+                <span class="taggit-tag item-tag">
+                    <a href="{% url "docs:index" %}?tags={{ tag.name | prepare_tag_name }}">
+                        {{tag}}
+                    </a>
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>

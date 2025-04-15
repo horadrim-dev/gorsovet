@@ -1,0 +1,39 @@
+{% load menu_tags %}
+
+{% for child in children %}
+<div class="list-item 
+	{% if child.get_menu_title == 'Главная' %}home{% endif %}
+	{% if child.children %}
+		dropdown
+	 	{% if child.attr.dropdown_mega %}mega-dropdown{% endif %}
+	{% endif %} 
+	{% comment %} {% if child.children and child.level != 0  %}dropdown-submenu{% endif %}  {% endcomment %}
+	{% if child.selected %}active selected{% endif %}
+	{% if child.ancestor %} ancestor{% endif %}
+	{% if child.sibling %} sibling{% endif %}
+	{% if child.descendant %} descendant{% endif %}
+	">
+	{% comment %} <div class="menu-item-container"> {% endcomment %}
+		{% if child.selected %}
+			<h3>
+				{{ child.get_menu_title }}
+			</h3>
+		{% else %}
+			<a class="nav-link 
+				{% if child.attr.icon %}has-icon{% endif %}
+				" 
+				href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
+					<h3>
+						{{ child.get_menu_title }}
+					</h3>
+			</a>
+		{% endif %}
+	{% comment %} </div> {% endcomment %}
+	{% if child.children %}
+		<hr class="space xs">
+		<div class="list-items text-left">
+			{% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+		</div>
+	{% endif %} 
+</div>
+{% endfor %}

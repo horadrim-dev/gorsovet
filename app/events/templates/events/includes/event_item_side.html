@@ -1,0 +1,37 @@
+{% load cms_tags core_tags easy_thumbnails_tags %}
+
+<div class="events-item advs-box advs-box-side boxed-inverse">
+    {% render_model_block object.event %}
+    {% comment %} <div class="advs-box-content"> {% endcomment %}
+    <div class="row">
+        {% if object.poster %}
+        <div class="col-md-4">
+            <a class="img-box lightbox thumbnail" href="{{ object.poster.url }}">
+                <img src="{{ object.poster_thumb_src }}" alt="">
+            </a>
+        </div>
+        <div class="col-md-8">
+        {% else %}
+        <div class="col-md-12">
+        {% endif %}
+            <a href="{{ object.get_absolute_url }}">
+                <span class="h3">{{ object.name }}</span>
+            </a>
+            
+            <br><br>
+
+            <h4><b><i class="fa fa-calendar"></i> {{ object.start_at.date }} {{ object.start_at.time }}</b></h4>
+            {% if object.place %}
+            <h4><b><i class="fa fa-map-marker"></i> {{ object.place }}</b></h4>
+            {% endif %}
+
+            {{ object.description|striptags|truncatechars_html:150}}
+            <br><br>
+
+            <div class="text-right">
+                {% render_share_buttons url=object.get_absolute_url title=object.name image_src=object.poster.url description=object.description|striptags|truncatechars_html:150 style="list" %}
+            </div>
+        </div>
+    </div>
+    {% endrender_model_block %}
+</div>

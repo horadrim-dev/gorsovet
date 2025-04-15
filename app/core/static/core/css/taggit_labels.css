@@ -1,0 +1,33 @@
+.taggit-labels.taggit-list {
+  background-color: transparent;
+  white-space: normal;
+}
+.taggit-labels.taggit-list .taggit-tag {
+  display: inline-block;
+  margin: 0 3px 5px 3px;
+  padding: 1px 8px;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--main-color) !important;
+  font-weight: 500;
+  border: 1px solid var(--main-color) !important;
+  border-radius: 20px !important;
+  font-size: 14px;
+}
+.taggit-labels.taggit-list .taggit-tag:first-child {
+  margin-left: 0;
+}
+.taggit-labels.taggit-list .taggit-tag:hover {
+  opacity: 0.8;
+}
+.taggit-labels.taggit-list .taggit-tag.selected {
+  background-color: var(--main-color);
+  color: #FFFFFF !important;
+  border-color: var(--main-color);
+}
+.taggit-labels.taggit-list .item-tag {
+  padding: 0px 8px;
+}
+.taggit-labels.taggit-list .item-tag a {
+  color: var(--main-color-2) !important;
+}

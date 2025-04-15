@@ -1,0 +1,44 @@
+{% load cms_tags sekizai_tags easy_thumbnails_tags static %}
+
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'structure/css/structure.css' %}">{% endaddtoblock %}
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.tab-accordion.js' %}"></script>{% endaddtoblock %}
+
+<div class="otdel-list list-group accordion-list" data-type="visible" data-time="200">
+  {% for object in object_list %}
+  <div class="list-group-item">
+    {% comment %} {% render_model_block object %} {% endcomment %}
+    <a href="#" class="">
+      <div class="row">
+        <div class="col-xs-8">
+          {{ object.name }}
+        </div>
+        <div class="col-xs-4">
+          <div class="text-right">
+            {% for phone in object.phones %}
+              <div><span><i class="fa fa-phone"></i> {{ phone.number }}</span></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </a>
+    {% comment %} {% endrender_model_block %} {% endcomment %}
+    <div class="panel" style="display: none;">
+      <div class="inner text-center">
+
+          {% include 'structure/plugins/sotrudnik_organization_plugin.html' with object_list=object.get_employees layout="rows" instance=None %}
+
+          {% if SHOW_DETAIL_LINK and object.page %}
+            <a href="{{ object.get_absolute_url }}" class="btn btn-lg btn-border w-100">Подробнее об отделе</a>
+            <hr class="space s">
+          {% endif %}
+
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  Сведений по отделам пока нет.
+  {% endfor %}
+</div>

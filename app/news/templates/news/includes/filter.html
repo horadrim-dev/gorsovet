@@ -1,0 +1,44 @@
+{% load sekizai_tags %}
+
+<form action="" id="news-filter" method="get" autocomplete="off">
+    <div class="block">
+        <div class="list-items">
+            <p class="list-group-item active">Категории</p>
+            
+            {% for choice in filter.form.category %}
+                {{choice.tag}}
+                <label class="list-item" for="{{ choice.id_for_label }}">{{ choice.choice_label|safe }}</label>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="block">
+        <p class="list-group-item active">Дата</p>
+        <div class="row">
+            <div class="col-md-6">
+                {{filter.form.start_date.label}}{{filter.form.start_date}}
+            </div>
+            <div class="col-md-6">
+                {{filter.form.end_date.label}}
+                {{filter.form.end_date}}
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <div class="list-group list-blog">
+            <p class="list-group-item active">Теги</p>
+            <div class="tagbox">
+                {{filter.form.tags}}
+                {% comment %} {% for choice in filter.form.tags %}
+                    {{ choice.tag}}
+                {% endfor %} {% endcomment %}
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <input type="submit" value="Применить" class="btn w-100" /> {% endcomment %}
+    {% comment %} <input type="reset" class="btn btn-border"> 
+    <button id="filter-reset">...</button> {% endcomment %}
+    {% comment %} <input type="reset" id="reset" onclick="this.form.reset();" class="btn btn-border"/> {% endcomment %}
+    <a href="{% url "news:index" %}" class="reset btn btn-border w-100"><i class="fa fa-trash"></i> Сбросить</a>
+    {% comment %} <input type="submit" value="Применить" class="hidden d-none" /> {% endcomment %}
+</form>

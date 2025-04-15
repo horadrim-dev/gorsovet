@@ -1,0 +1,9 @@
+{% load easy_thumbnails_tags %}
+<li>
+	<a class="img-box {% if instance.lightbox_on and not instance.url %} img-scale-rotate  lightbox{% endif %}" 
+		target="_blank" 
+		href="{% if instance.url %}{{instance.url}}{% elif instance.lightbox_on %}{{instance.image.url }}{%else%}#{% endif %}"
+		>
+		<img src="{% thumbnail instance.image instance.get_width_height_thumb upscale  %}" alt="">
+	</a>
+</li>

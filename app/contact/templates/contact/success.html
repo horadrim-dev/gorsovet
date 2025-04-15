@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load cms_tags sekizai_tags static %}
+
+{% block content %}
+    {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+    {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %}
+    {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'contact/css/contact.css' %}">{% endaddtoblock %} 
+
+    {% static_placeholder '[priem] top' %}
+
+    <section class="contact-container">
+        <div class="container">
+            <div class="title-base text-left">
+                <hr>
+                <h2>Ваше обращение зарегистрировано под номером №{{ data.register_id }}</h2>
+            </div>
+            {{ SUCCESS_TEXT | safe}}
+        </div>
+    </section>
+
+    {% static_placeholder '[priem] bottom' %}
+{% endblock %}

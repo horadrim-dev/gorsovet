@@ -1,0 +1,89 @@
+{% load cms_tags sekizai_tags easy_thumbnails_tags static %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'structure/css/structure.css' %}">{% endaddtoblock %}
+
+<div class="sotrudnik-list">
+{% if layout == "rows" %}
+
+  <div class="row">
+    {% for object in object_list %}
+      <div class="col-md-12">
+        {% render_model_block object %}
+        <div class="apparat-item">
+            <div class="advs-box advs-box advs-box-side-icon boxed-inverse">
+                <div class="row vertical-row">
+                    <div class="col-xs-3 col-lg-2 text-center">
+                        <div class="photo img-box">
+                            {% if object.photo %}
+                            <img src="{{ object.photo_thumb_src }}" alt="">
+                            {% else %}
+                            <i class="fa fa-user-o"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xs-9 col-lg-10">
+                        {% comment %} <h3><a href="{% url 'structure:org-detail' object.id %}">{{ object.name }}</a></h3> {% endcomment %}
+                        <h3>
+                          {% if SHOW_DETAIL_LINK and object.page %}
+                            <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+                          {% else %}
+                            {{ object.name }}
+                          {% endif %}
+                        </h3>
+                        <p>{{ object.position }}</p>
+                        <hr class="space xs">
+                        {% for phone in object.phones %}
+                          <div><span><i class="fa fa-phone"></i> {{ phone.number }}</span></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endrender_model_block %}
+      </div>
+    {% empty %}
+    Сведений по сотрудникам пока нет.
+    {% endfor %}
+  </div>
+
+{% elif layout == "blocks" %}
+  <div class="grid-list">
+    <div class="grid-box row">
+      {% for object in object_list %}
+        {% render_model_block object %}
+        <div class="grid-item col-md-3">
+          <div class="advs-box advs-box-top-icon boxed-inverse">
+              {% if object.photo %}
+              <img src="{{ object.photo_thumb_src }}" height="100" alt="">
+              {% else %}
+              <i class="fa fa-user-o text-xl"></i>
+              {% endif %}
+            <div class="advs-box-content">
+                <h3>
+                  {% if SHOW_DETAIL_LINK and object.page %}
+                    <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+                  {% else %}
+                    {{ object.name }}
+                  {% endif %}
+                </h3>
+                <p>{{ object.position }}</p>
+                <hr>
+                {% for phone in object.phones %}
+                  <div><span><i class="fa fa-phone"></i> {{ phone.number }}</span></div>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endrender_model_block %}
+        {% cycle '' '' '' '<div class="clear"></div>' %}
+      {% empty %}
+      Сведений по сотрудникам пока нет.
+      {% endfor %}
+    </div>
+  </div>
+
+{% endif %}
+  <div class="clear"></div>
+</div>

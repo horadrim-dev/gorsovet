@@ -1,0 +1,31 @@
+{% load  easy_thumbnails_tags %}
+<div class="advs-box advs-box-side boxed-inverse" data-anima="fade-left" data-trigger="hover">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="img-box" style="
+                background-image: url('{% if instance.image %}{% thumbnail instance.image "150x150" upscale %}{% endif %}');
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-origin: content-box;
+                background-position: center;
+                padding: 10px;
+                margin-left:10px;
+            ">
+                {% comment %} {% if instance.image %}
+                <img src="{% thumbnail instance.image "100x100" upscale %}" alt="" />
+                {% else %}
+                <img src="{% static 'core/template-images/gallery/image-1.jpg' %}" alt="" />
+                {% endif %} {% endcomment %}
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h3>{{instance.title}}</h3>
+            <hr class="anima">
+
+            {% if instance.url %}
+            <p>{{instance.url}}</p>
+            <a class="btn-text" target="_blank" href="{{ instance.url }}">Перейти</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+.contact-container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.form-control.checkbox {
+    display: inline-block;
+    width: 50px;
+}
+.checkbox-label {
+    /* position: absolute; */
+    margin-left: 15px;
+    /* margin-top: 10px; */
+    display: inline-flex;
+}
+.step-item {
+    opacity: .4;
+}
+.step-item.active {
+    opacity: 1;
+}
+ul.errorlist {
+    list-style: none;
+    color: #f00;
+    padding: 5px 0px;
+}
+.field-label.required::after,
+.checkbox-label.required::before{
+    content: "\f069";
+    color: #f00;
+    font-family: FontAwesome;
+    font-size: 12px;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+.form-box:not(.form-inline) .g-recaptcha {
+  margin-bottom: 0;
+}

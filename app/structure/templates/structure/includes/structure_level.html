@@ -1,0 +1,11 @@
+{% load structure_tags %}
+
+{% for object in object_list %}
+<li>{% include 'structure/includes/structure_item.html' %}
+    {% if object.childs %}
+        <ul class="subtree">
+            {% render_hierarchy object.childs %}
+        </ul>
+    {% endif %}
+    </li>
+{% endfor %}

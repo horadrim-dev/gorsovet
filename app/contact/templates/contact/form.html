@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load cms_tags sekizai_tags static i18n %}
+
+{% block head %}
+{{ wizard.form.media }}
+{% endblock %}
+
+{% block content %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/php/contact-form.css' %}">{% endaddtoblock %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'contact/css/contact.css' %}">{% endaddtoblock %} 
+
+  {% static_placeholder '[priem] top' %}
+
+  <section class="contact-container">
+    <div class="container">
+        <div class="row box-steps">
+            {% for step_title in STEP_TITLES %}
+            <div class="step-item col-md-4 
+                {% if forloop.counter == wizard.steps.step1 %}active
+                {% comment %} {% elif forloop.counter < wizard.steps.step1 %}done {% endcomment %}
+                {% endif %}
+                ">
+                <span class="step-number">{{ forloop.counter }}</span>
+                <h3>{{ step_title }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+        <hr class="space m">
+        {% comment %} <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p> {% endcomment %}
+
+        <form action="" method="post" class="form-box" enctype="multipart/form-data">{% csrf_token %}
+        {% comment %} <table> {% endcomment %}
+        {{ wizard.management_form }}
+        {% if wizard.form.forms %}
+            {{ wizard.form.management_form }}
+            {% for form in wizard.form.forms %}
+                {{ form.as_p }}
+            {% endfor %}
+        {% else %}
+            {% if wizard.form.html_before_form %}
+            {{ wizard.form.html_before_form | safe }}
+            {% endif %}
+
+            {% block form_content %}
+            {% endblock form_content %}
+
+        {% endif %}
+        {% comment %} </table> {% endcomment %}
+        {% block form_bottom %}
+        {% endblock form_bottom %}
+        </form>
+
+    </div>
+  </section>
+
+  {% static_placeholder "[priem] bottom" %}
+{% endblock %}

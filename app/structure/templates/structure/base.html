@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load cms_tags sekizai_tags static %}
+
+{% block content %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'structure/css/structure.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/components.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/magnific-popup.css' %}">{% endaddtoblock %}
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.magnific-popup.min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.tab-accordion.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "js" %}<script src="{% static 'structure/js/filter.js' %}"></script>{% endaddtoblock %} 
+
+{% static_placeholder '[structure] top' %}
+
+<section class="structure-container">
+    <div class="container">
+        {% block app_content %}
+        {% endblock app_content %}
+    </div>
+</section>
+
+{% static_placeholder '[structure] bottom' %}
+
+{% endblock content %}

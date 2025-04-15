@@ -1,0 +1,49 @@
+{% load cms_tags sekizai_tags static %}
+
+{% if not DO_NOT_SHOW %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/magnific-popup.css' %}">{% endaddtoblock %}
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.magnific-popup.min.js' %}"></script>{% endaddtoblock %}
+
+<div id="popup_{{ instance.id }}"  
+    class="popup-banner 
+    {% if instance.layout == "top-left" %}popup-top-left
+    {% elif instance.layout == "top-right" %}popup-top-right
+    {% elif instance.layout == "bottom-left" %}popup-bottom-left
+    {% elif instance.layout == "bottom-right" %}popup-bottom-right
+    {% elif instance.layout == "bottom" %}full-width-bottom
+    {% elif instance.layout == "top" %}full-width-top
+    {% endif %}
+    "
+    data-popup-anima="show-scale" data-trigger="load"
+    >
+    <i class="fa fa-times popup-close"></i>
+    {% if instance.layout != "top" and instance.layout != "bottom" %}
+    <div class="bs-panel panel-default">
+        {% if instance.title %}
+        <div class="panel-heading">{{ instance.title }}</div>
+        {% endif %}
+        <div class="panel-body">
+          {{ instance.content | safe }}
+          {% if instance.use_button %}
+          <div class="text-center">
+            <a href="#" class="btn btn-border popup-close">{{ instance.button_text }}</a>
+          </div>
+          {% endif %}
+        </div>
+    </div>
+    {% else %}
+      {% if instance.title %}
+      <h3>{{ instance.title }}</h3>
+      {% endif %}
+      {{ instance.content | safe }}
+      {% if instance.use_button %}
+      <div class="text-center">
+        <a href="#" class="btn btn-border popup-close">{{ instance.button_text }}</a>
+      </div>
+      {% endif %}
+    {% endif %}
+</div>
+
+
+{% endif %}

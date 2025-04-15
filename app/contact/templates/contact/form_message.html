@@ -1,0 +1,66 @@
+{% extends 'contact/form.html' %}
+{% load cms_tags sekizai_tags static i18n %}
+
+{% block form_content %}
+    <hr class="space m">
+    <div class="grid-list ">
+        <div class="grid-box row">
+            <div class="grid-item col-md-12">
+                <div class="row vertical-row">
+                    <div class="col-xs-2 text-right">
+                        <p class="field-label {% if form.subject.field.required %}required{% endif %}">
+                            {{ form.subject.label_tag }}
+                        </p>
+                    </div>
+                    <div class="col-xs-10"> {{ form.subject}}{{ form.subject.errors }} </div>
+                </div>
+            </div>
+            <div class="grid-item col-md-12">
+                <div class="row vertical-row">
+                    <div class="col-xs-2 text-right">
+                        <p class="field-label {% if form.message.field.required %}required{% endif %}">
+                            {{ form.message.label_tag }}
+                        </p>
+                    </div>
+                    <div class="col-xs-10">{{ form.message }}{{ form.message.errors }}</div>
+                </div>
+            </div>
+            <div class="grid-item col-md-12">
+                <div class="row vertical-row">
+                    <div class="col-xs-2 text-right"><p>Вложения</p></div>
+                    <div class="col-xs-10">
+                        {{ form.attachment_1 }}{{ form.attachment_1.errors }}
+                        {{ form.attachment_2 }}{{ form.attachment_2.errors }}
+                        {{ form.attachment_3 }}{{ form.attachment_3.errors }}
+                    </div>
+                </div>
+            </div>
+            <hr class="space m">
+            <div class="grid-item col-md-12">
+                <div class="row vertical-row">
+                    <div class="col-xs-2 text-right">
+                        <p class="field-label {% if form.captcha.field.required %}required{% endif %}">
+                        </p>
+                    </div>
+                    <div class="col-xs-10">
+                        {{ form.captcha }} {{ form.captcha.errors }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="space m">
+{% endblock %}
+
+{% block form_bottom %}
+    <div class="row">
+        <div class="col-xs-4">
+            {% if wizard.steps.prev %}
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="btn btn-border btn-lg w-100">Назад</button>
+            {% endif %}
+        </div>
+        <div class="col-xs-8">
+            <input type="submit" value="Отправить обращение" class="btn btn-lg w-100" />
+        </div>
+    </div>
+{% endblock %}

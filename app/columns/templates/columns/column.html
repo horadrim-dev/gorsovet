@@ -1,0 +1,9 @@
+{% load cms_tags %}
+{% comment %} <div class="column" style="width: {{ instance.width }}; float: left;"> {% endcomment %}
+<div class="col {{ instance.classes }}">
+	{% comment %} <div class=""> {% endcomment %}
+		{% for plugin in instance.child_plugin_instances %}
+				{% render_plugin plugin %}
+		{% endfor %}
+	{% comment %} </div> {% endcomment %}
+</div>

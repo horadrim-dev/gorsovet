@@ -1,0 +1,68 @@
+{% if style == 'all_in_one' %} 
+<div class="social-group-button bottom-icons">
+    <div class="social-button" 
+        style="position: relative; 
+                transition-duration: 500ms; 
+                animation-duration: 500ms; 
+                transition-timing-function: ease; 
+                transition-delay: 0ms;" 
+        title="Поделиться"
+        aid="0.07744903547632487">
+        <i class="fa fa-share-alt 
+                circle 
+                {% if size == 'micro' %} text-xs
+                {% elif size == 'small' %} text-s
+                {% elif size == 'medium' %} text-m
+                {% elif size == 'large' %} text-l
+                {% endif %}"
+        ></i>
+    </div>
+{% endif %}
+    <div class="btn-group social-group" 
+        style="{% if style == 'all_in_one' %}display: none;{% endif %}"
+    >
+
+        {% for type, icon, tooltip, url in socials %}
+        <a target="_blank" href="#"
+            {% if type == 'share-button' %}
+
+                onclick="window.open('{{ url }}', '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=600')"
+
+            {% elif type == 'copy-button' %}
+                {# обрабатывается в app.js #}
+                class="copy-url"
+                data-url="{{ url }}"
+
+            {% endif %}
+            >
+            <i class="fa fa-{{ icon }} 
+
+                        {% if style == 'list' %}
+                            {% if size == 'micro' %} text-xs
+                            {% elif size == 'small' %} text-s
+                            {% elif size == 'medium' %} text-m
+                            {% elif size == 'large' %} text-l
+                            {% endif %}
+                        {% endif %}
+
+                        {% if border == 'circle' %} circle {% endif %}
+
+                        {% if style == 'all_in_one' %} fade-left{% endif %}" 
+
+                {% if style == 'all_in_one' %}
+                style="transition-duration: 300ms; 
+                        animation-duration: 300ms; 
+                        transition-timing-function: ease; 
+                        transition-delay: 0ms; 
+                        opacity: 0;"
+                {% endif %}
+                title="{{ tooltip }}"
+            >
+            </i>
+        </a>
+        {% endfor %}
+
+    </div>
+{% if style == 'all_in_one' %} 
+</div>
+{% endif %}

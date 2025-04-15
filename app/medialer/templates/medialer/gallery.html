@@ -1,0 +1,49 @@
+{% extends './base.html' %}
+{% load sekizai_tags thumbnail static core_tags %}
+
+{% block app_content %}
+
+<div class="row pb-5">
+  <div id="media-sidebar" class="col-md-3 col-sm-12">
+      {% include './includes/gallery_filter.html' %}
+  </div>
+  <div id="media-content" class="col-md-9 col-sm-12">
+    <div class="media-list-controls">
+      {# SHARED BUTTONS #}
+      {% if album %}
+          {% render_share_buttons url=album.get_absolute_url title=album.title image_src=album.thumb_src description=album.description|striptags|truncatechars_html:150 style="list" border="none" size="micro" %}
+      {% endif %}
+      {# PAGINATE_BY #}
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-border  btn-default dropdown-toggle demo" data-toggle="dropdown" aria-expanded="false">
+          {{ active_paginate_by }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          {% for choice in PAGINATE_BY_CHOICES %}
+            <li>
+              <a href="{% url "medialer:index" %}?{% param_replace page="" count=choice %}">{{ choice }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <hr class="space m" />
+
+    <div class="maso-list gallery">
+        <div class="maso-box row">
+            {% for instance in object_list %}
+            <div class="maso-item col-lg-4 col-md-6">
+              {% include './includes/gallery_item.html' %}
+            </div>
+            {% empty %}
+            <p>В выбранном альбоме пока ничего нет.</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="clear"></div>
+    {% include 'core/includes/pagination.html' %}
+  </div>
+</div>
+
+{% endblock %}

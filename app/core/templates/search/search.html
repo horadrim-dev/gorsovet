@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load core_tags sekizai_tags static %}
+
+{% block content %}
+
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'docs/css/docs.css' %}">{% endaddtoblock %} 
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'structure/css/structure.css' %}">{% endaddtoblock %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'news/css/news.css' %}">{% endaddtoblock %} 
+
+  <section class="search-container">
+    <div class="container">
+        <div class="title-base text-left">
+            <hr>
+            <h1>Результаты поиска по запросу "{{ request.GET.q}}"</h1> 
+        </div>
+        
+        <hr class="space s">
+
+        <div class="grid-list">
+            <div class="grid-box row">
+                {% for result in page.object_list %}
+                    <div class="grid-item col-md-12">
+                        {% with object=result.object %}
+                            {% if result.model_name == "document" %}
+                                {% include "docs/search_document_item.html" %}
+                            {% elif result.model_name == "documentcategory" %}
+                                {% include "docs/search_documentcategory_item.html" %}
+                            {% elif result.model_name == "page" %}
+                                {% include "core/search_page_item.html" %}
+                            {% elif result.model_name == "tag" %}
+                                {% include "core/search_tag_item.html" %}
+                            {% elif result.model_name == "organization" %}
+                                {% include "structure/search/organization.html" %}
+                            {% elif result.model_name == "activity" %}
+                                {% include "structure/search/activity.html" %}
+                            {% elif result.model_name == "department" %}
+                                {% include "structure/search/department.html" %}
+                            {% elif result.model_name == "post" %}
+                                {% include "news/search_post_item.html" %}
+                            {% elif result.model_name == "postcategory" %}
+                                {% include "news/search_postcategory_item.html" %}
+                            {% elif result.model_name == "album" %}
+                                {% include "medialer/search_album_item.html" %}
+                            {% elif result.model_name == "dayevent" %}
+                                {% include "events/search_dayevent.html" %}
+                            {% elif result.model_name == "attachment" %}
+                                {% include "attachments/search_attachment.html" %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                {% empty %}
+                Нет результатов.</tr>
+                {% endfor %}
+            </div>
+        </div>
+        <hr class="space m">
+        {% if page.has_previous or page.has_next %}
+            {% include 'core/includes/pagination.html' with page_obj=page %}
+        {% endif %}
+    </div>
+  </section>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+/* вызывается после загрузки в head файла special.min.css (вызов производится в acceesibility.min.js) */
+.fa {
+    font-family: FontAwesome !important;
+}

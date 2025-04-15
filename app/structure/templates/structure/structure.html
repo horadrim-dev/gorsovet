@@ -1,0 +1,15 @@
+{% extends 'structure/base.html' %}
+{% load cms_tags sekizai_tags static structure_tags %}
+
+
+{% block app_content %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'structure/css/hierarchy.css' %}">{% endaddtoblock %}
+
+<div>
+<ul class="tree">
+  {% render_hierarchy object_list %}
+</ul>
+</div>
+
+{% endblock app_content %}

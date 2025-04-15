@@ -1,0 +1,20 @@
+{% load cms_tags %}
+
+<div class="docs-item horizontal advs-box advs-box-side-icon">
+    <div class="caption-box">
+        <div class="row vertical-row">
+            <div class="col-xs-2">
+                <img src="{{ object.thumb_src}}" alt="" />
+            </div>
+            <div class="col-xs-8">
+                <a href="{{ object.get_absolute_url }}">
+                    <h4>{{ object.title }}</h4>
+                    <p>Альбом</p>
+                </a>
+            </div>
+            <div class="col-xs-2 text-right">
+                <a href="{{ object.get_absolute_url }}" class="btn btn-border">Перейти</a>
+            </div>
+        </div>
+    </div>
+</div>

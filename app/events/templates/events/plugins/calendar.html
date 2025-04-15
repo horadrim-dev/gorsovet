@@ -1,0 +1,118 @@
+{% load cms_tags sekizai_tags thumbnail static %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/jquery-ui-datepicker-redmond.css' %}">{% endaddtoblock %} 
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/magnific-popup.css' %}">{% endaddtoblock %}
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.magnific-popup.min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "js" %}<script src="{% static 'core/js/jquery-ui.min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'events/css/events.css' %}">{% endaddtoblock %} 
+
+<div id="calendar-{{id}}-wrapper" class="calendar row">
+    <div class="preloader" style="display:none"></div>
+    <div class="col-md-4">
+        <div id="calendar-{{id}}"></div>
+        <input type="hidden" id="calendar-{{id}}-value" {% if events_dates %}value="{{ events_dates.0 }}{% endif %}">
+    </div>
+    <div id="calendar-{{id}}-content" class="events-list col-md-8">
+        {% if object_list %}
+            {% include 'events/includes/event_list.html' with LAYOUT="SMALL" %}
+        {% else %}
+            Запланированных мероприятий пока нет
+        {% endif %}
+    </div>
+</div>
+
+{% addtoblock "js" %}
+<script>
+(function($) {
+    var original_onPageLoad = $.fn.onPageLoad;
+    $.fn.onPageLoad = function () {
+        original_onPageLoad();
+
+        $.datepicker.regional.ru = {
+                closeText: "Закрыть",
+                prevText: "&#x3C;Пред",
+                nextText: "След&#x3E;",
+                currentText: "Сегодня",
+                monthNames: [ "Январь","Февраль","Март","Апрель","Май","Июнь",
+                "Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь" ],
+                monthNamesShort: [ "Янв","Фев","Мар","Апр","Май","Июн",
+                "Июл","Авг","Сен","Окт","Ноя","Дек" ],
+                dayNames: [ "воскресенье","понедельник","вторник","среда","четверг","пятница","суббота" ],
+                dayNamesShort: [ "вск","пнд","втр","срд","чтв","птн","сбт" ],
+                dayNamesMin: [ "Вс","Пн","Вт","Ср","Чт","Пт","Сб" ],
+                weekHeader: "Нед",
+                dateFormat: "dd.mm.yy",
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: "" };
+        $.datepicker.setDefaults( $.datepicker.regional.ru );
+
+    };
+})(jQuery || django.jQuery);
+</script>
+{% endaddtoblock %}
+
+{% addtoblock "dynamic-js" %}
+<script>
+(function($) {
+    var original_onPageLoad = $.fn.onPageLoad;
+    $.fn.onPageLoad = function () {
+        original_onPageLoad();
+
+        let events_dates = {{ events_dates | safe }};
+        let datepicker_div = "#calendar-{{id}}";
+        let date_value = '#calendar-{{id}}-value';
+        let url = "{% url 'events_by_date' %}";
+        let wrapper = "#calendar-{{id}}-wrapper";
+        let content = "#calendar-{{id}}-content";
+
+        $(datepicker_div).datepicker({
+            dateFormat: "yy-mm-dd",
+            changeYear: false,
+            minDate: 0,
+            beforeShowDay: function(date){
+                var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                return [events_dates.indexOf(string) != -1] // если дата в списке - вернет true
+		    },
+            onSelect: function(date) {
+                //обработчики выбора даты
+                $(date_value).val(date)
+                $.ajax({
+                    url: url,
+                    data: {
+                     'date': date, 
+                     {% if instance.category %}'event-category': {{ instance.category.id }},{% endif %}
+                    },
+                    beforeSend: function() {
+                        $(wrapper + ' .preloader').show();
+                    },
+                    success: function (res) {  
+                        $(content).html(res);
+                        // make js work again
+                        $(content + ' a[href="#"]').on('click', function (e) {
+                            e.preventDefault();
+                        });
+                        $(content + " .copy-url").on('click', function (e) {
+                            e.preventDefault();
+                            var url = $(this).attr("data-url");
+                            $(this).copyToClipboard(url);
+                        });
+                        $(content + " .lightbox").each(function () {
+                            $(this).initMagnificPopup();
+                        });
+                    },
+                    complete: function () {
+                        $(wrapper + ' .preloader').hide();
+                    }
+                });
+            },
+        });
+        $(datepicker_div).datepicker("setDate", $(date_value).val());
+    };
+})(jQuery || django.jQuery);
+</script>
+{% endaddtoblock %}

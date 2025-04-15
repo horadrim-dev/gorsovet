@@ -1,0 +1,28 @@
+<div class="
+    {% if layout == "bold-line" or layout == "no-line" %}
+    title-base 
+    {% elif layout == "thin-line"%}
+    title-modern
+    {% endif %}
+
+    text-{{ align }}
+    ">
+
+    {% if layout != "bold-line" %}
+    <h2>{{ title }}</h2>
+    {% endif %}
+
+    {% if layout != "no-line" %}
+    <hr>
+    {% endif %}
+
+    {% if layout == "bold-line" %}
+        <p>{% if subtitle %}{{ subtitle }}{% endif %}</p>
+        <h2>{{ title }}</h2>
+    {% endif %}
+
+    {% if subtitle and layout != "bold-line" %}
+    <p>{{ subtitle }}</p>
+    {% endif %}
+    {% comment %} <i class="fa fa-angle-up scroll-top"></i> {% endcomment %}
+</div>

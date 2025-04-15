@@ -1,0 +1,56 @@
+{% load cms_tags core_tags easy_thumbnails_tags %}
+
+{% render_model_block obj %}
+<div class="docs-item horizontal advs-box advs-box-side-icon">
+    <div class="caption-box">
+        <div class="row vertical-row">
+            <div class="col-xs-1">
+                <div class="icon-box">
+                    <i class="icon fa {{ obj.fa_icon }} text-lg"></i>
+                </div>
+            </div>
+            <div class="col-xs-8">
+                {% if obj.category %}
+                <span class="category"><i class="fa fa-bookmark"></i> <a href="{% url "docs:index" %}?category={{ obj.category.id }}">{{ obj.category.name }}</a></span>
+                {% endif %}
+                <a href="{{ obj.url }}">
+                    {% comment %} <h4>{% if obj.document_type %}{{ obj.document_type }}{% endif %} {% if obj.number %}№{{ obj.number }}{% endif %} {% if obj.date %}от {{ obj.date }}{% endif %}</h4> {% endcomment %}
+                    <h4>{{ obj.full_name }}</h4>
+                </a>
+                {% if obj.subname %}
+                <p>«{{ obj.subname }}»</p>
+                {% endif %}
+                <div class="tag-row">
+                    <div class="taggit-labels taggit-list">
+                        {% for tag in obj.tags.all %}
+                        <span class="taggit-tag item-tag">
+                            {% comment %} <i class="fa fa-tag"></i> {% endcomment %}
+                            <a href="{% url "docs:index" %}?tags={{ tag.name | prepare_tag_name }}">
+                                {{tag}}
+                            </a>
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3 text-center">
+                <div class="download-container">
+                    {% if obj.document_file %}
+                    <a href="{{ obj.url }}" class="dashed"><i class="fa fa-download"></i> Загрузить</a>
+                    <div class="file-attributes">
+                        <span>.{{ obj.extension }} ({{ obj.document_file.size|filesizeformat }})</span>
+                        {% comment %} <p>{{ obj.document_file.size|filesizeformat }}</p> {% endcomment %}
+                        <div class="hits">
+                            <i class="fa fa-download"></i> {{ obj.hits }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if obj.document_url %}
+                    <a href="{{ obj.url }}" target="_blank"><i class="fa fa-external-link"></i> Открыть</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endrender_model_block %}

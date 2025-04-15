@@ -1,0 +1,45 @@
+{% load cms_tags static %}
+
+<div class="structure-item">
+    <div class="advs-box advs-box advs-box-side-icon boxed-inverse">
+        <div class="row vertical-row">
+            {% if object.logo %}
+            <div class="col-md-2">
+                <div class="img-box">
+                    <img src="{{ object.logo_thumb_src }}" alt="">
+                </div>
+            </div>
+            <div class="col-md-10">
+            {% else %}
+            <div class="col-sm-12">
+            {% endif %}
+                <h3>
+                    {% if object.get_absolute_url %}
+                    <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+                    {% else %}
+                    {{ object.name }}
+                    {% endif %}
+                </h3>
+                <hr>
+                {% comment %} <div class="tag-row"> {% endcomment %}
+                <ul class="list-texts text-left">
+                    {% if object.address %}
+                    <li><b>Адрес: </b><i class="fa fa-map-marker"></i> {{ object.address }}</li>
+                    {% endif %}
+                    {% if object.site %}
+                    <li><b>Сайт: </b><a href="{{ object.site }}" target="_blank"><i class="fa fa-external-link "></i> {{ object.site }}</a></li>
+                    {% endif %}
+                    {% if object.phone%}
+                    <li><b>Приемная: </b><i class="fa fa-phone"></i> {{ object.phone }}</li>
+                    {% endif %}
+                </ul>
+                {% comment %} </div> {% endcomment %}
+                <div class="text-right">
+                    {% if object.get_absolute_url %}
+                    <a class="btn btn-border" href="{{ object.get_absolute_url }}">Об организации</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

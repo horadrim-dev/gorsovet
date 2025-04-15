@@ -1,0 +1,36 @@
+{% load cms_tags sekizai_tags thumbnail static %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/magnific-popup.css' %}">{% endaddtoblock %}
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.magnific-popup.min.js' %}"></script>{% endaddtoblock %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'events/css/events.css' %}">{% endaddtoblock %} 
+
+
+  <div class="grid-list">
+    <div class="grid-box row">
+      {% for object in object_list %}
+
+        <div class="grid-item col-md-12">
+          {% render_model_block object.event %}
+            {% include 'events/includes/event_item_side.html' %}
+          {% endrender_model_block %}
+        </div>
+
+        {% cycle '' '<div class="clear"></div>'%}
+
+      {% empty %}
+        <p> Запланированных мероприятий пока нет.</p>
+      {% endfor %}
+
+      <hr class="space m" />
+
+      {% url 'events:index' as events_url %}
+      {% if events_url %}
+      <div class="text-center">
+        <a href="{{ events_url }}" class="btn btn-lg">План мероприятий</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>

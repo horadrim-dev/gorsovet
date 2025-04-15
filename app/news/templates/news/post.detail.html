@@ -1,0 +1,148 @@
+{% extends 'news/base.html' %}
+{% load cms_tags core_tags sekizai_tags static thumbnail news_tags %}
+
+{% comment %} {% block app_content %}
+
+  <div class="row">
+
+    <div class="col ftco-animate">
+
+      {% render_model_block object %}
+
+        <h2 class="mb-3">{{ object.title }}</h2>
+
+        {% if object.image and not object.image_position == 'hide' %}
+        <div class="object-image 
+                {% if object.image_position == 'left'%}
+                w-50 float-start me-3 mb-3
+                {% elif object.image_position == 'right'%}
+                w-50 float-end ms-3 mb-3
+                {% elif object.image_position == 'stretch' %}
+                w-100 mb-3
+                {% endif %}
+            " 
+            style="height:200px;">
+            <img src="{{object.image.url}}" alt="{{object.title}}" class="img-fluid w-100 h-100" style="object-fit:cover;" >
+        </div>
+        {% endif %}
+
+        {{ object.text | safe }}
+
+      {% endrender_model_block %}
+  </div> {% endcomment %}
+
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+
+{% block app_content %}
+
+    {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/flexslider/flexslider.css' %}">{% endaddtoblock %}
+    {% addtoblock "js" %}<script src="{% static 'core/scripts/flexslider/jquery.flexslider-min.js' %}"></script>{% endaddtoblock %}
+
+    <div class="news-item detail">
+        {% comment %} <div class="row"> {% endcomment %}
+        {% if ADMIN_MODE or EDIT_MODE %}
+            <div class="admin-panel">
+                {% comment %} {% if ADMIN_MODE %}
+                <div class="status-panel">
+                    {% if object.published %}
+                        <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Опубликовано"></i>
+                    {% else %}
+                        <i class="fa fa-eye-slash" data-toggle="tooltip" data-placement="top" data-original-title="Не опубликовано"></i>
+                    {% endif %}
+                </div>
+                {% endif %} {% endcomment %}
+                {% if ADMIN_MODE %}
+                    <div id="publish-post">
+                        <form action="{% url "news:admin" %}" data="post={{ object.id }}&action=toggle-publish-state">
+                            {% csrf_token %}
+                            <button class="btn btn-border btn-lg " type="submit">
+                                {% if object.published %}
+                                <i class="fa fa-eye-slash"></i>Снять с публикации
+                                {% else %}
+                                <i class="fa fa-eye"></i>Опубликовать
+                                {% endif %}
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+                {% if EDIT_MODE %}
+                    <div class="actions">
+                        {% render_model_block object %}
+                            <i class="fa fa-gear"></i>
+                        {% endrender_model_block %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% comment %} </div> {% endcomment %}
+        <div class="post-attributes">
+            <div>
+                <span><i class="fa fa-calendar"></i> {{ object.published_at }}</span>
+                {% if object.category %}
+                    <span><i class="fa fa-bookmark"></i> <a href="{% url "news:index" %}?category={{ object.category.id }}">{{ object.category.title }}</a></span>
+                {% endif %}
+            </div>
+            
+            {% render_share_buttons url=object.get_absolute_url title=object.title image_src=object.thumb_src description=object.description|striptags|truncatechars_html:150 style="list" %}
+                {% comment %} <div class="btn-group social-group social-colors">
+                    <a target="_blank" href="#" data-social="share-facebook" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook text-s circle"></i></a>
+                    <a target="_blank" href="#" data-social="share-twitter" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter text-s circle"></i></a>
+                    <a target="_blank" href="#" data-social="share-google" data-toggle="tooltip" data-placement="top" title="Google+"><i class="fa fa-google-plus text-s circle"></i></a>
+                    <a target="_blank" href="#" data-social="share-linkedin" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa fa-linkedin text-s circle"></i></a>
+                </div> {% endcomment %}
+        </div>
+        <hr class="b space m" />
+        
+        {% render_placeholder post.content 640 %}
+            
+        <div class="clear"></div>
+
+        <hr class="b space m" />
+        <div class="tag-row">
+            <div class="taggit-labels taggit-list">
+                {% for tag in object.tags.all %}
+                <span class="taggit-tag item-tag">
+                    {% comment %} <i class="fa fa-tag"></i> {% endcomment %}
+                    <a href="{% url "news:index" %}?tags={{ tag.name | prepare_tag_name }}">
+                        {{tag}}
+                    </a>
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% comment %} <hr class="f-top"> {% endcomment %}
+
+    <div class="title-base text-left">
+        <h1>Другие новости</h1>
+    </div>
+
+    <div class="flexslider carousel outer-navs">
+        <ul class="slides">
+                {% comment %} <div class="row"> {% endcomment %}
+                    {% for obj in other_objects %}
+                        <li>
+                        {% comment %} <div class="col-md-4"> {% endcomment %}
+                            {% include 'news/includes/post.item.vertical.html' %}
+                        {% comment %} </div> {% endcomment %}
+                        </li>
+                    {% endfor %}
+                {% comment %} </div> {% endcomment %}
+                {% comment %} <div class="advs-box advs-box-top-icon boxed-inverse">
+                    <i class="icon circle im-fire-flame"></i>
+                    <h3>
+                        Content box
+                    </h3>
+                    <p class="big-text">
+                        Tincidunt integer eu augue augue nunc elit dolor luctus placerat scelerisque euismod iaculis eu lacus nunco.ly.
+                    </p>
+                </div> {% endcomment %}
+        </ul>
+    </div>             
+
+
+
+{% endblock %}

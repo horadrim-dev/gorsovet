@@ -1,0 +1,10 @@
+
+{% for object in object_list %}
+
+    {% include 'structure/includes/department_item.html' %}
+
+{% empty %}
+
+Нет данных.
+
+{% endfor %}

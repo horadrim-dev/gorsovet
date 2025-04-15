@@ -1,0 +1,18 @@
+{% load cms_tags sekizai_tags static %}
+ 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/components.css' %}">{% endaddtoblock %}
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.tab-accordion.js' %}"></script>{% endaddtoblock %}
+
+
+<div class="tab-box" data-tab-anima="fade-out">
+	<ul class="nav nav-tabs {% if instance.justified %}nav-justified{% endif %}">
+		{% for plugin in instance.child_plugin_instances %}
+		<li class="{% if forloop.first %}active{% endif %}"><a href="#">{{ plugin.name }}</a></li>
+		{% endfor %}
+	</ul>
+	{% for plugin in instance.child_plugin_instances %}
+		<div class="panel {% if forloop.first %}active{% endif %}">
+			{% render_plugin plugin %}
+		</div>
+	{% endfor %}
+</div>

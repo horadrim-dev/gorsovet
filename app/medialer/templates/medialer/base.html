@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load cms_tags sekizai_tags static %}
+
+{% comment %} {% block title %}
+
+{% endblock %} {% endcomment %}
+
+
+{% block content %}
+
+  {% comment %} {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/flexslider/flexslider.css' %}">{% endaddtoblock %} {% endcomment %}
+  {% comment %} {% addtoblock "js" %}<script src="{% static 'core/scripts/flexslider/jquery.flexslider-min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/magnific-popup.css' %}">{% endaddtoblock %}
+  {% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.magnific-popup.min.js' %}"></script>{% endaddtoblock %}
+
+
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'medialer/css/medialer.css' %}">{% endaddtoblock %} 
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'medialer/css/albums.css' %}">{% endaddtoblock %} 
+
+  {% addtoblock "js" %}<script  src="{% static 'core/scripts/isotope.min.js' %}"></script>{% endaddtoblock %}
+  {% addtoblock "js" %}<script src="{% static 'core/scripts/imagesloaded.min.js' %}"></script>{% endaddtoblock %}
+
+  {% addtoblock "js" %}<script src="{% static 'medialer/js/filter.js' %}"></script>{% endaddtoblock %} 
+  {% comment %} {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'news/css/news.css' %}">{% endaddtoblock %} 
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'news/css/taggit_labels.css' %}">{% endaddtoblock %} 
+
+  {% addtoblock "js" %}<script  src="{% static 'core/scripts/isotope.min.js' %}"></script>{% endaddtoblock %}
+  {% addtoblock "js" %}<script  src="{% static 'core/scripts/bootstrap/js/bootstrap.popover.min.js' %}"></script>{% endaddtoblock %}
+  {% addtoblock "js" %}<script src="{% static 'news/js/news.js' %}"></script>{% endaddtoblock %} 
+
+  {% if ADMIN_MODE %}
+    {% addtoblock "js" %}<script src="{% static 'news/js/news-admin.js' %}"></script>{% endaddtoblock %} 
+  {% endif %} {% endcomment %}
+
+  {% static_placeholder '[MEDIA] top' %}
+
+  {% comment %} {% include 'core/breadcrumbs.html' %} {% endcomment %}
+
+  <section class="media-container">
+    <div class="container">
+      {% block app_content %}
+      {% endblock %}
+    </div>
+  </section>
+
+  {% static_placeholder "[MEDIA] bottom" %}
+
+{% endblock %}

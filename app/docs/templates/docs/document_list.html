@@ -1,0 +1,107 @@
+{% extends 'docs/base.html' %}
+{% load sekizai_tags thumbnail static core_tags %}
+
+{% block app_content %}
+
+{% addtoblock "js" %}<script src="{% static 'core/js/taggit_labels.js' %}"></script>{% endaddtoblock %} 
+
+
+
+
+
+<form action="" id="docs-filter" method="get" autocomplete="off">
+
+  <div class="row pb-5">
+
+    <div id="docs-content" class="content col-sm-12 col-lg-8 col-lg-push-4">
+      <div class="row vertical-row">
+        <div class="col-xs-12 col-sm-6 col-md-10 col-lg-10">
+            <div class="filter row vertical-row">
+              {% comment %} <div class="col-xs-1">
+                <i class="fa fa-filter text-l"></i>
+              </div> {% endcomment %}
+              <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+                {% comment %} <p class="list-group-item active">Ключевое слово</p> {% endcomment %}
+                {{ filter.form.q}}
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                  {% comment %} <p class="list-group-item active">Номер</p> {% endcomment %}
+                  {{ filter.form.number }}
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                  {% comment %} <p class="list-group-item active">Дата</p> {% endcomment %}
+                  {{ filter.form.date }}
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 text-left">
+                <button type="submit" class="submit btn btn-sm float-left" /><i class="fa fa-filter"></i></button>
+                <a href="{% url "docs:index" %}" class="reset btn btn-sm btn-border"><i class="fa fa-trash"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+            <div class="docs-list-controls">
+              <div class="text-right">
+                    {# PAGINATE_BY #}
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button type="button" class="paginate-button btn btn-border btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    {{ active_paginate_by }} <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    {% for choice in PAGINATE_BY_CHOICES %}
+                      <li>
+                        <a href="{% url "docs:index" %}?{% param_replace page="" count=choice %}">{{ choice }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      <hr class="space m" />
+
+      <div class="grid-list one-row-list">
+        <div class="grid-box row">
+            {% for obj in object_list %}
+            <div class="grid-item col-md-12">
+                {% include 'docs/includes/document_item_horizontal.html' %}
+            </div>
+            {% comment %} <hr class="space m" /> {% endcomment %}
+            {% empty %}
+            <p>По заданным условиям поиска нет результатов.</p>
+            {% endfor %}
+        </div>
+      </div>
+
+      <div class="clear"></div>
+      {% include 'core/includes/pagination.html' %}
+    </div>
+
+    <div id="docs-sidebar" class="col-sm-12 col-lg-4 col-lg-pull-8">
+      <div class="block">
+          <div class="list-items">
+              <p class="list-group-item active">Категории</p>
+              
+              {% for choice in filter.form.category %}
+                  {{choice.tag}}
+                  <label class="list-item" for="{{ choice.id_for_label }}">{{ choice.choice_label|safe }}</label>
+              {% endfor %}
+          </div>
+      </div>
+      <div class="block">
+          <p class="list-group-item active">Теги</p>
+          <div class="tagbox">
+              {{filter.form.tags}}
+              <div class="clear"></div>
+          </div>
+      </div>
+    </div>
+
+  </div>
+
+  
+</form>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+Ошибка при миграции:
+    django.contrib.sites.models.DoesNotExist: Site matching query does not exist.
+Причина:
+    При создании проекта через startproject создается объект Site с id=1
+    При копировании этого не происходит. Нужно создать вручную.
+    settings.py: SITE_ID должна соответствовать id записи.
+Решение:
+    открыть shell и выполнить
+    from django.contrib.sites.models import Site
+    Site.objects.create(domain="example.com", name="example.com")

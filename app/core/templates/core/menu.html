@@ -1,0 +1,64 @@
+{% load menu_tags %}
+
+{% for child in children %}
+<li class="nav-item 
+	{% if child.get_menu_title == 'Главная' %}home{% endif %}
+	{% if child.children %}
+		dropdown
+	 	{% if child.attr.dropdown_mega %}mega-dropdown{% endif %}
+	{% endif %} 
+	{% if child.children and child.level != 0  %}dropdown-submenu{% endif %} 
+	{% if child.selected %}active selected{% endif %}
+	{% if child.ancestor %} ancestor{% endif %}
+	{% if child.sibling %} sibling{% endif %}
+	{% if child.descendant %} descendant{% endif %}
+	">
+	<a class="nav-link 
+		{% comment %} {% if child.children %}dropdown-toggle{% endif %} {% endcomment %}
+		{% if child.attr.icon %}has-icon{% endif %}
+		" 
+		{% comment %} {% if child.children %} data-toggle="dropdown" {% endif %} {% endcomment %}
+		{% comment %} {% if child.children %} data-bs-auto-close="outside" aria-expanded="false"{%else%} aria-current="page"{% endif %} {% endcomment %}
+		href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
+		{% if child.attr.icon %}<i class="fa fa-{{child.attr.icon}} text-m"></i>{% endif %}
+		{% if child.get_menu_title != 'Главная' %}{{ child.get_menu_title }}{% endif %}
+		{% if child.children and child.level == 0 %}<span class="caret hidden-sm"></span>{% endif %}
+	</a>
+	{% if child.children %}
+		<button type="button" class="btn btn-default dropdown-toggle mobile-dropdown visible-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		{% if child.attr.dropdown_mega %}
+			<div class="mega-menu dropdown-menu multi-level row bg-menu "
+				>
+				{% comment %} style="transition-duration: 300ms; animation-duration: 300ms; transition-timing-function: ease; transition-delay: 0ms;" {% endcomment %}
+				
+				<ul class="mega-dropdown-menu fa-ul multi-level">
+					{% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+				</ul>
+
+			</div>
+
+		{% else %}
+		<ul class="dropdown-menu multi-level">
+			{% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+		</ul>
+		{% endif %}
+	{% endif %}
+</li>
+{% endfor %}
+{% comment %} <li class="dropdown active">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Home <span class="caret"></span></a>
+	<ul class="dropdown-menu multi-level">
+		<li><a href="index-main.html">Main</a></li>
+		<li><a href="index-design.html">Design</a></li>
+		<li><a href="index-interiors.html">Interiors</a></li>
+		<li><a href="index-business.html">Business</a></li>
+		<li><a href="index-construction.html">Construction</a></li>
+		<li><a href="index-fullpage.html">Fullpage</a></li>
+		<li><a href="index-company.html">Company</a></li>
+		<li><a href="index-young.html">Young</a></li>
+		<li><a href="index.html">Intro</a></li>
+	</ul>
+</li> {% endcomment %}

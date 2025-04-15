@@ -1,0 +1,98 @@
+{% load cms_tags core_tags easy_thumbnails_tags %}
+{% comment %} <div class="col-md-6 col-lg-4 ftco-animate">
+    <div class="blog-entry">
+        <a href="{{ obj.get_absolute_url }}" 
+            class="block-20 d-flex align-items-end" 
+            style="background-image: url({{obj.image.url}});"
+        >
+                        <div class="meta-date text-center p-2">
+            <span class="day"></span>
+        </div>
+        </a>
+        <div class="text bg-white p-4">
+        <h3 class="heading"><a href="{{ obj.get_absolute_url }}" >{{ obj.title }}</a></h3>
+        <p>{{ obj.text|safe|truncatechars_html:150}}</p>
+        <div class="d-flex align-items-center mt-4">
+            <p class="mb-0">
+            <a href="{{ obj.get_absolute_url }}" class="btn btn-secondary">
+                Читать далее <span class="ion-ios-arrow-round-forward"></span>
+            </a>
+            </p>
+        </div>
+        </div>
+    </div>
+</div> {% endcomment %}
+<div class="news-item vertical advs-box advs-box-top-icon-img niche-box-post boxed-inverse 
+        {% if not obj.pubdate_has_arrived %} too-early-to-publish {% endif %}
+        {% if not obj.published %} not-published {% endif %}
+    ">
+    <div class="block-infos">
+        <div class="block-data">
+            <p class="bd-day">{{obj.published_at}}</p>
+            <p class="bd-month"></p>
+        </div>
+        {% comment %} <a class="block-comment" href="#">2 <i class="fa fa-comment-o"></i></a> {% endcomment %}
+            <div class="actions-panel">
+                <div class="status-panel">
+                    {% comment %} {% if obj.published %}
+                        <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Опубликовано"></i>
+                    {% else %}
+                        <i class="fa fa-eye-slash" data-toggle="tooltip" data-placement="top" data-original-title="Не опубликовано"></i>
+                    {% endif %} {% endcomment %}
+                </div>
+                <div class="actions">
+                {% if EDIT_MODE %}
+                    {% render_model_block obj %}
+                        <i class="fa fa-gear"></i>
+                    {% endrender_model_block %}
+                {% endif %}
+                </div>
+            </div>
+    </div>
+    {% comment %} {% if obj.image %}
+    <a class="img-box" href="{{ obj.get_absolute_url }}">
+        <img class="anima" src="{{obj.image.url}}" alt="" />
+    </a>
+    {% endif %} {% endcomment %}
+    <div class="advs-box-content">
+        <h2 class="text-m"><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></h2>
+        {% if obj.poster %}
+            {% include 'news/includes/poster.html' %}
+        {% endif %}
+        {% if ADMIN_MODE %}
+            <div class="post-status">
+                {% if not obj.published %}
+                <span class="label label-danger">Не опубликовано</span>
+                {% elif not obj.pubdate_has_arrived %}
+                <span class="label label-warning">Будет опубликовано {{ obj.published_at }}</span>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="tag-row">
+            {% if obj.category %}
+            <span><i class="fa fa-bookmark"></i> <a href="{% url "news:index" %}?category={{ obj.category.id }}">{{ obj.category.title }}</a></span>
+            {% endif %}
+            <div class="taggit-labels taggit-list">
+                {% for tag in obj.tags.all %}
+                <span class="taggit-tag item-tag">
+                    {% comment %} <i class="fa fa-tag"></i> {% endcomment %}
+                    <a href="{% url "news:index" %}?tags={{ tag.name | prepare_tag_name }}">
+                        {{tag}}
+                    </a>
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        <p class="niche-box-content">
+            {% if obj.description %}
+                {{ obj.description|striptags|truncatechars_html:150}}
+            {% endif %}
+        </p>
+        <div class="text-right">
+            <a href="{{ obj.get_absolute_url }}" class="btn btn-border readmore">
+                <i class="fa fa-chevron-circle-right"></i> Перейти
+            </a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

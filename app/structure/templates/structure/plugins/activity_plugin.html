@@ -1,0 +1,29 @@
+{% load cms_tags sekizai_tags easy_thumbnails_tags static %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'structure/css/structure.css' %}">{% endaddtoblock %}
+
+<div class="activities list-items">
+  <div class="grid-list gallery">
+    <div class="grid-box row">
+    {% for object in object_list %}
+        <div class="grid-item col-md-3">
+                
+          {% if instance.layout == "image-blocks" %}
+            <div class="img-box adv-circle circle adv-circle-center white">
+                <img src="{{ object.thumb_src}}" alt="" />
+                <div class="caption">
+                    {% comment %} <h2>{{ object.name }}</h2> {% endcomment %}
+                </div>
+            </div>
+          {% elif instance.layout == "blocks" %}
+            <a href="{{ object.get_absolute_url }}" class="activity-button btn btn-lg btn-border">{{ object.name}}</a>
+          {% endif %}
+
+        </div>
+        {% cycle '' '' '' '<div class="clear"></div>' %}
+    {% endfor %}
+    </div>
+  </div>
+</div>

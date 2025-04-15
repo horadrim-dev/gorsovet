@@ -1,0 +1,61 @@
+version: '3.2'
+services:
+  db:
+    image: postgres:15.3-alpine
+    container_name: db
+    networks:
+      - default
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - environment/prod.env
+    restart: unless-stopped
+    healthcheck:
+      test: "exit 0"
+
+  es:
+    container_name: es
+    image: elasticsearch:7.17.10
+    environment:
+      - discovery.type=single-node
+      # - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    volumes:
+      - ./hunspell:/usr/share/elasticsearch/config/hunspell:ro
+    ports:
+      - "9200:9200"
+    networks:
+      - default
+    healthcheck:
+      test: "exit 0"
+
+  app:
+    build: .
+    container_name: app
+    entrypoint: /entrypoint.sh
+    networks:
+      - default
+      - proxy
+    working_dir: /app
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./app:/app:rw
+    env_file:
+      - environment/prod.env
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8001
+    expose:
+      - 8001
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      es:
+        condition: service_healthy
+
+networks:
+  proxy:
+    name: proxy
+    external: true
+  default:
+    name: net

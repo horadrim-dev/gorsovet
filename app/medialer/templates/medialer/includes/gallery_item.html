@@ -1,0 +1,25 @@
+{% load easy_thumbnails_tags %}
+
+<div class="advs-box-content">
+    <a class="img-box thumbnail" 
+    href="{{ instance.img_src }}"
+    data-options="mainClass:inner" 
+    {% comment %} title="This is the text caption of image"  {% endcomment %}
+    data-lightbox-anima="show-scale"
+    >
+        <span>
+            <img class="anima" 
+                src="{% if instance.external_picture %}
+                    {{instance.img_src}}
+                    {% elif instance.picture %}
+                    {% thumbnail instance.picture 300x200 upscale crop %}
+                    {% endif %}"
+                alt="{% if instance.attributes.alt %}
+                        {{ instance.attributes.alt }}
+                    {% elif instance.picture.default_alt_text %}
+                    {{ instance.picture.default_alt_text }}
+                    {% endif %}"
+            >
+        </span>
+    </a>
+</div>

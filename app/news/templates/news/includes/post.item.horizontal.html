@@ -1,0 +1,76 @@
+{% load cms_tags core_tags easy_thumbnails_tags %}
+
+<div class="news-item horizontal niche-box-blog
+        {% if not obj.pubdate_has_arrived %} too-early-to-publish {% endif %}
+        {% if not obj.published %} not-published {% endif %}
+     ">
+    <div class="advs-box advs-box-side-img advs-box-blog" >
+        <div class="row">
+        {% if obj.poster and obj.poster.type == "image" %}
+            <div class="col-md-4">
+                {% include 'news/includes/poster.html' %}
+            </div>
+            <div class="col-md-8">
+        {% else %}
+            <div class="col-md-12">
+        {% endif %}
+                <h2 class="text-m">
+                    <a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
+                </h2>
+                <div class="actions-panel">
+                    <div class="status-panel">
+                    </div>
+                    <div class="actions">
+                    {% if EDIT_MODE %}
+                        {% render_model_block obj %}
+                            <i class="fa fa-gear"></i>
+                        {% endrender_model_block %}
+                    {% endif %}
+                    </div>
+                </div>
+                <hr>
+                {% if ADMIN_MODE %}
+                    <div class="post-status">
+                        {% if not obj.published %}
+                        <span class="label label-danger">Не опубликовано</span>
+                        {% elif not obj.pubdate_has_arrived %}
+                        <span class="label label-warning">Будет опубликовано {{ obj.published_at }}</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <div class="tag-row icon-row">
+                    <span class="date"><i class="fa fa-calendar"></i>{{obj.published_at}}</span>
+                    {% if obj.category %}
+                    <span><i class="fa fa-bookmark"></i> <a href="{% url "news:index" %}?category={{ obj.category.id }}">{{ obj.category.title }}</a></span>
+                    {% endif %}
+                    {% comment %} <span><i class="fa fa-pencil"></i><a>Admin</a></span> {% endcomment %}
+                    <div class="tag-row">
+                        <div class="taggit-labels taggit-list">
+                            {% for tag in obj.tags.all %}
+                            <span class="taggit-tag item-tag">
+                                {% comment %} <i class="fa fa-tag"></i> {% endcomment %}
+                                <a href="{% url "news:index" %}?tags={{ tag.name | prepare_tag_name }}">
+                                    {{tag}}
+                                </a>
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% if obj.poster and obj.poster.type == "video" %}
+                    {% include 'news/includes/poster.html' %}
+                {% endif %}
+                <p>
+                    {% if obj.description %}
+                        {{ obj.description|striptags|truncatechars_html:300}}
+                    {% endif %}
+                </p>
+                <div class="text-right">
+                    <a href="{{ obj.get_absolute_url }}" class="btn btn-border readmore">
+                        <i class="fa fa-chevron-circle-right"></i> Перейти
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+{% load static cms_tags sekizai_tags easy_thumbnails_tags %}
+
+{% addtoblock "dynamic-css" %}
+<style>
+  #section-{{id}}::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    {% if instance.background_image and not instance.use_parallax %}
+      {% if instance.thumb_width and instance.thumb_height %}
+        background-image: url({% thumbnail instance.background_image instance.get_width_height_thumb upscale crop %});
+      {% else %}
+        background-image: url({{ instance.background_image.url }});
+      {% endif %}
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      overflow: hidden;
+      {% comment %} {% if instance.use_parallax %}background-attachment: fixed;{% endif %} {% endcomment %}
+    {% endif %}
+    {% if instance.background_color and not instance.background_image %}
+      background-color: {{background_color}};
+    {% endif %}
+
+    {% if instance.use_blur and instance.background_image %}
+      {% if instance.use_parallax %}
+        backdrop-filter: blur(5px);
+      {% else %}
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: blur(5px);
+      {% endif %}
+    {% endif %}
+  }
+  #section-{{id}} > div {
+    padding-top: {{instance.padding_top}}px;
+    padding-bottom: {{instance.padding_bottom}}px;
+  }
+  #section-{{id}} .heading-section {
+    padding-bottom: 20px;
+  }
+  {% if instance.use_overlay %}
+  #section-{{id}} > .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: {{instance.overlay_color}};
+    opacity: {{instance.overlay_opacity}};
+  }
+  #section-{{id}} .section-inner {
+    position: relative;
+  }
+  {% endif %}
+
+</style>
+{% endaddtoblock %}
+
+{% if instance.use_parallax and instance.background_image %}
+  {% addtoblock "js" %}<script src="{% static 'core/scripts/parallax.min.js' %}"></script>{% endaddtoblock %}
+{% endif %}
+
+
+{% comment %} <section 
+  id="section-{{id}}" 
+  class=" {% if instance.css_classes %} {{instance.css_classes}} {% endif %}" 
+  {% if instance.use_parallax %}data-stellar-background-ratio="0.5"{% endif %} 
+  > {% endcomment %}
+<section 
+  id="section-{{id}}" 
+  class=" 
+    {% if instance.background_image or instance.background_color %}section-bg-image{% endif %}
+    {% if instance.use_parallax %}parallax-window ken-burn-center{% endif %}
+    {% if instance.css_classes %} {{instance.css_classes}} {% endif %}
+  " 
+  {% if instance.use_parallax %}
+    data-natural-height="850" 
+    data-natural-width="1980" 
+    data-parallax="scroll" 
+    data-image-src="{% spaceless %}
+      {% if instance.thumb_width and instance.thumb_height %}
+        {% thumbnail instance.background_image instance.get_width_height_thumb upscale crop %}
+      {% else %}
+        {{ instance.background_image.url }}
+      {% endif %}
+    {% endspaceless %}"
+  {% endif %}
+>
+  {% if instance.use_overlay %}
+  <div class="overlay"></div>
+  {% endif %}
+
+  <div class="{{instance.container_type}}">
+
+    <div class="section-inner">
+
+      {% if instance.title or instance.text %}
+      <div class="row justify-content-center pb-5">
+        <div class="col text-{{instance.title_align}} heading-section ftco-animate">
+          {% if instance.title %}
+	  <h2 class="mb-4"><span>{{instance.title}}</span></h2>
+          {% endif %}
+          {% if instance.text %}
+          <p>{{instance.text|safe}}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% for plugin in instance.child_plugin_instances %}
+          {% render_plugin plugin %}
+      {% endfor %}
+
+      {% if instance.text_bottom %}
+      <div class="row justify-content-center ">
+        <div class="col-md-12 text-center heading-section ftco-animate">
+          <p>{{instance.text_bottom|safe}}</p>
+        </div>
+      </div>
+      {% endif %}
+    </div
+  ></div>
+</section>

@@ -1,0 +1,61 @@
+version: '3.2'
+services:
+  gorsovet-db:
+    image: postgres:15.3-alpine
+    container_name: gorsovet-db
+    networks:
+      - default
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+      - /etc/localtime:/etc/localtime:ro
+      #- ./my_db_scripts:/docker-entrypoint-initdb.d:ro
+    env_file:
+      - environment/test-prod.env
+    restart: unless-stopped
+    healthcheck:
+      test: "exit 0"
+
+  gorsovet-es:
+    container_name: gorsovet-es
+    image: elasticsearch:7.17.10
+    environment:
+      - discovery.type=single-node
+      # - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    volumes:
+      - ./hunspell:/usr/share/elasticsearch/config/hunspell:ro
+    ports:
+      - "9200:9200"
+    networks:
+      - default
+    healthcheck:
+      test: "exit 0"
+
+  gorsovet-app:
+    build: .
+    container_name: gorsovet-app
+    entrypoint: /entrypoint.sh
+    networks:
+      - default
+      - proxy
+    working_dir: /app
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./app:/app:rw
+        #- /etc/hosts:/etc/hosts:ro
+    env_file:
+      - environment/test-prod.env
+    command: python manage.py runserver 0.0.0.0:80
+    restart: unless-stopped
+    depends_on:
+      gorsovet-db:
+        condition: service_healthy
+      gorsovet-es:
+        condition: service_healthy
+
+networks:
+  proxy:
+    name: 'proxy'
+    external: true
+  default:
+    name: gorsovet

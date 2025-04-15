@@ -1,0 +1,14 @@
+{% load cms_tags sekizai_tags thumbnail static %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'docs/css/docs.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/taggit_labels.css' %}">{% endaddtoblock %} 
+
+<div class="docs-container">
+
+  {% render_model_block obj %}
+  {% include 'docs/includes/document_item_vertical.html' %}
+  {% endrender_model_block %}
+
+</div>

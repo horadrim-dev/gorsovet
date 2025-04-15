@@ -1,0 +1,31 @@
+{% load static sekizai_tags cms_tags %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/flexslider/flexslider.css' %}">{% endaddtoblock %}
+{% addtoblock "js" %}<script src="{% static 'core/scripts/flexslider/jquery.flexslider-min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "dynamic-css" %}
+<style>
+#slider-{{id}} {
+    height: {{instance.height}}px !important;
+}
+@media (max-width: 992px) {
+    #slider-{{id}}{
+        height: auto !important;
+    }
+}
+</style>
+{% endaddtoblock %}
+
+{% comment %} <div class="section-empty no-paddings"> {% endcomment %}
+    <div class="section-slider" id="slider-{{id}}">
+        <div class="flexslider advanced-slider slider" data-options="animation:fade">
+            <ul class="slides">
+                {% for plugin in instance.child_plugin_instances %}
+                    {% comment %} <li data-slider-anima="fade-right" data-time="1000"> {% endcomment %}
+                    <li>
+                        {% render_plugin plugin %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% comment %} </div> {% endcomment %}

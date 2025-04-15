@@ -1,0 +1,34 @@
+{% load cms_tags core_tags sekizai_tags static %}
+
+<div class="block">
+    {% render_model_block object.event %}
+    <div class="row vertical-row">
+        <div class="col-md-2 text-center">
+            <h3>{{ object.start_at.date }}</h3>
+            <h3>{{ object.start_at.time }}</h3>
+        </div>
+        {% if object.poster %}
+        <div class="col-md-3">
+            <a href="{{ object.get_absolute_url }}">
+                <img src="{{ object.poster_thumb_src }}" alt="">
+            </a>
+        </div>
+        <div class="col-md-7">
+        {% else %}
+        <div class="col-md-10">
+        {% endif %}
+            <a href="{{ object.get_absolute_url }}">
+                <span class="h3">{{ object.name }}</span>
+            </a>
+            <hr class="space xs">
+            {{ object.description|striptags|truncatechars_html:150}}
+
+            {% if object.place %}
+            <hr class="space xs">
+            <h4><i class="fa fa-map-marker"></i> {{ object.place }}</h4>
+            {% endif %}
+
+        </div> 
+    </div>
+    {% endrender_model_block %}
+</div>

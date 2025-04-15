@@ -1,0 +1,74 @@
+ .structure-container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+ .structure-item {
+  padding: 20px 0;
+  margin: -20px 0;
+  color: #4C4C4C;
+  font-weight: 100;
+}
+ .structure-item .advs-box {
+  padding: 25px ;
+  box-shadow: 2px 2px 3px #eee;
+}
+ .apparat-item {
+  margin-bottom: 10px !important;
+}
+ .apparat-item .advs-box {
+  padding: 20px;
+}
+ .apparat-item .photo i {
+  position: relative !important;
+  font-size: 44px;
+}
+ .otdel {
+  margin-bottom: 10px;
+}
+ .otdel .advs-box {
+  padding: 20px;
+}
+.sotrudnik-list .grid-item .advs-box {
+  margin-top: 0 !important;
+}
+.activities .img-box {
+    border-radius: 15%;
+    cursor: pointer;
+}
+.activities .img-box img{
+    border-radius: 15%;
+}
+.activities .img-box .caption {
+    top: 25%;
+    text-shadow: 2px 2px 2px #000;
+}
+.activities .img-box .caption h2{
+    line-height: 24px;
+}
+.activities .img-box.active img, 
+.activities .img-box:hover img {
+    opacity: .3 !important;
+}
+.activities label[for=id_album_0] {
+    width: 100%;
+}
+.activities .not-set {
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    padding-top: 18px;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: 300ms;
+    width: 178px;
+    height: 106px;
+}
+.activities .not-set:hover,
+.activities .not-set.active{
+    background: #fff;
+}
+.activities .activity-button {
+  background-color: #fff !important;
+}

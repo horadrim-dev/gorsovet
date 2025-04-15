@@ -1,0 +1,28 @@
+{% extends 'contact/form.html' %}
+{% load cms_tags sekizai_tags static i18n %}
+
+{% block form_content %}
+    {% with wizard.form as form %}
+
+    <hr class="space m">
+    <div class="row vertical-row">
+        <div class="col-xs-1">
+            {{ form.accept_terms}}
+        </div>
+        <div class="col-xs-11">
+            {% comment %} <span class="checkbox-label {% if form.agree.field.required %}required{% endif %}">{{ form.accept_terms.label_tag }}</span> {% endcomment %}
+            <span class="checkbox-label {% if form.accept_terms.field.required %}required{% endif %}">
+                <label for="{{ form.accept_terms.id_for_label }}">{{ form.accept_terms.label }}</label>
+            </span>
+        </div>
+    </div>
+    <hr class="space m">
+    {% endwith %}
+{% endblock %}
+
+{% block form_bottom %}
+    {% if wizard.steps.prev %}
+    <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% translate "prev step" %}</button>
+    {% endif %}
+    <input type="submit" value="Далее" class="btn btn-lg w-100"/>
+{% endblock %}

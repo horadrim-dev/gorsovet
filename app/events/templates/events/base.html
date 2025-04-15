@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load cms_tags sekizai_tags static %}
+
+
+{% block content %}
+
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'events/css/events.css' %}">{% endaddtoblock %} 
+
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/magnific-popup.css' %}">{% endaddtoblock %}
+  {% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.magnific-popup.min.js' %}"></script>{% endaddtoblock %}
+
+  {% static_placeholder '[events] top' %}
+
+  <section class="events-container">
+    <div class="container">
+      {% block app_content %}
+      {% endblock %}
+    </div>
+  </section>
+
+  {% static_placeholder "[events] bottom" %}
+
+{% endblock %}

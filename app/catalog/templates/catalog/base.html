@@ -1,0 +1,57 @@
+{% load static sekizai_tags cms_tags %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/animations.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'catalog/css/catalog.css' %}"> {% endaddtoblock %}
+
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/isotope.min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "js" %}<script src="{% static 'core/scripts/imagesloaded.min.js' %}"></script>{% endaddtoblock %}
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.magnific-popup.min.js' %}"></script>{% endaddtoblock %}
+{% comment %} {% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.twbsPagination.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+{% comment %} {% addtoblock "js" %}<script src="{% static 'core/scripts/flexslider/jquery.flexslider-min.js' %}"></script>{% endaddtoblock %} 
+{% addtoblock "dynamic-css" %}
+<style>
+#slider-{{id}} {
+    height: {{instance.height}}px !important;
+}
+@media (max-width: 992px) {
+    #slider-{{id}}{
+        height: auto !important;
+    }
+}
+</style>
+{% endaddtoblock %} {% endcomment %}
+<div class="maso-list maso-30 list-sm-6">
+    <div class="navbar navbar-inner">
+        <div class="navbar-toggle"><i class="fa fa-bars"></i><span>Категории</span><i class="fa fa-angle-down"></i></div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav over ms-minimal inner maso-filters">
+                <li class="active"><a data-filter="maso-item">Все</a></li>
+
+                {% for cat in instance.categories %}
+                {% comment %} <li class="{% if forloop.first %}active current-active{% endif %}"> {% endcomment %}
+                <li>
+                    <a data-filter="{{cat.slug}}" href="#">{{cat.title}}</a>
+                </li>
+                {% endfor %}
+
+                <li><a class="maso-order" data-sort="asc"><i class="fa fa-arrow-down"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="maso-box row" data-lightbox-anima="fade-top">
+        {% for plugin in instance.child_plugin_instances %}
+            {% with forloop.counter as item_number %}
+            {% render_plugin plugin %}
+            {% endwith %}
+        {% endfor %}
+        <div class="clear"></div>
+    </div>
+    <div class="list-nav">
+        <a href="#" class="btn btn-lg btn-border load-more-maso" data-pagination-anima="fade-bottom" data-page-items="4">
+            Показать еще
+            <i class="fa fa-arrow-down"></i>
+        </a>
+    </div>
+</div>

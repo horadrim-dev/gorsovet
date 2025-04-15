@@ -1,0 +1,158 @@
+{% load cms_tags sekizai_tags easy_thumbnails_tags static compress %}
+<!DOCTYPE html>
+<!--[if lt IE 10]> <html  lang="ru" class="iex"> <![endif]-->
+<!--[if (gt IE 10)|!(IE)]><!-->
+<html lang="ru">
+<!--<![endif]-->
+    <head>
+      <title>
+        {% block title %}
+          {% page_attribute "page_title" %}
+        {% endblock %}
+      </title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      {% comment %} <meta name="description" content="{{site_settings.title}} {{site_settings.subtitle}}"> {% endcomment %}
+      <link rel="icon" href="{% thumbnail site_settings.logo "32x32" autocrop %}">
+
+      
+
+      {% addtoblock "css" %}<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Google+Sans:400,500,700|Google+Sans+Text:400&amp;lang=ru">{% endaddtoblock %}
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/bootstrap/css/bootstrap.css' %}">{% endaddtoblock %}
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/bootstrap5_sup.css' %}">{% endaddtoblock %}
+      {% comment %} {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/bootstrap5.3.0/css/bootstrap.min.css' %}">{% endaddtoblock %} {% endcomment %}
+      
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/style.css' %}">{% endaddtoblock %}
+      {% comment %} {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %} {% endcomment %}
+      {% comment %} {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} {% endcomment %}
+
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/animations.css' %}">{% endaddtoblock %}
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/components.css' %}">{% endaddtoblock %}
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/flexslider/flexslider.css' %}">{% endaddtoblock %}
+        {% comment %} {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/magnific-popup.css' %}">{% endaddtoblock %} {% endcomment %}
+        {% comment %} {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/php/contact-form.css' %}">{% endaddtoblock %}
+        {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/social.stream.css' %}">{% endaddtoblock %} {% endcomment %}
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/toastr.min.css' %}">{% endaddtoblock %}
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/font-awesome/css/font-awesome.min.css' %}">{% endaddtoblock %}
+
+        
+      {% addtoblock "js" %}<script src="{% static 'core/js/accessibility.min.js' %}"></script>{% endaddtoblock %}
+
+      {% addtoblock "js" %}<script src="{% static 'core/scripts/script.js' %}"></script>{% endaddtoblock %}
+      {% addtoblock "js" %}<script  src="{% static 'core/js/toastr.min.js' %}"></script>{% endaddtoblock %}
+      {% addtoblock "js" %}<script  src="{% static 'core/scripts/bootstrap/js/bootstrap.min.js' %}"></script>{% endaddtoblock %}
+      {% addtoblock "js" %}<script src="{% static 'core/scripts/navbar-collapsing.js' %}"></script>{% endaddtoblock %}
+        {% comment %} {% addtoblock "js" %}<script  src="{% static 'core/bootstrap5.3.0/js/bootstrap.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+        {% comment %} {% addtoblock "js" %}<script src="{% static 'core/scripts/imagesloaded.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+        {% comment %} {% addtoblock "js" %}<script src="{% static 'core/scripts/parallax.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+      {% addtoblock "js" %}<script src="{% static 'core/scripts/flexslider/jquery.flexslider-min.js' %}"></script>{% endaddtoblock %}
+        {% comment %} {% addtoblock "js" %}<script  src="{% static 'core/scripts/isotope.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+        {% comment %} {% addtoblock "js" %}<script  src="{% static 'core/scripts/php/contact-form.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+        {% comment %} {% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.progress-counter.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+        {% comment %} {% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.twbsPagination.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+      {% comment %} {% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.tab-accordion.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+        {% comment %} {% addtoblock "js" %}<script  src="{% static 'core/scripts/bootstrap/js/bootstrap.popover.min.js' %}"></script>{% endaddtoblock %}{% endcomment %}
+        {% comment %}{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.magnific-popup.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+        {% comment %} {% addtoblock "js" %}<script src="{% static 'core/scripts/social.stream.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+        {% comment %} {% addtoblock "js" %}<script src="{% static 'core/scripts/jquery.slimscroll.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+        {% comment %} {% addtoblock "js" %}<script src="{% static 'core/scripts/smooth.scroll.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+
+      {# fix header for admin view #}
+      {% if request.user.is_authenticated or "edit" in request.GET %}
+        {% addtoblock "dynamic-css" %}
+        <style>
+          .navbar-fixed-top {
+            top: 46px;
+          }
+        </style>
+        {% endaddtoblock %}
+        {% comment %} <div style="width:100%; height:46px;"></div> {% endcomment %}
+      {% endif %}
+
+      {% render_block "css" postprocessor "compressor.contrib.sekizai.compress" %}
+      {% render_block "dynamic-css" %}
+
+      {% block head %}
+      {% endblock head %}
+
+      
+      {% if not request.user.is_authenticated %}
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript" >
+          (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+          m[i].l=1*new Date();
+          for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+          k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+          (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+          ym(95595864, "init", {
+                clickmap:true,
+                trackLinks:true,
+                accurateTrackBounce:true
+          });
+        </script>
+        <noscript><div><img src="https://mc.yandex.ru/watch/95595864" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+      {% endif %}
+    </head>
+    <body>
+
+    <div id="preloader"></div>
+
+		{% cms_toolbar %}
+
+
+		{% comment %} <header> {% endcomment %}
+			{% comment %} {% static_placeholder 'header' %} {% endcomment %}
+			{% comment %} <img id="specialButton" style="cursor:pointer;" src="https://lidrekon.ru/images/special.png" alt="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" title="ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ" /> {% endcomment %}
+    {% if site_settings.menu_style == "1" %}
+      {% include 'core/header_singlerow.html' %}
+    {% elif site_settings.menu_style == "2" %}
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/header_multirow.css' %}">{% endaddtoblock %}
+      {% include 'core/header_multirow.html' %}
+    {% endif %}
+		{% comment %} </header> {% endcomment %}
+    
+    {% static_placeholder "[ALL] top" %}
+
+		{% block content %}
+			{% placeholder "content" %}
+		{% endblock content %}
+   
+    {% static_placeholder "[ALL] bottom" %}
+
+    {% include 'core/footer.html' %}
+
+        {% comment %} {% if not user.is_authenticated %} {% endcomment %}
+        {% comment %} <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div> {% endcomment %}
+        {% comment %} {% endif %} {% endcomment %}
+        {% comment %} <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> {% endcomment %}
+
+        {% comment %} {% render_block "js" postprocessor "compressor.contrib.sekizai.compress" %} {% endcomment %}
+    {% comment %} {% addtoblock "js" %}<script src="{% static 'core/scripts/script.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+      <div class="blackout"></div>
+
+
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/skin.css' %}">{% endaddtoblock %}
+      {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/app.css' %}">{% endaddtoblock %}
+
+      <script src="{% static 'core/scripts/jquery.min.js' %}"></script>
+
+      {% addtoblock "js" %}<script  src="{% static 'core/js/app.js' %}"></script>{% endaddtoblock %}
+
+      {% render_block "js" postprocessor "compressor.contrib.sekizai.compress" %}
+      {% render_block "dynamic-js" %}
+
+      {% if request.toolbar and request.toolbar.edit_mode_active %}
+      <script>
+        CMS.$(window).on('cms-content-refresh', function () {
+          // Код запускается при горячем редактировании плагинов, для корректного отображения страницы
+          // Перезапускаем $(document).ready()
+          $(this).onPageLoad();  
+        });
+      </script>
+      {% endif %}
+
+
+    </body>
+</html>

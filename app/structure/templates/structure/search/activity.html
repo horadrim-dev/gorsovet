@@ -1,0 +1,23 @@
+<div class="structure-item">
+    <div class="advs-box advs-box advs-box-side-icon boxed-inverse">
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <div class="img-box">
+                    <img src="{{ object.thumb_src }}" alt="">
+                </div>
+            </div>
+            <div class="col-md-9">
+                <h3>
+                    <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+                </h3>
+                <hr>
+                <p>Спортивные секции</p>
+                <div class="text-right">
+                    {% if object.get_absolute_url %}
+                    <a class="btn btn-border" href="{{ object.get_absolute_url }}">Перейти</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

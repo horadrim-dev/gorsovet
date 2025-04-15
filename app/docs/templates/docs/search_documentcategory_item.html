@@ -1,0 +1,24 @@
+{% load cms_tags %}
+
+{% render_model_block object %}
+<div class="docs-item horizontal advs-box advs-box-side-icon">
+    <div class="caption-box">
+        <div class="row vertical-row">
+            <div class="col-xs-1">
+                <div class="icon-box">
+                    <i class="icon fa fa-book text-lg"></i>
+                </div>
+            </div>
+            <div class="col-xs-9">
+                <a href="{{ object.get_absolute_url }}">
+                    <h4>{{ object.name }}</h4>
+                    <p>Набор документов</p>
+                </a>
+            </div>
+            <div class="col-xs-2 text-right">
+                <a href="{{ object.get_absolute_url }}" class="btn btn-border">Перейти</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endrender_model_block %}

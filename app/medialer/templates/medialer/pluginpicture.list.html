@@ -1,0 +1,46 @@
+{% extends 'medialer/base.html' %}
+{% load sekizai_tags thumbnail static core_tags %}
+
+{% block app_content %}
+  <div class="grid-list gallery">
+    <div class="grid-box row">
+      <div class="row">
+    {% for instance in object_list %}
+      <div class="col-md-3">
+        <a class="img-box thumbnail" 
+          href="{{ instance.img_src }}"
+          data-options="mainClass:inner" 
+          title="This is the text caption of image" 
+          data-lightbox-anima="show-scale"
+        >
+          <span>
+            <img class="anima" 
+              src="{% if instance.external_picture %}
+                    {{instance.img_src}}
+                  {% elif instance.picture %}
+                    {% thumbnail instance.picture 300x200 upscale crop %}
+                  {% endif %}"
+              alt="{% if instance.attributes.alt %}
+                      {{ instance.attributes.alt }}
+                  {% elif instance.picture.default_alt_text %}
+                    {{ instance.picture.default_alt_text }}
+                  {% endif %}"
+            >
+            {% comment %} <img class="anima" src="{{ instance.img_src }}" alt="" /> {% endcomment %}
+            {% comment %} <a class="img-box thumbnail mfp-iframe" href="https://www.youtube.com/watch?v=bpqhStV2_rc">
+                <span><img src="http://www.framework-y.com/images/thumb-wide.png"></span>
+            </a> {% endcomment %}
+          </span>
+        </a>
+      </div>
+    {% empty %}
+    <p>Фотоматериалов пока нет.</p>
+    {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  {% include 'core/includes/pagination.html' %}
+
+
+{% endblock %}

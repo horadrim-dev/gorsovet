@@ -1,0 +1,36 @@
+.albums .img-box {
+    border-radius: 15%;
+    cursor: pointer;
+}
+.albums .img-box img{
+    border-radius: 15%;
+}
+.albums .img-box .caption {
+    top: 25%;
+    text-shadow: 2px 2px 2px #000;
+}
+.albums .img-box .caption h2{
+    line-height: 24px;
+}
+.albums .img-box.active img, 
+.albums .img-box:hover img {
+    opacity: .3 !important;
+}
+.albums label[for=id_album_0] {
+    width: 100%;
+}
+.albums .not-set {
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    padding-top: 16px;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: 300ms;
+}
+.albums .not-set:hover,
+.albums .not-set.active{
+    background: #fff;
+}

@@ -1,0 +1,101 @@
+{% load static menu_tags easy_thumbnails_tags  %}
+{% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
+    <div class="container d-flex align-items-center">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'core/images/logo-64.png' %}" class="float-start me-2" height="55">
+            Солнечный город<br><span><small class="text-muted fs-6">спортивно-развлекательный центр</small></span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav d-flex flex-wrap mb-2 mb-lg-0 ms-auto">
+        {% show_menu 0 2 100 100 "core/menu.html" %}
+        </ul>
+    </div>
+    </div>
+</nav> {% endcomment %}
+<header class="fixed-top scroll-change" >{% comment "" %}data-menu-anima="fade-in"{% endcomment %}
+    <div class="navbar navbar-default mega-menu-fullwidth navbar-fixed-top" role="navigation">
+        <div class="navbar-mini scroll-hide">
+            <div class="container">
+                <div class="nav navbar-nav navbar-left">
+                    {% if site_settings.phone %}<span><i class="fa fa-phone"></i>{{site_settings.phone}}</span><hr />{% endif %}
+                    {% if site_settings.email %}<span><i class="fa fa-envelope"></i>{{site_settings.email }}</span><hr />{% endif %}
+                    {% if site_settings.address %}<span><i class="fa fa-map-marker"></i>{{site_settings.address}}</span>{% endif %}
+                    {% comment %} <hr />
+                    <span><i class="fa fa-calendar"></i>Mon - Sat: 8.00 - 19:00</span> {% endcomment %}
+                </div>
+                <div class="nav navbar-nav navbar-right">
+                    <div class="minisocial-group">
+                        {% for social in site_settings.socials %}
+                        <a target="_blank" href="{{social.url}}" alt="{{social.text}}">
+                            <i class="fa fa-{{social.icon}}"></i>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar navbar-main">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="priem-button btn btn-lg btn-border visible-sm" type="button">
+                        Виртуальная приемная
+                    </button>
+                    <div class="search-box-menu visible-sm">
+                        <div class="search-box scrolldown">
+                            <input type="text" class="form-control" placeholder="ПОИСК ПОКА НЕ РАБОТАЕТ">
+                        </div>
+                        <button type="button" class="btn btn-default btn-search ">
+                            <span class="fa fa-search"></span>
+                        </button>
+                    </div>
+                    <button type="button" class="navbar-toggle">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img class="navbar-brand-logo" src="{% thumbnail site_settings.logo 40x50 upscale crop %}" />
+                        <div class="navbar-brand-title">
+                            {% comment %} <span>Управление физической культуры, спорта и молодежной политики</span> {% endcomment %}
+                            <span>{{ site_settings.title }}</span>
+                            <span>{{ site_settings.subtitle }}</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul id="main-menu" class="nav navbar-nav root-level">
+
+                        {% show_menu 0 100 100 100 "core/menu.html" %}
+
+                        <li id="more" class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Еще <span class="caret"></span></a>
+                            <ul class="dropdown-menu multi-level">
+                                {% show_menu 0 0 100 100 "core/menu.html" %}
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="nav navbar-nav navbar-right">
+                        <div class="search-box-menu">
+                            <div class="search-box scrolldown">
+                                <input type="text" class="form-control" placeholder="ПОИСК ПОКА НЕ РАБОТАЕТ">
+                            </div>
+                            <button type="button" class="btn btn-default btn-search">
+                                <span class="fa fa-search"></span>
+                            </button>
+                        </div>
+                        {% comment %} <ul class="nav navbar-nav lan-menu">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><img src="../images/en.png" alt="" />En<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><img src="../images/it.png" alt="" />IT</a></li>
+                                </ul>
+                            </li>
+                        </ul> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% comment %} <div style="margin-top:-22px"></div> {% endcomment %}
