@@ -15,21 +15,21 @@ services:
     healthcheck:
       test: "exit 0"
 
-  gorsovet-es:
-    container_name: gorsovet-es
-    image: elasticsearch:7.17.10
-    environment:
-      - discovery.type=single-node
-      # - xpack.security.enabled=false
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
-    volumes:
-      - ./hunspell:/usr/share/elasticsearch/config/hunspell:ro
-    ports:
-      - "9200:9200"
-    networks:
-      - default
-    healthcheck:
-      test: "exit 0"
+  # gorsovet-es:
+  #   container_name: gorsovet-es
+  #   image: elasticsearch:7.17.10
+  #   environment:
+  #     - discovery.type=single-node
+  #     # - xpack.security.enabled=false
+  #     - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+  #   volumes:
+  #     - ./hunspell:/usr/share/elasticsearch/config/hunspell:ro
+  #   ports:
+  #     - "9200:9200"
+  #   networks:
+  #     - default
+  #   healthcheck:
+  #     test: "exit 0"
 
   gorsovet-app:
     build: .
@@ -50,8 +50,8 @@ services:
     depends_on:
       gorsovet-db:
         condition: service_healthy
-      gorsovet-es:
-        condition: service_healthy
+      # gorsovet-es:
+      #   condition: service_healthy
 
 networks:
   proxy:
