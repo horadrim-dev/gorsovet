@@ -37,7 +37,7 @@
       {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/font-awesome/css/font-awesome.min.css' %}">{% endaddtoblock %}
 
         
-      {% addtoblock "js" %}<script src="{% static 'core/js/accessibility.min.js' %}"></script>{% endaddtoblock %}
+      {% comment %} {% addtoblock "js" %}<script src="{% static 'core/js/accessibility.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
 
       {% addtoblock "js" %}<script src="{% static 'core/scripts/script.js' %}"></script>{% endaddtoblock %}
       {% addtoblock "js" %}<script  src="{% static 'core/js/toastr.min.js' %}"></script>{% endaddtoblock %}
@@ -77,7 +77,7 @@
       {% endblock head %}
 
       
-      {% if not request.user.is_authenticated %}
+      {% comment %} {% if not request.user.is_authenticated %}
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript" >
           (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -93,7 +93,7 @@
         </script>
         <noscript><div><img src="https://mc.yandex.ru/watch/95595864" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         <!-- /Yandex.Metrika counter -->
-      {% endif %}
+      {% endif %} {% endcomment %}
     </head>
     <body>
 

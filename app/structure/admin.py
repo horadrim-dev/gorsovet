@@ -44,7 +44,7 @@ class PhotoDepartmentInline(admin.TabularInline):
     exclude = ['order']
     extra = 3
 
-@admin.register(Department)
+# @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('name', 'organization', 'activity')
     list_filter = ["organization", "activity"]
@@ -52,10 +52,13 @@ class DepartmentAdmin(admin.ModelAdmin):
     inlines = (PhotoDepartmentInline, )
 
 
-@admin.register(Activity)
+# @admin.register(Activity)
 class ActivityAdmin(admin.ModelAdmin):
     list_display = ('name', )
     exclude = []
+
+
+
 # @admin.register(Phone)
 # class PhoneAdmin(admin.ModelAdmin):
     # form = PhoneForm

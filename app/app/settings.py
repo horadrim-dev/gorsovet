@@ -142,10 +142,10 @@ INSTALLED_APPS = [
     # 'djangocms_picture', # использовано в medialer
     # 'djangocms_video', # использовано в medialer
     'medialer',
-    'structure',
+    # 'structure',
     'docs',
     'contact',
-    'events',
+    # 'events',
     'cmsplugin_yandexmap',
     'popups',
     'attachments',
@@ -440,5 +440,6 @@ YANDEX_MAPS_API_KEY = env('YANDEX_MAPS_API_KEY')
 FILER_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS = True
 
 CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SECURE = False
 CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS')
 SESSION_COOKIE_SAMESITE = None
