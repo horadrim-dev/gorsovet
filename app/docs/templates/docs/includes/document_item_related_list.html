@@ -1,0 +1,9 @@
+<div class="related-wrapper">
+    {% for object in objects %}
+        <a href="{{ object.get_absolute_url }}" target="_blank">
+            <div class="related">
+                {{ object.full_name }}
+            </div>
+        </a>
+    {% endfor %}
+</div>

@@ -7,12 +7,13 @@ from taggit.forms import TagField
 from taggit_labels.widgets import LabelWidget
 from django.urls import reverse_lazy
 from phonenumber_field.formfields import PhoneNumberField
+from django.core.exceptions import ValidationError
 from .models import ContactSettings
 from filer.fields.file import FilerFileField
 from django.core.validators import FileExtensionValidator
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
-
+import random
 
 class ContactForm(forms.Form):
     def __init__(self, **kwargs):
@@ -70,6 +71,45 @@ class UserDataForm(ContactForm):
         super().__init__(**kwargs)
         self.html_before_form = self.settings.userdata_form_text
         self.fields['agree_pd'].label = self.settings.userdata_checkbox_text
+
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     # compatibility of earlier and current step
+
+
+    #     return cleaned_data
+
+# Code Generation and Storage:
+
+#     Upon form submission, generate a random verification code.
+#     Store this code temporarily, either in the session or a dedicated model field, associated with the user or the form data.
+#     Send the verification code to the user via email or SMS. 
+
+# Verification Form:
+
+#     Create a separate form or include a field in the existing form for the user to enter the verification code. 
+
+# Validation:
+
+#     When the user submits the verification code, retrieve the stored code.
+#     Compare the user-provided code with the stored code.
+#     If the codes match, proceed with the form processing or user authentication.
+#     If the codes do not match, display an error message and prompt the user to re-enter the code.
+
+class VerificationForm(ContactForm):
+    verification_code = forms.CharField(max_length=5, label='Код')
+
+    def __init__(self, **kwargs):
+        self.stored_code = kwargs.pop("stored_code", None)
+        super().__init__(**kwargs)
+        self.html_before_form = self.settings.verification_form_text
+
+    def clean_verification_code(self):
+        user_code = self.cleaned_data['verification_code']
+        if user_code != self.stored_code:
+            raise ValidationError('Неверный код.')
+        return user_code
+    
 
 class MessageForm(ContactForm):
     subject = forms.CharField(

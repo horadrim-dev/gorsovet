@@ -4441,7 +4441,7 @@ BUTTONS
     }
 
     .btn-default i, .btn i, .btn-text i {
-        color: #585858;
+        /* color: #585858; */
         margin-right: 10px;
     }
 

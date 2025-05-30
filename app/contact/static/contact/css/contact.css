@@ -35,3 +35,12 @@ ul.errorlist {
 .form-box:not(.form-inline) .g-recaptcha {
   margin-bottom: 0;
 }
+.verification-wrapper input {
+    background-color: var(--main-color-4);
+    color: var(--main-color);
+    text-align: center;
+    line-height: 100px;
+    max-width: 20%;
+    font-size: 70px;
+    font-weight: bold;
+}

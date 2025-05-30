@@ -1,0 +1,68 @@
+{% extends 'contact/form.html' %}
+{% load cms_tags sekizai_tags static i18n %}
+
+
+{% block form_content %}
+    {% addtoblock "js" %}<script  src="{% static 'contact/js/jquery.segmentedInput.js' %}"></script>{% endaddtoblock %}
+
+    <hr class="space m">
+    <div class="grid-list ">
+        <div class="grid-box row">
+            <div class="grid-item col-md-12">
+                {% comment %} <div class="row vertical-row">
+                    <div class="col-xs-2 text-right">
+                        <p class="field-label {% if form.verification_code.form.verification_code.required %}required{% endif %}">
+                            {{ form.verification_code.label_tag }}
+                        </p>
+                    </div>
+                    <div class="col-xs-10"> {{ form.verification_code}}{{ form.verification_code.errors }} </div>
+                </div> {% endcomment %}
+                <div class="row vertical-row">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <h3>Введите код {{ form.stored_code }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row vertical-row">
+                    <div class="col-md-12 text-center">
+                        <div class="verification-wrapper">
+                            <input type="text" 
+                                    class="pin" 
+                                    maxlength="5" 
+                                    autofocus
+                                    name="{{ form.verification_code.html_name }}" 
+                                    required="" 
+                                    id="{{ form.verification_code.id_for_label }}">
+
+                            {{ form.verification_code.errors }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="space m">
+
+    {% addtoblock "dynamic-js" %}
+    <script>
+    $(document).ready(function(){
+    $('.pin').segmentedInput({
+    });
+    });
+    </script>
+    {% endaddtoblock %}
+{% endblock %}
+
+{% block form_bottom %}
+    <div class="row">
+        {% comment %} <div class="col-xs-4">
+            {% if wizard.steps.prev %}
+            <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="btn btn-border btn-lg w-100">Назад</button>
+            {% endif %}
+        </div> {% endcomment %}
+        <div class="col-xs-12">
+            <input type="submit" value="Далее" class="btn btn-lg w-100" />
+        </div>
+    </div>
+{% endblock %}

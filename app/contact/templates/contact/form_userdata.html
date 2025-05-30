@@ -81,12 +81,12 @@
 
 {% block form_bottom %}
     <div class="row">
-        <div class="col-xs-4">
+        {% comment %} <div class="col-xs-4">
             {% if wizard.steps.prev %}
             <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" class="btn btn-border btn-lg w-100">Назад</button>
             {% endif %}
-        </div>
-        <div class="col-xs-8">
+        </div> {% endcomment %}
+        <div class="col-xs-12">
             <input type="submit" value="Далее" class="btn btn-lg w-100" />
         </div>
     </div>

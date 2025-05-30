@@ -1,0 +1,42 @@
+{% load cms_tags sekizai_tags static %}
+
+
+{% render_model_block object %}
+<div class="grid-item col-md-3">
+  <a href="{% url 'deputaty:deputat-detail' object.id %}">
+
+        <div class="advs-box advs-box-top-icon-img boxed-inverse">
+            {% if object.photo %}
+            <div class="img-box img-scale-up" >
+                <span>
+                  <img src="{{ object.photo_thumb_src }}" width="250" alt="">
+                </span>
+            </div>
+            {% else %}
+            <i class="fa fa-user-o text-xl"></i>
+            {% endif %}
+            <div class="advs-box-content">
+                <h3>{{ object.name }}</h3>
+                <p>
+                </p>
+            </div>
+        </div>
+
+
+    {% comment %} <div class="advs-box advs-box-top-icon boxed-inverse">
+        {% if object.photo %}
+        <img src="{{ object.photo_thumb_src }}" height="100" alt="">
+        {% else %}
+        <i class="fa fa-user-o text-xl"></i>
+        {% endif %}
+      <div class="advs-box-content">
+          <hr>
+          <h3>
+            {{ object.name }}
+          </h3>
+          <p></p>
+      </div>
+    </div> {% endcomment %}
+  </a>
+</div>
+{% endrender_model_block %}

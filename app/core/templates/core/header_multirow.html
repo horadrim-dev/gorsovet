@@ -15,7 +15,8 @@
     </div>
 </nav> {% endcomment %}
 
-<header class="fixed-top scroll-change" data-menu-height="{% if request.user.is_authenticated or "edit" in request.GET %}199{% else %}153{% endif %}">
+{% comment %} <header class="fixed-top scroll-change" data-menu-height="{% if request.user.is_authenticated or "edit" in request.GET %}199{% else %}153{% endif %}"> {% endcomment %}
+<header class="fixed-top scroll-change" data-menu-height="148">
     {% comment "" %}data-menu-anima="fade-in"{% endcomment %}
     <div class="navbar navbar-default mega-menu-fullwidth navbar-fixed-top" role="navigation">
         {% comment %} <div class="navbar-mini scroll-hide">

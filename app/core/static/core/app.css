@@ -1,10 +1,17 @@
 /* CUSTOM */
 :root {
-    --main-color: #2d73bc;
+    /* --main-color: #2d73bc;
     --main-color-2: #3d80c6;
     --main-color-3:#a3d0ff;
+    --main-color-4:#f5f7ff;
     --menu-bg-color:#2d73bc;
-    --menu-font-color:#fff;
+    --menu-font-color:#fff; */
+    --main-color: #1e9382;
+    --main-color-2: #2a9788;
+    --main-color-3: #65cebf;
+    --main-color-4: #f5f7ff;
+    --menu-bg-color: #1e9382;
+    --menu-font-color: #fff;
 }
 @font-face {
 /* // название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
@@ -547,4 +554,8 @@ html.special .caret::before {
 }
 .ui-datepicker {
     width: 100% !important;
+}
+.deputaty-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
 }

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load cms_tags sekizai_tags static %}
+
+{% block content %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/components.css' %}">{% endaddtoblock %}
+{% comment %} {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/magnific-popup.css' %}">{% endaddtoblock %} {% endcomment %}
+{% comment %} {% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.magnific-popup.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+{% comment %} {% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.tab-accordion.js' %}"></script>{% endaddtoblock %} {% endcomment %}
+
+{% static_placeholder '[deputaty] top' %}
+
+<section class="deputaty-container">
+    <div class="container">
+        {% block app_content %}
+        {% endblock app_content %}
+    </div>
+</section>
+
+{% static_placeholder '[deputaty] bottom' %}
+
+{% endblock content %}

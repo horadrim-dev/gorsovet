@@ -48,6 +48,8 @@
                                 {% include "events/search_dayevent.html" %}
                             {% elif result.model_name == "attachment" %}
                                 {% include "attachments/search_attachment.html" %}
+                            {% elif result.model_name == "deputat" %}
+                                {% include "deputaty/search_deputat_item.html" %}
                             {% endif %}
                         {% endwith %}
                     </div>

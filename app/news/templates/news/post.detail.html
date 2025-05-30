@@ -37,22 +37,12 @@
 
 {% block app_content %}
 
-    {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/flexslider/flexslider.css' %}">{% endaddtoblock %}
+    {% comment %}{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/flexslider/flexslider.css' %}">{% endaddtoblock %}
     {% addtoblock "js" %}<script src="{% static 'core/scripts/flexslider/jquery.flexslider-min.js' %}"></script>{% endaddtoblock %}
 
-    <div class="news-item detail">
-        {% comment %} <div class="row"> {% endcomment %}
+     <div class="news-item detail">
         {% if ADMIN_MODE or EDIT_MODE %}
             <div class="admin-panel">
-                {% comment %} {% if ADMIN_MODE %}
-                <div class="status-panel">
-                    {% if object.published %}
-                        <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Опубликовано"></i>
-                    {% else %}
-                        <i class="fa fa-eye-slash" data-toggle="tooltip" data-placement="top" data-original-title="Не опубликовано"></i>
-                    {% endif %}
-                </div>
-                {% endif %} {% endcomment %}
                 {% if ADMIN_MODE %}
                     <div id="publish-post">
                         <form action="{% url "news:admin" %}" data="post={{ object.id }}&action=toggle-publish-state">
@@ -76,7 +66,6 @@
                 {% endif %}
             </div>
         {% endif %}
-        {% comment %} </div> {% endcomment %}
         <div class="post-attributes">
             <div>
                 <span><i class="fa fa-calendar"></i> {{ object.published_at }}</span>
@@ -86,12 +75,6 @@
             </div>
             
             {% render_share_buttons url=object.get_absolute_url title=object.title image_src=object.thumb_src description=object.description|striptags|truncatechars_html:150 style="list" %}
-                {% comment %} <div class="btn-group social-group social-colors">
-                    <a target="_blank" href="#" data-social="share-facebook" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook text-s circle"></i></a>
-                    <a target="_blank" href="#" data-social="share-twitter" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter text-s circle"></i></a>
-                    <a target="_blank" href="#" data-social="share-google" data-toggle="tooltip" data-placement="top" title="Google+"><i class="fa fa-google-plus text-s circle"></i></a>
-                    <a target="_blank" href="#" data-social="share-linkedin" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa fa-linkedin text-s circle"></i></a>
-                </div> {% endcomment %}
         </div>
         <hr class="b space m" />
         
@@ -104,7 +87,6 @@
             <div class="taggit-labels taggit-list">
                 {% for tag in object.tags.all %}
                 <span class="taggit-tag item-tag">
-                    {% comment %} <i class="fa fa-tag"></i> {% endcomment %}
                     <a href="{% url "news:index" %}?tags={{ tag.name | prepare_tag_name }}">
                         {{tag}}
                     </a>
@@ -112,9 +94,102 @@
                 {% endfor %}
             </div>
         </div>
+    </div> {% endcomment %}
+
+
+    {% addtoblock "css" %}<link type="text/css" rel="stylesheet" href="{% static 'core/components/lightgallery/css/lightgallery.min.css'%}" />{% endaddtoblock %}
+    {% addtoblock "css" %}<link type="text/css" rel="stylesheet" href="{% static 'core/components/lightgallery/css/lg-transitions.min.css'%}" />{% endaddtoblock %}
+    {% addtoblock "css" %}<link type="text/css" rel="stylesheet" href="{% static 'core/components/lightgallery/css/lg-fb-comment-box.min.css'%}" />{% endaddtoblock %}
+
+    {% addtoblock "js" %}<script defer type="text/javascript" src="{% static 'core/components/lightgallery/js/lightgallery.min.js' %}"></script>{% endaddtoblock %}
+    {% addtoblock "js" %}<script defer type="text/javascript" src="{% static 'core/components/lightgallery/js/lg-thumbnail.min.js' %}"></script>{% endaddtoblock %}
+    {% addtoblock "js" %}<script defer type="text/javascript" src="{% static 'core/components/lightgallery/js/lg-video.min.js' %}"></script>{% endaddtoblock %}
+
+    
+    {% render_model_block object %}
+    <div class="news-item detail news-block-three blog-single-post">
+        <div class="inner-box">
+            <div class="content">
+                <div class="post-attributes">
+                    <div>
+                        <span><i class="fa fa-calendar"></i> {{ object.published_at }}</span>
+                        {% if object.category %}
+                            <span><i class="fa fa-bookmark"></i> <a href="{% url "news:index" %}?category={{ object.category.id }}">{{ object.category.title }}</a></span>
+                        {% endif %}
+                    </div>
+                    
+                    {% render_share_buttons url=object.get_absolute_url title=object.title image_src=object.thumb_src description=object.description|striptags|truncatechars_html:150 style="list" %}
+                </div>
+                <hr class="b space m" />
+
+                {% spaceless %}
+                <div id="news-detail-gallery">
+                    {% if object.cover_image %}
+                    <a href="{{ object.cover_image.url }}" >
+                        <img class="img-fluid" src="{{ object.thumb_src }}">
+                    </a>
+                    {% endif %}
+                    {% for photo in object.images %}
+                        <a href="{{ photo.image.url }}">
+                            {% comment %} <img src="{% thumbnail photo.image "117x117" upscale crop %}" /> {% endcomment %}
+                            <img src="{{ photo.thumb_src }}" />
+                        </a>
+                    {% endfor %}
+                </div>
+                {% endspaceless %}
+
+                {% for video in object.videos %}
+                    {% if video.external_url %}
+                        <div class="video">
+                            <iframe src="{{ video.external_url }}"  
+                                width=360 height=240
+                                frameborder="0" allowfullscreen="true"
+                            ></iframe>
+                        </div>
+                    {% else %}
+                        <div class="video">
+                            <video controls 
+                                width=360 height=240
+                                {% comment %} {% if instance.poster %} poster="{{ instance.poster.url }}"{% endif %}> {% endcomment %}
+                                {% with video.videofile.extension as ext %}
+                                    <source src="{{ video.videofile.url }}" type="video/{{ ext }}">
+                                {% endwith %}
+                            </video>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="clearfix"></div>
+
+                {% comment %} </div> {% endcomment %}
+                {% if object.description %}
+                    <div class="text">{{ object.description|safe}}</div>
+                {% endif %}
+            </div>
+            <div class="post-tag">
+                <div>
+                    {% comment %} <span class="tag-title">Теги</span> {% endcomment %}
+                    <div class="tag-row">
+                        <div class="taggit-labels taggit-list">
+                            {% for tag in object.tags.all %}
+                            <span class="taggit-tag item-tag">
+                                {% comment %} <i class="fa fa-tag"></i> {% endcomment %}
+                                <a href="{% url "news:index" %}?tags={{ tag.name | prepare_tag_name }}">
+                                    {{tag}}
+                                </a>
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {% comment %} {% render_share_buttons url=object.get_absolute_url title=object.title image_src=object.thumb_src description=object.description|striptags|truncatechars_html:150 style="list" %} {% endcomment %}
+
+            </div>
+        </div>
     </div>
 
-    {% comment %} <hr class="f-top"> {% endcomment %}
+    {% endrender_model_block %}
 
     <div class="title-base text-left">
         <h1>Другие новости</h1>
@@ -122,27 +197,26 @@
 
     <div class="flexslider carousel outer-navs">
         <ul class="slides">
-                {% comment %} <div class="row"> {% endcomment %}
-                    {% for obj in other_objects %}
-                        <li>
-                        {% comment %} <div class="col-md-4"> {% endcomment %}
-                            {% include 'news/includes/post.item.vertical.html' %}
-                        {% comment %} </div> {% endcomment %}
-                        </li>
-                    {% endfor %}
-                {% comment %} </div> {% endcomment %}
-                {% comment %} <div class="advs-box advs-box-top-icon boxed-inverse">
-                    <i class="icon circle im-fire-flame"></i>
-                    <h3>
-                        Content box
-                    </h3>
-                    <p class="big-text">
-                        Tincidunt integer eu augue augue nunc elit dolor luctus placerat scelerisque euismod iaculis eu lacus nunco.ly.
-                    </p>
-                </div> {% endcomment %}
+            {% for obj in other_objects %}
+                <li>
+                    {% include 'news/includes/post.item.vertical.html' %}
+                </li>
+            {% endfor %}
         </ul>
-    </div>             
+    </div>
 
 
+    {% addtoblock "js" %}
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            $("#news-detail-gallery").lightGallery({
+            plugins: [lgVideo],
+            mode: "lg-slide",
+            speed: 500,
+            margin: 100,
+            });
+        });
+        </script>
+    {% endaddtoblock %}
 
 {% endblock %}

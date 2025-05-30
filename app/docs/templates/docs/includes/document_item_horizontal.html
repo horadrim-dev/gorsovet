@@ -1,5 +1,6 @@
 {% load cms_tags core_tags easy_thumbnails_tags %}
 
+
 {% render_model_block obj %}
 <div class="docs-item horizontal advs-box advs-box-side-icon">
     <div class="caption-box">
@@ -10,16 +11,30 @@
                 </div>
             </div>
             <div class="col-xs-8">
+                
+
+
                 {% if obj.category %}
                 <span class="category"><i class="fa fa-bookmark"></i> <a href="{% url "docs:index" %}?category={{ obj.category.id }}">{{ obj.category.name }}</a></span>
                 {% endif %}
-                <a href="{{ obj.url }}">
+                <a href="{{ obj.get_absolute_url }}">
                     {% comment %} <h4>{% if obj.document_type %}{{ obj.document_type }}{% endif %} {% if obj.number %}№{{ obj.number }}{% endif %} {% if obj.date %}от {{ obj.date }}{% endif %}</h4> {% endcomment %}
                     <h4>{{ obj.full_name }}</h4>
                 </a>
-                {% if obj.subname %}
-                <p>«{{ obj.subname }}»</p>
+                {% if obj.canceled_by_documents.count %} 
+                    <span class="label label-danger">Отменено</span>
+                    <div class="clear"></div>
+                    <br>
                 {% endif %}
+                {% if obj.subname %}
+                <p>«{{ obj.subname }}»</p><br>
+                {% endif %}
+
+                {% if obj.place_publication %}
+                    <h6>Опубликовано: {{ obj.place_publication }} </h6>
+                {% endif %}
+
+                {% if obj.tags.count %} 
                 <div class="tag-row">
                     <div class="taggit-labels taggit-list">
                         {% for tag in obj.tags.all %}
@@ -32,11 +47,15 @@
                         {% endfor %}
                     </div>
                 </div>
+                {% endif %}
+
+                {% include "docs/includes/document_item_related_base.html" with object=obj %}
+
             </div>
             <div class="col-xs-3 text-center">
                 <div class="download-container">
                     {% if obj.document_file %}
-                    <a href="{{ obj.url }}" class="dashed"><i class="fa fa-download"></i> Загрузить</a>
+                    <a href="{{ obj.url }}" class="dashed"><i class="fa fa-download"></i> Скачать</a>
                     <div class="file-attributes">
                         <span>.{{ obj.extension }} ({{ obj.document_file.size|filesizeformat }})</span>
                         {% comment %} <p>{{ obj.document_file.size|filesizeformat }}</p> {% endcomment %}

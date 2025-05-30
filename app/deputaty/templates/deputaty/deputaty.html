@@ -1,0 +1,17 @@
+{% extends 'deputaty/base.html' %}
+{% load cms_tags sekizai_tags static %}
+
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% block app_content %}
+
+
+{% comment %} {% if 'activity' in request.GET %} {% endcomment %}
+
+
+  {% include './includes/deputat_list.html' %}
+
+{% comment %} {% endif %} {% endcomment %}
+
+{% endblock app_content %}

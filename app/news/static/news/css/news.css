@@ -23,11 +23,12 @@
 .news-item {
   background-color: #fff !important;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
 }
 .news-item .readmore {
   margin-right: 1px;
 }
-.news-item.not-published {
+.news-item.not-published .news-item-content {
   background: #ffdbdb !important;
   border: 1px solid #ffa0a0;
 }
@@ -88,9 +89,13 @@
     width: 100%;
     cursor: pointer;
 }
+#news-filter label:hover {
+    color: var(--theme-text-color);
+}
 #news-filter input[type="radio"]:checked + label::before {
   content: "\f054";
   font: normal normal normal 14px/1 FontAwesome;
+    font-size: 14px;
   font-size: inherit;
   text-rendering: auto;
   padding-right: 10px;
@@ -98,10 +103,10 @@
 }
 
 #news-filter .tagbox span {
-    color: var(--main-color) !important;
+    color: var(--theme-color) !important;
     background: none;
     font-weight: 500;
-    border: 1px solid var(--main-color) !important;
+    border: 1px solid var(--theme-color) !important;
     border-radius: 20px !important;
 }
 
@@ -131,7 +136,8 @@
   position: relative;
   padding: 20px 30px;
   margin-bottom: 20px;
-  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.10);
+  /* box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.10); */
+  box-shadow: none;
 }
 ul.slides li .news-item {
   margin: 5px 10px !important;
@@ -149,11 +155,17 @@ ul.slides li .news-item {
 .news-item .post-status span.label {
   font-size: 14px;
 }
+.news-item.vertical {
+  padding-bottom: 20px;
+}
 .news-item.vertical .post-status span.label {
   font-size: 12px;
 }
 .tag-row.icon-row span:last-child:after{
   content: none !important;
+}
+.news-container .reset:hover {
+  color: var(--theme-color);
 }
 .news-container .reset, 
 .news-container .paginate-button, 
@@ -162,5 +174,34 @@ ul.slides li .news-item {
   border-radius: 10px;
 }
 .news-item .tag-row {
-  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+.news-item .item-tag {
+  background: var(--theme-secondary);
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 15px;
+  min-width: 100px;
+  display: inline-block;
+  text-align: center;
+}
+.news-item .item-tag:hover {
+  background: var(--theme-primary);
+}
+.news-item .item-tag a {
+  color: #fff;
+}
+#news-detail-gallery {
+  float:left;
+  margin: 0 10px 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  z-index: 99;
+  position: relative;
+}
+.news-item .video {
+  float:left;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }

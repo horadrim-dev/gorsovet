@@ -73,7 +73,7 @@ i.square,
 .tagbox span,
 .niche-box-post .block-infos .block-data,
 .header-base .title-base h1:before {
-    background-color: #2d73bc;
+    background-color: var(--main-color-2);
 }
 
 .navbar-inner .nav.ms-minimal li a:before,
@@ -739,7 +739,7 @@ hr {
 .grid-box>.grid-item.boxed-inverse,
 .row.vertical-row>div.boxed-inverse,
 .row.vertical-row>div.boxed {
-    padding: 50px;
+    padding: 10px;
 }
 
 [class*="col-md-"].boxed.small-padding,
@@ -1187,11 +1187,21 @@ footer .social-group {
 COMPONENTS
 -------------------------------------------------------------------
 */
+.list-group {
+    margin-bottom: 0 !important;
+}
+
+.accordion-list .list-group-item {
+    border-top: 0;
+}
 .accordion-list .list-group-item>a {
     font-weight: 400;
     padding-left: 20px;
+    margin-top: 0 !important;
 }
-
+.accordion-list .list-group-item:last-child {
+    border-bottom: none;
+}
 .accordion-list .list-group-item>a:before,
 .advs-box .btn-text:after,
 .box-steps .step-item:after {
@@ -1304,7 +1314,6 @@ table.table:not(.grid-table)>tbody>tr>th {
     border: none;
     border-bottom: 1px solid #b9b9b9;
     border-radius: 0;
-    background: none;
 }
 
 .comment-list .name {
@@ -1541,6 +1550,7 @@ div.adv-img p {
 
 .advs-box-top-icon:not(.boxed) {
     padding-top: 27px !important;
+    margin-top: 0 !important;
 }
 
 .advs-box-top-icon.boxed-inverse,
@@ -1585,6 +1595,9 @@ html body .advs-box-top-icon h3 {
 
 .list-items .list-item {
     border-bottom-style: solid;
+}
+.list-items .list-item.active {
+    font-weight: bold;
 }
 
 .list-items .list-item:first-child {

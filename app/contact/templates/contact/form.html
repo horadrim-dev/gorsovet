@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row box-steps">
             {% for step_title in STEP_TITLES %}
-            <div class="step-item col-md-4 
+            <div class="step-item col-md-3 
                 {% if forloop.counter == wizard.steps.step1 %}active
                 {% comment %} {% elif forloop.counter < wizard.steps.step1 %}done {% endcomment %}
                 {% endif %}

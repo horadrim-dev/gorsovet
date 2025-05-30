@@ -83,8 +83,8 @@ class Document(models.Model):
     # document_type = models.ForeignKey(DocumentType, on_delete=models.CASCADE,
     #                              verbose_name="Тип документа")
 
-    name = models.CharField("Название документа", max_length=512, default="Документ",
-                            help_text="Примеры: \"Приказ Минспорта РФ\" , \"Уставной документ\", и т.д.   Номер и дату в этом поле не указывайте")
+    name = models.CharField("Название документа", max_length=512, default="Решение",
+                            help_text="Примеры: \"Постановление\" , \"Уставной документ\", и т.д.   Номер и дату в этом поле не указывайте")
     number = models.CharField("Номер", max_length=32,
                               blank=True, null=True,
                               help_text="Укажите номер документа (если он есть)")
@@ -93,6 +93,19 @@ class Document(models.Model):
     subname = models.CharField("Описание документа", max_length=512,
                             blank=True, null=True,
                             help_text="Без внешних кавычек. Пример: Об утверждении правил перевозки детей. ")
+    place_publication = models.CharField("Место публикации", max_length=256,
+                              blank=True, null=True,
+                              help_text="Пример: газета \"Шахтерская правда\" №69")
+
+    cancel_docs = models.ManyToManyField("self", verbose_name="Отменяемые документы",
+                                         symmetrical=False,
+                                         related_name="canceled_by_docs",
+                                         blank=True)
+    change_docs = models.ManyToManyField("self", verbose_name="Изменяемые документы",
+                                         symmetrical=False,
+                                         related_name="changed_by_docs",
+                                         blank=True)
+
     document_file = FilerFileField(verbose_name="Файл документа", on_delete=models.CASCADE,
                                blank=True, null=True)
     extension = models.CharField(default="", max_length=16, blank=True, null=True,
@@ -117,6 +130,9 @@ class Document(models.Model):
 
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('docs:detail', args=[str(self.id)])
+
     def url(self):
         '''Формирует url для скачивания'''
         
@@ -136,7 +152,7 @@ class Document(models.Model):
         return " ".join([
             str(self.name),
             "№" + str(self.number) if self.number else "",
-            "от " + str(self.date) if self.date else "",
+            "от " + self.date.strftime("%d.%m.%Y") if self.date else "",
         ])
 
     @property
@@ -159,6 +175,21 @@ class Document(models.Model):
 
         return "fa-file-o"
 
+    def changing_documents(self):
+        '''Изменяемые документы'''
+        return self.change_docs.all()
+
+    def canceling_documents(self):
+        '''Отменяемые документы'''
+        return self.cancel_docs.all()
+
+    def changed_by_documents(self):
+        '''Документы изменяющие текущий документ'''
+        return self.changed_by_docs.all()
+
+    def canceled_by_documents(self):
+        '''Документы отменяющие текущий документ'''
+        return self.canceled_by_docs.all()
 
     class Meta:
         verbose_name = "документ"

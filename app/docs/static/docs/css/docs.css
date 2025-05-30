@@ -194,3 +194,38 @@ ul.slides li .docs-item {
   padding-left: 5px;
   padding-right: 5px;
 }
+.docs-container .list-group-item {
+  line-height: 1rem !important;
+  font-size: 16px !important;
+}
+.docs-container .list-group-item a::before {
+  top: 1rem !important;
+}
+.docs-container .list-group-item .inner {
+  font-size: 14px !important;
+}
+.docs-container .list-group-item.danger > a {
+  color: #d22a2a !important
+}
+.docs-container .list-group-item.warning > a {
+  color: #f09826 !important
+}
+.docs-container .list-group-item .related-wrapper {
+  padding: 15px 10px;
+}
+
+.docs-container .list-group-item .related {
+  display: inline;
+  background: var(--main-color-4);
+  border: 1px var(--main-color) solid;
+  border-radius: 15px;
+  padding: 10px 10px;
+  margin: 5px;
+}
+.docs-container .list-group-item .related:hover {
+  background: #fbfbfb;
+}
+.docs-container .document-item.detail .icon-box .fa {
+  font-size: 60px;
+  line-height: 90px;
+}

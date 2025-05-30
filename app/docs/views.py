@@ -71,13 +71,13 @@ class DocumentListView(FilterView):
 
 class DocumentDetailView(DetailView):
     template_name = 'docs/document_detail.html'
-    slug_field = 'id'
+    # slug_field = 'id'
     model = Document
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         context['added_breadcrumbs'] = [{'url':self.object.get_absolute_url, 'title':self.object.name}]
-        context['page_title'] = self.object.name
+        context['page_title'] = self.object.full_name
         return context
     
 

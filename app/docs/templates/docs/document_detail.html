@@ -7,109 +7,73 @@
 
 {% block app_content %}
 
-    <div class="news-item detail">
-        {% comment %} <div class="row"> {% endcomment %}
-        {% if ADMIN_MODE or EDIT_MODE %}
-            <div class="admin-panel">
-                {% comment %} {% if ADMIN_MODE %}
-                <div class="status-panel">
-                    {% if object.published %}
-                        <i class="fa fa-eye" data-toggle="tooltip" data-placement="top" data-original-title="Опубликовано"></i>
-                    {% else %}
-                        <i class="fa fa-eye-slash" data-toggle="tooltip" data-placement="top" data-original-title="Не опубликовано"></i>
-                    {% endif %}
+    {% render_model_block object %}
+    <div class="document-item detail">
+
+        <div class="row vertical-row">
+            <div class="col-md-1">
+                <div class="icon-box">
+                    <i class="icon fa {{ object.fa_icon }} text-lg"></i>
                 </div>
-                {% endif %} {% endcomment %}
-                {% if ADMIN_MODE %}
-                    <div id="publish-post">
-                    {% if object.published %}
-                        <button class="btn btn-border btn-lg " url="{% url "news:admin" %}" data="post={{ object.id }}&action=toggle-publish-state" type="button">
-                            <i class="fa fa-eye-slash"></i>Снять с публикации
-                        </button>
-                        {% csrf_token %}
-                    {% else %}
-                        <button class="btn btn-lg " url="{% url "news:admin" %}" data="post={{ object.id }}&action=toggle-publish-state" type="button">
-                            <i class="fa fa-eye"></i>Опубликовать
-                        </button>
-                    {% endif %}
-                    </div>
-                {% endif %}
-                {% if EDIT_MODE %}
-                    <div class="actions">
-                        {% render_model_block object %}
-                            <i class="fa fa-gear"></i>
-                        {% endrender_model_block %}
-                    </div>
-                {% endif %}
             </div>
-        {% endif %}
-        {% comment %} </div> {% endcomment %}
-        <div class="post-attributes">
-            <div>
-                <span><i class="fa fa-calendar"></i> {{ object.published_at }}</span>
+            <div class="col-md-8">
+
                 {% if object.category %}
-                    <span><i class="fa fa-bookmark"></i> <a href="{% url "news:index" %}?category={{ object.category.id }}">{{ object.category.title }}</a></span>
+                <span class="category"><i class="fa fa-bookmark"></i> <a href="{% url "docs:index" %}?category={{ object.category.id }}">{{ object.category.name }}</a></span>
+                <br>
                 {% endif %}
+
+                {% if object.subname %}
+                <h1>«{{ object.subname }}»</h1>
+                {% endif %}
+
+                {% if object.canceled_by_documents.count %} 
+                    <span class="label label-danger">Отменено</span>
+                    <div class="clear"></div>
+                    <br>
+                {% endif %}
+
+                {% if object.place_publication %}
+                    <h6>Опубликовано: {{ object.place_publication }} </h6>
+                {% endif %}
+
+                {% if object.tags.count %} 
+                <div class="tag-row">
+                    <div class="taggit-labels taggit-list">
+                        {% for tag in object.tags.all %}
+                        <span class="taggit-tag item-tag">
+                            {% comment %} <i class="fa fa-tag"></i> {% endcomment %}
+                            <a href="{% url "docs:index" %}?tags={{ tag.name | prepare_tag_name }}">
+                                {{tag}}
+                            </a>
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% include "docs/includes/document_item_related_base.html" with object=object %}
             </div>
-            
-            {% render_share_buttons url=object.get_absolute_url title=object.title image_src=object.thumb_src description=object.description|striptags|truncatechars_html:150 style="list" %}
-                {% comment %} <div class="btn-group social-group social-colors">
-                    <a target="_blank" href="#" data-social="share-facebook" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook text-s circle"></i></a>
-                    <a target="_blank" href="#" data-social="share-twitter" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter text-s circle"></i></a>
-                    <a target="_blank" href="#" data-social="share-google" data-toggle="tooltip" data-placement="top" title="Google+"><i class="fa fa-google-plus text-s circle"></i></a>
-                    <a target="_blank" href="#" data-social="share-linkedin" data-toggle="tooltip" data-placement="top" title="LinkedIn"><i class="fa fa-linkedin text-s circle"></i></a>
-                </div> {% endcomment %}
-        </div>
-        <hr class="b space m" />
-        
-        {% render_placeholder post.content 640 %}
-            
-        <div class="clear"></div>
+            <div class="col-md-3 text-center">
+                {% if object.document_file %}
+                <h1><a href="{{ object.url }}" class="dashed"><i class="fa fa-download"></i> Скачать</a></h1>
+                
+                <div class="file-attributes">
+                    <span>.{{ object.extension }} ({{ object.document_file.size|filesizeformat }})</span>
+                    <div class="hits">
+                        <i class="fa fa-download"></i> {{ object.hits }}
+                    </div>
+                </div>
+                {% endif %}
+                {% if object.document_url %}
+                <a href="{{ object.url }}" target="_blank"><i class="fa fa-external-link"></i> Открыть</a>
+                {% endif %}
 
-        <hr class="b space m" />
-        <div class="tag-row">
-            <div class="taggit-labels taggit-list">
-                {% for tag in object.tags.all %}
-                <span class="taggit-tag item-tag">
-                    {% comment %} <i class="fa fa-tag"></i> {% endcomment %}
-                    <a href="{% url "news:index" %}?tags={{ tag.name | prepare_tag_name }}">
-                        {{tag}}
-                    </a>
-                </span>
-                {% endfor %}
             </div>
         </div>
+
+
     </div>
-
-    {% comment %} <hr class="f-top"> {% endcomment %}
-
-    <div class="title-base text-left">
-        <h1>Другие новости</h1>
-    </div>
-
-    <div class="flexslider carousel outer-navs">
-        <ul class="slides">
-                {% comment %} <div class="row"> {% endcomment %}
-                    {% for obj in other_objects %}
-                        <li>
-                        {% comment %} <div class="col-md-4"> {% endcomment %}
-                            {% include 'news/includes/post.item.vertical.html' %}
-                        {% comment %} </div> {% endcomment %}
-                        </li>
-                    {% endfor %}
-                {% comment %} </div> {% endcomment %}
-                {% comment %} <div class="advs-box advs-box-top-icon boxed-inverse">
-                    <i class="icon circle im-fire-flame"></i>
-                    <h3>
-                        Content box
-                    </h3>
-                    <p class="big-text">
-                        Tincidunt integer eu augue augue nunc elit dolor luctus placerat scelerisque euismod iaculis eu lacus nunco.ly.
-                    </p>
-                </div> {% endcomment %}
-        </ul>
-    </div>             
-
-
+    {% endrender_model_block %}
 
 {% endblock %}

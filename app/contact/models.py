@@ -23,6 +23,9 @@ class ContactSettings(SingletonModel):
                                        default="Я соглашаюсь на обработку моих персональных данных")
     # userdata_checkbox_text = models.CharField("Текст галочки на форме данных пользователя", max_length=256,
     #     default="Я соглашаюсь на обработку моих персональных данных")
+    verification_form_text = HTMLField("Текст на форме с кодом подтверждения", configuration='CKEDITOR_SETTINGS_POST', default="")
+    verification_form_title = models.CharField("Название этапа с подтверждением кодом", max_length=256,
+        default="Подтвердите данные")
     message_title = models.CharField("Название этапа заполнения обращение", max_length=256,
         default="Заполните и отправьте обращение")
     message_form_text = HTMLField("Текст на форме заполнения обращения ", configuration='CKEDITOR_SETTINGS_POST', default="")

@@ -18,16 +18,17 @@ class PostIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare(self, obj):    
         self.prepared_data = super().prepare(obj)
-        plugins = CMSPlugin.objects.filter(placeholder=obj.content)
-        text = ''              
-        for plugin in plugins: 
-            instance, _ = plugin.get_plugin_instance()
-            if hasattr(instance, 'search_fields'):
-                text += ''.join(getattr(instance, field) for field in instance.search_fields)
-        # text += obj.get_meta_description() or u''
-        # text += obj.get_title() or u''
-        # text += obj.get_meta_keywords() if hasattr(obj, 'get_meta_keywords') and obj.get_meta_keywords() else u''
-        self.prepared_data['text'] = text
+        # plugins = CMSPlugin.objects.filter(placeholder=obj.content)
+        # text = ''              
+        # for plugin in plugins: 
+        #     instance, _ = plugin.get_plugin_instance()
+        #     if hasattr(instance, 'search_fields'):
+        #         text += ''.join(getattr(instance, field) for field in instance.search_fields)
+        # # text += obj.get_meta_description() or u''
+        # # text += obj.get_title() or u''
+        # # text += obj.get_meta_keywords() if hasattr(obj, 'get_meta_keywords') and obj.get_meta_keywords() else u''
+        # self.prepared_data['text'] = text
+        self.prepared_data['text'] = obj.text
         return self.prepared_data       
 
     def get_model(self):

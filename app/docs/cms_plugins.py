@@ -2,7 +2,6 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
-from news.models import Post
 # from .forms import DocumentsPluginForm
 from .models import DocumentsPlugin, DocumentPlugin
 

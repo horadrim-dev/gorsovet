@@ -1,0 +1,44 @@
+{% extends 'deputaty/base.html' %}
+{% load cms_tags sekizai_tags static thumbnail %}
+
+
+{% block app_content %}
+
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/content-box.css' %}">{% endaddtoblock %}
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
+{% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/magnific-popup.css' %}">{% endaddtoblock %}
+{% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.magnific-popup.min.js' %}"></script>{% endaddtoblock %}
+
+  <a href="#" class="btn-text" onclick="window.history.back()" style="margin-bottom: 30px;"><i class="fa fa-angle-left"></i> Назад</a>
+
+  {% render_model_block object %}
+      <div class="row">
+        <div class="col-md-4">
+          {% if object.photo %}
+          <a class="lightbox" data-href="{{ object.photo.url }}" title="">
+              <img src="{% thumbnail object.photo 600x600 crop %}" alt="" class="align-center ">
+          </a>
+          {% else %}
+          <i class="fa fa-user-o text-xl"></i>
+          {% endif %}
+        </div>
+        <div class="col-md-8">
+            <h1>
+              {{ object.name }}
+            </h1>
+            <hr>
+              {% for sozyv in object.sozyvy.all %}
+                <div class="list-items">
+                  <div class="list-item">
+                    <b>{{ sozyv.name }}</b> ({{ sozyv.period }})
+                  </div>
+                </div>
+              {% endfor %}
+            <hr>
+            <p>{{ object.description|safe }}</p>
+        </div>
+      </div>
+  {% endrender_model_block %}
+
+
+{% endblock app_content %}

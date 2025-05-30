@@ -20,3 +20,4 @@ class DocumentAdmin(admin.ModelAdmin):
     form = DocumentForm
     list_display = ('short_name', 'number', 'date', 'subname', 'category', )
     list_filter = ["category",]
+    raw_id_fields = ('change_docs', 'cancel_docs')

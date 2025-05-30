@@ -21,7 +21,7 @@ class PostFilterSet(django_filters.FilterSet):
         queryset=PostCategory.objects.all(), 
         blank=True,
         empty_label='Все новости',
-        widget=forms.RadioSelect(attrs={'class':'hidden autoapply'})
+        widget=forms.RadioSelect(attrs={'class':'hidden d-none autoapply'})
         )
     tags = TagFilter(
         field_name='tags__name',

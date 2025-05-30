@@ -12,11 +12,12 @@
   {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/image-box.css' %}">{% endaddtoblock %} 
   {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'docs/css/docs.css' %}">{% endaddtoblock %} 
   {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/taggit_labels.css' %}">{% endaddtoblock %} 
+  {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/css/components.css' %}">{% endaddtoblock %}
 
   {% addtoblock "js" %}<script  src="{% static 'core/scripts/isotope.min.js' %}"></script>{% endaddtoblock %}
   {% addtoblock "js" %}<script  src="{% static 'core/scripts/bootstrap/js/bootstrap.popover.min.js' %}"></script>{% endaddtoblock %}
   {% addtoblock "js" %}<script src="{% static 'docs/js/docs.js' %}"></script>{% endaddtoblock %} 
-
+  {% addtoblock "js" %}<script  src="{% static 'core/scripts/jquery.tab-accordion.js' %}"></script>{% endaddtoblock %}
   {% comment %} {% if ADMIN_MODE %}
     {% addtoblock "js" %}<script src="{% static 'news/js/news-admin.js' %}"></script>{% endaddtoblock %} 
   {% endif %} {% endcomment %}

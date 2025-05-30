@@ -1,0 +1,74 @@
+{% load cms_tags sekizai_tags static %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="block">
+          <div class="list-items">
+              {% comment %} <p class="list-group-item active">Созывы</p> {% endcomment %}
+              
+              {% for sozyv in sozyv_list %}
+                <div class="list-item {% if sozyv.id == active_sozyv.id %}active{% endif %}">
+                  <a href="?sozyv={{ sozyv.pk }}">
+                    {{ sozyv.name }}
+                    <p>{{ sozyv.period }}</p>
+                  </a>
+                </div>
+              {% endfor %}
+          </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+
+      <h1>{{ active_sozyv.name }}</h1>
+      
+      <hr>
+
+      <div class="grid-list">
+        <div class="grid-box row">
+          {% for object in object_list %}
+            {% include "deputaty/includes/deputat_item.html" %}
+            {% cycle '' '' '' '<div class="clear"></div>' %}
+          {% empty %}
+          Сведений пока нет.
+          {% endfor %}
+        </div>
+      </div>
+      {% comment %} <div class="row">
+        {% for object in object_list %}
+          <div class="col-md-12">
+            {% render_model_block object %}
+            <div class="apparat-item">
+              <div class="advs-box advs-box advs-box-side-icon boxed-inverse">
+                <div class="row vertical-row">
+                  <div class="col-xs-3 col-lg-2 text-center">
+                    <div class="photo img-box">
+                              {% if object.photo %}
+                              <img src="{{ object.photo_thumb_src }}" alt="">
+                              {% else %}
+                              <i class="fa fa-user-o"></i>
+                              {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-xs-9 col-lg-10">
+                        <h3><a href="{% url 'structure:org-detail' object.id %}">{{ object.name }}</a></h3> 
+                      <h3>
+                          {{ object.name }}
+                      </h3>
+                      <hr class="space xs">
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endrender_model_block %}
+          </div>
+        {% empty %}
+        Сведений пока нет.
+        {% endfor %}
+      </div> {% endcomment %}
+
+
+    </div>
+  </div>
+</div>

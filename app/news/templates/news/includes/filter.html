@@ -1,17 +1,16 @@
 {% load sekizai_tags %}
 
 <form action="" id="news-filter" method="get" autocomplete="off">
-    <div class="block">
-        <div class="list-items">
-            <p class="list-group-item active">Категории</p>
-            
+    <div class="widget category-widget block">
+        <p class="list-group-item active">Категории</p>
+        <ul class="cat-list">
             {% for choice in filter.form.category %}
                 {{choice.tag}}
                 <label class="list-item" for="{{ choice.id_for_label }}">{{ choice.choice_label|safe }}</label>
             {% endfor %}
-        </div>
+        </ul>
     </div>
-    <div class="block">
+    {% comment %} <div class="block">
         <p class="list-group-item active">Дата</p>
         <div class="row">
             <div class="col-md-6">
@@ -22,18 +21,16 @@
                 {{filter.form.end_date}}
             </div>
         </div>
-    </div>
-    <div class="block">
-        <div class="list-group list-blog">
-            <p class="list-group-item active">Теги</p>
-            <div class="tagbox">
-                {{filter.form.tags}}
-                {% comment %} {% for choice in filter.form.tags %}
-                    {{ choice.tag}}
-                {% endfor %} {% endcomment %}
-                <div class="clear"></div>
+    </div> {% endcomment %}
+    <div class="block widget tag-widget">
+        <p class="list-group-item active">Теги</p>
+        <div class="tagbox tag-outer">
+            {{filter.form.tags}}
+            {% comment %} {% for choice in filter.form.tags %}
+                {{ choice.tag}}
+            {% endfor %} {% endcomment %}
+            <div class="clear"></div>
             </div>
-        </div>
     </div>
     {% comment %} <input type="submit" value="Применить" class="btn w-100" /> {% endcomment %}
     {% comment %} <input type="reset" class="btn btn-border"> 
@@ -42,3 +39,70 @@
     <a href="{% url "news:index" %}" class="reset btn btn-border w-100"><i class="fa fa-trash"></i> Сбросить</a>
     {% comment %} <input type="submit" value="Применить" class="hidden d-none" /> {% endcomment %}
 </form>
+
+
+
+
+                      <!-- Search -->
+                      {% comment %} <div class="widget search-box">
+                          <form method="post" action="contact.html">
+                              <div class="form-group">
+                                  <input type="search" name="search-field" value="" placeholder="Search" required="">
+                                  <button type="submit"><span class="icon fas fa-search"></span></button>
+                              </div>
+                          </form>
+                      </div> 
+                      
+                      <!-- Popular Posts -->
+                      <div class="widget news-widget-two">
+                          <h4 class="widget_title">Recent Posts</h4>
+
+                          <article class="post">
+                              <figure class="post-thumb"><a href="blog-details.html"><img src="assets/images/resource/image-89.jpg" alt=""></a></figure>
+                              <div class="comment"><i class="far fa-user"></i> by Kevin Martin</div>
+                              <div class="text"><a href="blog-details.html">Safe Driving is Only
+                                  Achieved by Time Spent
+                              </a></div>
+                          </article>
+
+                          <article class="post">
+                              <figure class="post-thumb"><a href="blog-details.html"><img src="assets/images/resource/image-90.jpg" alt=""></a></figure>
+                              <div class="comment"><i class="far fa-user"></i> by Kevin Martin</div>
+                              <div class="text"><a href="blog-details.html">Safe Driving is Only
+                                  Achieved by Time Spent
+                              </a></div>
+                          </article>
+                          
+                          <article class="post">
+                              <figure class="post-thumb"><a href="blog-details.html"><img src="assets/images/resource/image-91.jpg" alt=""></a></figure>
+                              <div class="comment"><i class="far fa-user"></i> by Kevin Martin</div>
+                              <div class="text"><a href="blog-details.html">Safe Driving is Only
+                                  Achieved by Time Spent
+                              </a></div>
+                          </article>
+
+                      </div>
+
+                      <!--Blog Category Widget-->
+                      <div class="widget category-widget">
+                          <h4 class="widget_title">Categories</h4>
+                          <ul class="cat-list">
+                              <li><a href="#">Driving</a></li>
+                              <li><a href="#">Private Driving</a></li>
+                              <li><a href="#">Safety</a></li>
+                              <li><a href="#">Licence</a></li>
+                              <li><a href="#">Driving Lessons</a></li>
+                          </ul>
+                      </div>
+                      
+                      <!-- Popular Tags -->
+                      <div class="widget tag-widget">
+                          <h4 class="widget_title">Tags</h4>
+                          <div class="tag-outer">
+                              <a href="#">Driving</a>
+                              <a href="#">Safety</a>
+                              <a href="#">Learn Driving</a>
+                              <a href="#">Car</a>
+                              <a href="#">Licence</a>
+                          </div>
+                      </div> {% endcomment %}

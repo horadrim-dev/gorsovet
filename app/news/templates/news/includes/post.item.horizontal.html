@@ -43,12 +43,10 @@
                     {% if obj.category %}
                     <span><i class="fa fa-bookmark"></i> <a href="{% url "news:index" %}?category={{ obj.category.id }}">{{ obj.category.title }}</a></span>
                     {% endif %}
-                    {% comment %} <span><i class="fa fa-pencil"></i><a>Admin</a></span> {% endcomment %}
                     <div class="tag-row">
                         <div class="taggit-labels taggit-list">
                             {% for tag in obj.tags.all %}
                             <span class="taggit-tag item-tag">
-                                {% comment %} <i class="fa fa-tag"></i> {% endcomment %}
                                 <a href="{% url "news:index" %}?tags={{ tag.name | prepare_tag_name }}">
                                     {{tag}}
                                 </a>
