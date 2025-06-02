@@ -11,8 +11,8 @@ from django.core.exceptions import ValidationError
 from .models import ContactSettings
 from filer.fields.file import FilerFileField
 from django.core.validators import FileExtensionValidator
-from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV2Checkbox
+# from captcha.fields import ReCaptchaField
+# from captcha.widgets import ReCaptchaV2Checkbox
 import random
 
 class ContactForm(forms.Form):
