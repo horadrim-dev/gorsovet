@@ -443,8 +443,6 @@ FILER_ALLOW_REGULAR_USERS_TO_ADD_ROOT_FOLDERS = True
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SECURE = False
 CORS_ALLOWED_ORIGINS = env('CORS_ALLOWED_ORIGINS')
-CORS_ORIGIN_ALLOW = True
-CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_WHITELIST = [
     'http://lidrekon.ru',  # accessibility
     'https://lidrekon.ru',  # accessibility
