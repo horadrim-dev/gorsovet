@@ -530,8 +530,12 @@ html.special .caret::before {
   border-color: var(--main-color);
 }
 .anchor-target {
-    padding-top: 140px;
-    margin-top: -140px;
+    /* padding-top: 140px;
+    margin-top: -140px; */
+    display: block;
+    position: relative;
+    top: -140px;
+    visibility: hidden;
     -webkit-background-clip: content-box;
     background-clip: content-box;
 }
@@ -558,4 +562,10 @@ html.special .caret::before {
 .deputaty-container {
     margin-top: 50px;
     margin-bottom: 50px;
+}
+a.anchor {
+    display: block;
+    position: relative;
+    top: -250px;
+    visibility: hidden;
 }
