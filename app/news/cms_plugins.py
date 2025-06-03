@@ -20,10 +20,14 @@ class NewsPlugin(CMSPluginBase):
         })
 
         if context['request'].user.is_authenticated:
-            context['object_list'] = Post.objects.all()[:instance.num_objects]
+            qs = Post.objects.all()
         else:
-            context['object_list'] = Post.objects.published()[:instance.num_objects]
+            qs = Post.objects.published()
 
+        if instance.category:
+            qs = qs.filter(category=instance.category)
+
+        context['object_list'] = qs[:instance.num_objects]
         return context
 
 

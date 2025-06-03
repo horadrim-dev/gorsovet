@@ -231,6 +231,8 @@ class VideoPost(models.Model):
 class NewsPlugin(CMSPlugin):
 
     num_objects = models.PositiveIntegerField("Количество новостей", default=3)
+    category = models.ForeignKey(PostCategory, on_delete=models.CASCADE, blank=True, null=True,
+                                 verbose_name="Категория")
 
     def generate_id(self):
         return str(uuid.uuid4().fields[-1])[:7]
