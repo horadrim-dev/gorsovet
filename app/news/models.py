@@ -236,3 +236,9 @@ class NewsPlugin(CMSPlugin):
 
     def generate_id(self):
         return str(uuid.uuid4().fields[-1])[:7]
+    
+    def get_absolute_url(self):
+        if self.category:
+            return self.category.get_absolute_url()
+        
+        return reverse("news:index")

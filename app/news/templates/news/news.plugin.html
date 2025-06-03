@@ -24,7 +24,7 @@
 </div>
 
 <div class="text-center">
-  <a href="{% url 'news:index' %}" class="btn-style-two bg-white">
+  <a href="{{ instance.get_absolute_url }}" class="btn-style-two bg-white">
     Все {% if instance.category %}{{ instance.category.title|lower }}{% else %}новости{% endif %}
   </a>
 </div>
