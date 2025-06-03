@@ -238,7 +238,7 @@ class AccordionPlugin(CMSPlugin):
 
 class ItemAccordionPlugin(CMSPlugin):
     """Модель плагина вкладки аккордеона"""
-    name = models.CharField("Название", max_length=128, )
+    name = models.CharField("Название", max_length=2056, )
 
     def __str__(self):
         return self.name
