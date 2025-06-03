@@ -1198,6 +1198,7 @@ COMPONENTS
     font-weight: 400;
     padding-left: 20px;
     margin-top: 0 !important;
+    line-height: 2.3rem;
 }
 .accordion-list .list-group-item:last-child {
     border-bottom: none;
