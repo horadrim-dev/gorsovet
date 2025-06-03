@@ -43,10 +43,10 @@
 <hr class="space m" />
 
 <div class="row pb-5">
-  <div id="news-sidebar" class="{% if news_filter_state == "hidden" %}hidden {% endif %}col-md-4 col-sm-12">
+  <div id="news-sidebar" class="{% if news_filter_state == "hidden" %}d-none {% endif %}col-md-3 col-sm-12">
     {% include './includes/filter.html' %}
   </div>
-  <div id="news-content" class="col-md-12 {% if news_filter_state == "visible" %}col-md-8{% endif %} col-sm-12">
+  <div id="news-content" class="col-md-12 {% if news_filter_state == "visible" %}col-md-9{% endif %} col-sm-12">
     {# классы настроены так, чтобы при сворачивании фильтра этот блок расширялся #}
 
     {% if news_list_layout == "grid" %}

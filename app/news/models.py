@@ -104,10 +104,10 @@ class Post(models.Model):
     # def has_content_plugins(self):
     #     return CMSPlugin.objects.filter(placeholder_id=self.content_id).count()
     
-    # @property
-    # def poster(self):
-    #     if self.cover_image:
-    #         return {"type": "image", "image": self.cover_image }
+    @property
+    def poster(self):
+        if self.cover_image:
+            return {"type": "image", "image": self.cover_image }
 
     #     plugin = CMSPlugin.objects.filter(placeholder_id=self.content_id, 
     #                                       plugin_type__in=POSTER_PLUGINS) \

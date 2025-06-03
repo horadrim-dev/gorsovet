@@ -18,8 +18,10 @@ class BackgroundSectionPlugin(CMSPluginBase):
     fieldsets = (
         (None, {
             'fields': [
-                ('title', 'title_align'),
-                ('padding_top', 'padding_bottom'),
+                'title', 
+                'title_align',
+                'padding_top', 
+                'padding_bottom',
                 'container_type',
                 'background_color',
                 'css_classes',

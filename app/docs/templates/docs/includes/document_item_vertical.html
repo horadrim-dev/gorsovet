@@ -6,11 +6,11 @@
         {% endif %}
 
         <h4>
-            {% if obj.document_file %}
-            <a href="{{ obj.url }}" class="dashed">
+            {% comment %} {% if obj.document_file %} {% endcomment %}
+            <a href="{{ obj.get_absolute_url }}" class="dashed">
                 {{ obj.full_name }}
             </a>
-            {% endif %}
+            {% comment %} {% endif %} {% endcomment %}
             {% if obj.document_url %}
             <a href="{{ obj.url }}" target="_blank">{{ obj.full_name }} <i class="fa fa-external-link text-s"></i> </a>
             {% endif %}

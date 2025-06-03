@@ -2857,7 +2857,7 @@ GLOBAL
 
 .header-title, .header-animation {
     text-align: center;
-    height: 350px;
+    height: 250px;
     background-position: center center;
     background-size: cover;
     overflow: hidden;

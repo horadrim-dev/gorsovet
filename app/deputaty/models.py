@@ -2,6 +2,7 @@ from django.db import models
 from djangocms_text_ckeditor.fields import HTMLField
 from core.models import OrderedModel
 from filer.fields.image import FilerImageField
+from django.urls import reverse
 from easy_thumbnails.files import get_thumbnailer
 
 class DeputatyBase(OrderedModel):
@@ -26,7 +27,14 @@ class Sozyv(DeputatyBase):
             )
 
     def __str__(self):
-        return self.name
+        return "{} ({})".format(self.name, self.period)
+
+    @property
+    def fullname(self):
+        return self.__str__()
+
+    def get_absolute_url(self):
+        return "{}?sozyv={}".format(reverse('deputaty:index'), str(self.id))
 
     class Meta:
         ordering = ['order' ]

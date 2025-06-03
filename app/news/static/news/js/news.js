@@ -43,7 +43,7 @@
 
         $(".news-container #filter-toggler").click(function(){
             $("#news-content").toggleClass("col-md-9").toggleClass("col-md-12");
-            $("#news-sidebar").toggleClass("d-none").toggleClass("col-md-3"); 
+            $("#news-sidebar").toggleClass("d-none"); //.toggleClass("col-md-3"); 
 
             if ($("#news-sidebar").hasClass("d-none")) {
                 setCookie('news_filter_state', "hidden", 7, path=$(this).attr("path"));

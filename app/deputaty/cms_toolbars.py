@@ -30,7 +30,7 @@ class DeputatyToolbar(CMSToolbar):
             url=admin_reverse('deputaty_sozyv_changelist')
         )
 
-        # self.toolbar.add_modal_button(
-        #     name='Документ', 
-        #     url=admin_reverse('docs_document_add'),
-        #     )
+        self.toolbar.add_modal_button(
+            name='Депутат', 
+            url=admin_reverse('deputaty_deputat_add'),
+            )
