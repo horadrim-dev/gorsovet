@@ -4984,7 +4984,7 @@ TITLE MODERN
         margin: -1px;
         display: inline-block;
         /* border-bottom: 1px solid #6A4D8F; */
-        white-space: nowrap;
+        /* white-space: nowrap; */
         padding-bottom: 10px;
     }
 
