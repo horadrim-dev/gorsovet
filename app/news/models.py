@@ -3,6 +3,7 @@ from django.db import models
 from filer.fields.image import FilerImageField, FilerFileField
 from djangocms_text_ckeditor.fields import HTMLField
 from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 from django.urls import reverse
 from cms.models.pluginmodel import CMSPlugin
 # from cms.models.fields import PlaceholderField
@@ -97,7 +98,12 @@ class Post(models.Model):
             # заполняем алиас
             self.alias = slugify_rus(self.title)
 
-        super().save(*args, **kwargs)
+        try: # catch error "same alias exists"
+            super().save(*args, **kwargs)
+        except IntegrityError:
+            self.alias += "_"
+            return self.save(*args, **kwargs)
+        
 
     def pubdate_has_arrived(self):
         return False if self.published_at > datetime.date.today() else True
