@@ -3,7 +3,6 @@ from .models import *
 from .forms import PostForm, PostCategoryForm
 from cms.admin.placeholderadmin import PlaceholderAdminMixin
 
-
 class PhotoPostInline(admin.TabularInline):
     model = PhotoPost
     exclude = ['created_at', 'updated_at']
@@ -14,6 +13,11 @@ class VideoPostInline(admin.TabularInline):
     exclude = ['created_at', 'updated_at']
     extra = 1
 
+class AttachmentPostInline(admin.TabularInline):
+    model = AttachmentPost
+    exclude = ['plugin', 'extension','hits', 'created_at', 'updated_at']
+    extra = 1
+
 @admin.register(Post)
 class PostAdmin( PlaceholderAdminMixin, admin.ModelAdmin):
     # поле alias будет автоматически заполнено на основе заголовка
@@ -21,7 +25,7 @@ class PostAdmin( PlaceholderAdminMixin, admin.ModelAdmin):
     #     "alias" : ("title",)
     # 
     form = PostForm
-    inlines = (PhotoPostInline, VideoPostInline)
+    inlines = (PhotoPostInline,  AttachmentPostInline, VideoPostInline)
     exclude = [ 'alias']
 
 @admin.register(PostCategory)

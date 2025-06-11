@@ -112,9 +112,9 @@
             <div class="content">
                 <div class="post-attributes">
                     <div>
-                        <span><i class="fa fa-calendar"></i> {{ object.published_at }}</span>
+                        <span class="attr"><i class="fa fa-calendar"></i> {{ object.published_at }}</span>
                         {% if object.category %}
-                            <span><i class="fa fa-bookmark"></i> <a href="{% url "news:index" %}?category={{ object.category.id }}">{{ object.category.title }}</a></span>
+                            <span class="attr"><i class="fa fa-bookmark"></i> <a href="{% url "news:index" %}?category={{ object.category.id }}">{{ object.category.title }}</a></span>
                         {% endif %}
                     </div>
                     
@@ -165,6 +165,12 @@
                 {% if object.description %}
                     <div class="text">{{ object.description|safe}}</div>
                 {% endif %}
+
+                <div class="clearfix"></div>
+                <hr class="b space m" />
+
+                {% include 'attachments/attachments.html' with object_list=object.attachments %}
+
             </div>
             <div class="post-tag">
                 <div>

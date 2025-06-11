@@ -76,6 +76,9 @@
   display: flex;
   justify-content: space-between;
 }
+.news-item.detail .post-attributes .attr{
+  margin: 10px;
+}
 .actions-panel > div {
   display: inline-block;
 }

@@ -14,6 +14,7 @@ import datetime
 from core.utils import slugify_rus
 import locale
 from easy_thumbnails.files import get_thumbnailer
+from attachments.models import Attachment
 
 class ContentManager(models.Manager):
 
@@ -155,6 +156,9 @@ class Post(models.Model):
     def videos(self):
         return self.videopost_set.all()
 
+    def attachments(self):
+        return self.attachmentpost_set.all()
+
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
@@ -227,6 +231,16 @@ class VideoPost(models.Model):
         verbose_name = "Видео"
         verbose_name_plural = "Видео"
         ordering = ['-created_at']
+
+
+class AttachmentPost(Attachment):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    plugin = models.NOT_PROVIDED
+
+    class Meta:
+        verbose_name = "вложение"
+        verbose_name_plural = "вложения"
+        ordering = ["-updated_at"]
 
 class NewsPlugin(CMSPlugin):
 
