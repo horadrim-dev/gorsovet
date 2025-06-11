@@ -33,6 +33,10 @@ class PostCategory(models.Model):
         verbose_name = "категория"
         verbose_name_plural = "категории"
 
+    @property
+    def name(self):
+        return self.title
+
     def get_absolute_url(self):
         return "{}?category={}".format(reverse("news:index"), self.id) 
     
