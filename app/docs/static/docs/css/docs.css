@@ -229,3 +229,6 @@ ul.slides li .docs-item {
   font-size: 60px;
   line-height: 90px;
 }
+.docs-container .accordion-list .list-group-item > a {
+  line-height: unset !important;
+}
