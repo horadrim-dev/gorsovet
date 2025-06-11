@@ -142,7 +142,7 @@ INSTALLED_APPS = [
     'news',
     # 'djangocms_picture', # использовано в medialer
     # 'djangocms_video', # использовано в medialer
-    'medialer',
+    # 'medialer',
     # 'structure',
     'docs',
     'contact',
