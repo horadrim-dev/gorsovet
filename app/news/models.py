@@ -2,8 +2,7 @@ from email.policy import default
 from django.db import models
 from filer.fields.image import FilerImageField, FilerFileField
 from djangocms_text_ckeditor.fields import HTMLField
-from django.core.exceptions import ValidationError
-from django.db import IntegrityError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.urls import reverse
 from cms.models.pluginmodel import CMSPlugin
 # from cms.models.fields import PlaceholderField
@@ -16,6 +15,7 @@ from core.utils import slugify_rus
 import locale
 from easy_thumbnails.files import get_thumbnailer
 from attachments.models import Attachment
+import random
 
 class ContentManager(models.Manager):
 
@@ -98,11 +98,15 @@ class Post(models.Model):
             # заполняем алиас
             self.alias = slugify_rus(self.title)
 
-        try: # catch error "same alias exists"
-            super().save(*args, **kwargs)
-        except IntegrityError:
-            self.alias += "_"
-            return self.save(*args, **kwargs)
+            # проверяем что таких постов с таким алиасом нет
+            try:
+                qs = Post.objects.get(alias=self.alias)
+            except ObjectDoesNotExist:
+                pass
+            else:
+                self.alias += ''.join(random.choices('0123456789', k=6))
+
+        super().save(*args, **kwargs)
         
 
     def pubdate_has_arrived(self):
