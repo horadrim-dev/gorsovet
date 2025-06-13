@@ -83,19 +83,23 @@ class Document(models.Model):
     # document_type = models.ForeignKey(DocumentType, on_delete=models.CASCADE,
     #                              verbose_name="Тип документа")
 
-    name = models.CharField("Название документа", max_length=512, default="Решение",
+    name = models.CharField("Название документа", max_length=2056, default="Решение",
                             help_text="Примеры: \"Постановление\" , \"Уставной документ\", и т.д.   Номер и дату в этом поле не указывайте")
     number = models.CharField("Номер", max_length=32,
                               blank=True, null=True,
                               help_text="Укажите номер документа (если он есть)")
     date = models.DateField("Дата", blank=True, null=True,
                             help_text="Укажите дату документа (если она есть)")
-    subname = models.CharField("Описание документа", max_length=512,
+    subname = models.CharField("Описание документа", max_length=2056,
                             blank=True, null=True,
                             help_text="Без внешних кавычек. Пример: Об утверждении правил перевозки детей. ")
     place_publication = models.CharField("Место публикации", max_length=256,
                               blank=True, null=True,
                               help_text="Пример: газета \"Шахтерская правда\" №69")
+    
+    
+    changed_by = models.CharField("Изменено (ТОЛЬКО ДЛЯ ИМПОРТА СТАРЫХ ДАННЫХ)", max_length=2056,
+                            blank=True, null=True)
 
     cancel_docs = models.ManyToManyField("self", verbose_name="Отменяемые документы",
                                          symmetrical=False,
