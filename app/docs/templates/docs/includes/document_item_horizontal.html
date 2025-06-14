@@ -41,6 +41,10 @@
                     <h6>Опубликовано: {{ obj.place_publication }} </h6>
                 {% endif %}
 
+                {% if obj.changed_by %}
+                    <h6>Изменено/Отменено: {{ obj.changed_by }} </h6>
+                {% endif %}
+
                 {% if obj.tags.count %} 
                 <div class="tag-row">
                     <div class="taggit-labels taggit-list">
