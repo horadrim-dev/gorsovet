@@ -42,7 +42,7 @@
                 {% endif %}
 
                 {% if obj.changed_by %}
-                    <h6>Изменено/Отменено: {{ obj.changed_by }} </h6>
+                    <h6>{{ obj.changed_by }}</h6>
                 {% endif %}
 
                 {% if obj.tags.count %} 
