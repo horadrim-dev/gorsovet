@@ -198,7 +198,7 @@ class Document(models.Model):
     class Meta:
         verbose_name = "документ"
         verbose_name_plural = "документы"
-        ordering = ["-published_at"]
+        ordering = ["-published_at", "-number"]
 
 
 
