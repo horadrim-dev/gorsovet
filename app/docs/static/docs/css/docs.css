@@ -218,7 +218,7 @@ ul.slides li .docs-item {
 }
 
 .list-group-item .related {
-  display: inline;
+  display: inline-block;
   background: var(--main-color-4);
   border: 1px var(--main-color) solid;
   border-radius: 15px;
