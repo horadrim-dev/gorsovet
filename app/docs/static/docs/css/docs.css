@@ -215,6 +215,7 @@ ul.slides li .docs-item {
 }
 .list-group-item .related-wrapper > a {
   display: block;
+  margin: 5px;
 }
 
 .list-group-item .related {
@@ -223,7 +224,6 @@ ul.slides li .docs-item {
   border: 1px var(--main-color) solid;
   border-radius: 15px;
   padding: 10px 10px;
-  margin: 5px;
 }
 .docs-container .list-group-item .related:hover {
   background: #fbfbfb;
