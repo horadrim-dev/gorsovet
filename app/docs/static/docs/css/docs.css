@@ -213,6 +213,9 @@ ul.slides li .docs-item {
 .list-group-item .related-wrapper {
   padding: 15px 10px;
 }
+.list-group-item .related-wrapper > a {
+  display: block;
+}
 
 .list-group-item .related {
   display: inline;
