@@ -3240,7 +3240,7 @@ li > a > .plus-times:before {
     }
 
 .scroll-top-mobile:before {
-    top: -4.5px;
+    top: -8px;
     left: -2px;
     transform: scale(1.2) rotate(-45deg);
 }
