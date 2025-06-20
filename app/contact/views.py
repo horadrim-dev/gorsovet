@@ -83,17 +83,15 @@ class ContactWizard(SessionWizardView):
             # form.fields['first_form_field'].label = data1
 
             # SEND VERIFICATION EMAIL
-            if not self.request.session.get('stored_code_sent'):
-                data = {
-                    "stored_code" : self.request.session.get('stored_code')
-                }
-                self.send_email(
-                    subject_template=self.verification_subject_template,
-                    email_template=self.verification_email_template,
-                    recipient_list=[user_email, ],
-                    cleaned_data=data,
-                )
-                self.request.session['stored_code_sent'] = True
+            data = {
+                "stored_code" : self.request.session.get('stored_code')
+            }
+            self.send_email(
+                subject_template=self.verification_subject_template,
+                email_template=self.verification_email_template,
+                recipient_list=[user_email, ],
+                cleaned_data=data,
+            )
 
         return form
 
