@@ -78,7 +78,7 @@ class ContactWizard(SessionWizardView):
         if step is None:
             step = self.steps.current
         if step == '2': # verification
-            # email = self.get_cleaned_data_for_step('1')['email']
+            user_email = self.get_cleaned_data_for_step('1')['email']
             # form.fields['stored_code'] = self.stored_code
             # form.fields['first_form_field'].label = data1
 
@@ -87,21 +87,21 @@ class ContactWizard(SessionWizardView):
                 "stored_code" : self.request.session.get('stored_code')
             }
             self.send_email(
-                subject_template=self.subject_template,
-                email_template=self.email_template,
+                subject_template=self.verification_subject_template,
+                email_template=self.verification_email_template,
+                recipient_list=[user_email, ],
                 cleaned_data=data,
             )
         return form
 
 
-    def send_email(self, subject_template, email_template, cleaned_data, attachments=None):
+    def send_email(self, subject_template, email_template, cleaned_data, recipient_list=[], attachments=None):
         '''Функция рендерит данные в шаблон и отправляет email'''
 
         from_email = getattr(settings, 'DEFAULT_FROM_EMAIL')
         # recipient_list не работает по невыясненным причинам, поэтому адреса из 
         # конфигурации удалены. Список получателей указывается на хостинге в 
         # поле "Слать копии писем на адреса"
-        recipient_list = getattr(settings, 'RECIPIENTS_EMAIL') # + self.settings.recipient_list
 
         content_subtype = 'html' # 'plain'
 
@@ -149,11 +149,14 @@ class ContactWizard(SessionWizardView):
                        data['attachment_2'],
                        data['attachment_3']]
 
+        recipients = getattr(settings, 'RECIPIENTS_EMAIL') # + self.settings.recipient_list
+
         # отправляем email
         self.send_email(
             subject_template=self.subject_template,
             email_template=self.email_template,
             cleaned_data=data,
+            recipient_list=recipients,
             attachments=attachments
         )
         # рендерим страницу успешной регистрации обращения
