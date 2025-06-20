@@ -397,7 +397,8 @@ header .input-group-btn .btn {
 .advs-box .advs-box-content p,
 .advs-box-side-icon p,
 .maso-order i {
-    color: #7a7a7a;
+    /* color: #7a7a7a; */
+    color: #606060;
 }
 
 .white.btn:not(.btn-border),
@@ -663,7 +664,7 @@ LAYOUT & TYPOGRAPHY
 */
 body,
 p {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 23px;
 }
 
@@ -1385,8 +1386,8 @@ div.adv-img p {
 }
 
 .niche-box-post .text-m {
-    font-size: 18px !important;
-    line-height: 20px;
+    font-size: 22px !important;
+    line-height: 22px;
 }
 
 .niche-box-post h2 {

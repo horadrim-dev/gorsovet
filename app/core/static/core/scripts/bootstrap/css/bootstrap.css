@@ -2239,7 +2239,7 @@ select[multiple].input-lg {
   border: 1px solid transparent;
   /*white-space: nowrap;*/
   padding: 7px 12px 7px 12px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.42857143;
   border-radius: 2px;
   -webkit-user-select: none;
