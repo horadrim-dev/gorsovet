@@ -86,6 +86,8 @@ class ContactWizard(SessionWizardView):
             data = {
                 "stored_code" : self.request.session.get('stored_code')
             }
+            # todo: ПИСЬМО C КОДОМ ПРИХОДИТ ДВАЖДЫ!!!!!! 
+            # второе приходит после ввода кода на форме
             self.send_email(
                 subject_template=self.verification_subject_template,
                 email_template=self.verification_email_template,
