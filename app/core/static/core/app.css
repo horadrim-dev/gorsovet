@@ -443,7 +443,8 @@ a.dashed:hover {
 .form-control {
     border: 1px solid var(--main-color-3);
     border-radius: 10px;
-    color: #999;
+    color: #000;
+    font-size: 18px !important;
 }
 .form-control:focus {
     border-color: var(--main-color);
