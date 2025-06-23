@@ -799,7 +799,8 @@ HEADER AND MENUS
 
 .nav:not(.ms-rounded) li.active>a:before,
 .nav:not(.ms-rounded) li:hover>a:before {
-    width: 100%;
+    /* width: 100%; */
+    background-color: #bbbbbb3d;
 }
 
 .nav:not(.ms-rounded) li {
