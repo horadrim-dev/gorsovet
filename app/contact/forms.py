@@ -58,7 +58,7 @@ class UserDataForm(ContactForm):
             "placeholder": "Укажите ваш адрес электронной почты"
         })
     )
-    phone = PhoneNumberField(label="Телефон")
+    phone = PhoneNumberField(label="Телефон", region="RU")
             # "placeholder": "+7 1112223344"
 
     agree_pd = forms.BooleanField(
