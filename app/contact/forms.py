@@ -37,19 +37,19 @@ class UserDataForm(ContactForm):
     lastname = forms.CharField(label="Фамилия",
         widget=forms.TextInput(attrs={
             "class": "form-control",
-            "placeholder": "Укажите вашу фамилию"
+            "placeholder": "Фамилия"
         })
     )
     firstname = forms.CharField(label="Имя",
         widget=forms.TextInput(attrs={
             "class": "form-control",
-            "placeholder": "Укажите ваше имя"
+            "placeholder": "Имя"
         })
     )
     middlename = forms.CharField(label="Отчество",
         widget=forms.TextInput(attrs={
             "class": "form-control",
-            "placeholder": "Укажите ваше отчество"
+            "placeholder": "Отчество"
         })
     )
     birthday = forms.DateField(label="Дата рождения",
