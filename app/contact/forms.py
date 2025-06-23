@@ -52,6 +52,18 @@ class UserDataForm(ContactForm):
             "placeholder": "Укажите ваше отчество"
         })
     )
+    birthday = forms.DateField(label="Дата рождения",
+        # widget=forms.DateInput(attrs={
+        #     # "class": "form-control",
+        #     # "placeholder": "Укажите дату вашего рождения"
+        # })
+    )
+    address = forms.CharField(label="Адрес",
+        widget=forms.TextInput(attrs={
+            "class": "form-control",
+            "placeholder": "Укажите ваш фактический адрес проживания"
+        })
+    )
     email = forms.EmailField(label="Электронная почта",
         widget=forms.EmailInput(attrs={
             "class": "form-control",

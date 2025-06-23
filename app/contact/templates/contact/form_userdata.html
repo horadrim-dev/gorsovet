@@ -10,6 +10,28 @@
                 <div class="row vertical-row">
                     <div class="col-xs-3 text-right">
                         <p class="field-label {% if form.lastname.field.required %}required{% endif %}">
+                            <strong>ФИО</strong>
+                        </p>
+                    </div>
+                    <div class="col-xs-9">
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form.lastname }}{{ form.lastname.errors }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.firstname }}{{ form.firstname.errors }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.middlename }}{{ form.middlename.errors }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% comment %} <div class="grid-item col-md-12">
+                <div class="row vertical-row">
+                    <div class="col-xs-3 text-right">
+                        <p class="field-label {% if form.lastname.field.required %}required{% endif %}">
                             {{ form.lastname.label_tag }}
                         </p>
                     </div>
@@ -34,6 +56,33 @@
                         </p>
                     </div>
                     <div class="col-xs-9">{{ form.middlename }}{{ form.middlename.errors }}</div>
+                </div>
+            </div> {% endcomment %}
+            <div class="grid-item col-md-12">
+                <div class="row vertical-row">
+                    <div class="col-xs-3 text-right">
+                        <p class="field-label {% if form.birthday.field.required %}required{% endif %}">
+                            {{ form.birthday.label_tag }}
+                        </p>
+                    </div>
+                    <div class="col-xs-9">
+                        <input
+                            type="date"
+                            id="{{ form.birthday.id_for_label}}"
+                            name="{{ form.birthday.html_name}}"
+                        />
+                        {{ form.birthday.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="grid-item col-md-12">
+                <div class="row vertical-row">
+                    <div class="col-xs-3 text-right">
+                        <p class="field-label {% if form.address.field.required %}required{% endif %}">
+                            {{ form.address.label_tag }}
+                        </p>
+                    </div>
+                    <div class="col-xs-9">{{ form.address }}{{ form.address.errors }}</div>
                 </div>
             </div>
             <div class="grid-item col-md-12">
