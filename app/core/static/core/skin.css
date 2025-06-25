@@ -19,7 +19,7 @@ Table of contents
 
 */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+/* @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900'); */
 
 :root {
     /* --main-color: #4d6ce6; 
@@ -1238,7 +1238,7 @@ COMPONENTS
 .btn-lg,
 .btn-group-lg>.btn {
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .btn-sm i {

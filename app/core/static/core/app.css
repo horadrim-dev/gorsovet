@@ -14,12 +14,20 @@
     --menu-font-color: #fff;
 }
 @font-face {
-/* // название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
-font-family: "Montserrat"; 
-/* // адрес шрифта и тип  */
-src: url("./css/fonts/Montserrat-Light.ttf") format("truetype"); 
-font-style: normal; 
-font-weight: normal; 
+    /* // название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+    font-family: "GolosText"; 
+    /* // адрес шрифта и тип  */
+    src: url("./css/fonts/golos-text_regular.woff2") format("woff2"); 
+    /* src: url("./css/fonts/Montserrat-Light.ttf") format("truetype");  */
+    /* font-style: normal;  */
+    font-weight: 400; /*  normal */
+} 
+@font-face {
+    /* // название шрифта(чтобы не запутаться лучше указать название папки со шрифтом)  */
+    font-family: "GolosText"; 
+    /* // адрес шрифта и тип  */
+    src: url("./css/fonts/golos-text_bold.woff2") format("woff2"); 
+    font-weight: 700; /* bold */ 
 } 
 
 html {
@@ -75,7 +83,7 @@ ul.dropdown-menu:not(.side-menu.root-level) li a.has-icon i {
 /* МЕНЮ */
 .navbar-nav .nav-link,
 .navbar-nav #more > a {
-  font-size: 16px;
+  font-size: 18px;
 }
 header ul.nav:not(.ms-rounded) li>a:before {
     content: '';
