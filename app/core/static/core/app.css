@@ -439,7 +439,7 @@ a {
 }
 a:not(.nav-link,.btn-lg):hover {
     color: var(--main-color);
-    /* border-bottom: 1px solid var(--main-color); */
+    border-bottom: 1px solid var(--main-color);
 }
 a.dashed {
     border-bottom: dashed 1px var(--main-color-2);
