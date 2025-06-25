@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, JsonResponse, Http404
 from django.views.generic import ListView, DetailView, View
 from django.core.exceptions import PermissionDenied
-from .models import Post
+from .models import Post, PostCategory
 from django_filters.views import FilterView
 from .filtersets import PostFilterSet
 from cms.models.pluginmodel import CMSPlugin
@@ -55,6 +55,15 @@ class PostListView(PublishedObjectsMixin, FilterView):
 
         context['PAGINATE_BY_CHOICES'] = PAGINATE_BY_CHOICES
         context['active_paginate_by'] = self.get_paginate_by(self.queryset)
+
+        category = self.request.GET.get("category", None)
+        if category and isinstance(category, str) and category.isdigit():
+            try:
+                c = PostCategory.objects.get(id=category)
+                context['page_title'] = c.name
+            except:
+                pass
+
         return context
 
     def render_to_response(self, context, **response_kwargs):
