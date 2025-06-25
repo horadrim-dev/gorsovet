@@ -23,7 +23,7 @@
     >
 
         {% for type, icon, tooltip, url in socials %}
-        <a target="_blank" href="#"
+        <a target="_blank" class="nav-link" href="#"
             {% if type == 'share-button' %}
 
                 onclick="window.open('{{ url }}', '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=500,width=600')"
