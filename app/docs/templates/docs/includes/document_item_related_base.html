@@ -2,7 +2,7 @@
 
     {% if object.changing_documents.count %} 
     <div class="list-group-item">
-        <a href="#" class=""> Изменяемые документы</a>
+        <a href="#" class="no-underline"> Изменяемые документы</a>
         <div class="panel" style="display: none; overflow: hidden;">
             <div class="inner">
                 {% include "docs/includes/document_item_related_list.html" with objects=object.changing_documents %}
@@ -13,7 +13,7 @@
 
     {% if object.canceling_documents.count %}
     <div class="list-group-item">
-        <a href="#" class=""> Отменяемые документы</a>
+        <a href="#" class="no-underline"> Отменяемые документы</a>
         <div class="panel" style="display: none; overflow: hidden;">
             <div class="inner">
                 {% include "docs/includes/document_item_related_list.html" with objects=object.canceling_documents %}
@@ -24,7 +24,7 @@
 
     {% if object.changed_by_documents.count %} 
     <div class="list-group-item warning">
-        <a href="#" class=""> Список изменяющих документов</a>
+        <a href="#" class="no-underline"> Список изменяющих документов</a>
         <div class="panel" style="display: none; overflow: hidden;">
             <div class="inner">
                 {% include "docs/includes/document_item_related_list.html" with objects=object.changed_by_documents %}
@@ -35,7 +35,7 @@
 
     {% if object.canceled_by_documents.count %} 
     <div class="list-group-item danger">
-        <a href="#" class=""> Список отменяющих документов</a>
+        <a href="#" class="no-underline"> Список отменяющих документов</a>
         <div class="panel" style="display: none; overflow: hidden;">
             <div class="inner">
                 {% include "docs/includes/document_item_related_list.html" with objects=object.canceled_by_documents %}
