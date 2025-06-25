@@ -10,7 +10,7 @@
 	>
 	{% for plugin in instance.child_plugin_instances %}
 	<div class="list-group-item">
-		<a href="#" class=""> {{ plugin.name }}</a>
+		<a href="#" class="no-underline"> {{ plugin.name }}</a>
 		<div class="panel" style="display: none;">
 			<div class="inner">
 				{% render_plugin plugin %}

@@ -217,6 +217,9 @@ ul.slides li .docs-item {
   display: block;
   margin: 5px;
 }
+.list-group-item .related-wrapper > a:hover {
+  border-bottom: none !important;
+}
 
 .list-group-item .related {
   display: inline-block;

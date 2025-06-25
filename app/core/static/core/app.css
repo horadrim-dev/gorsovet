@@ -437,7 +437,7 @@ footer .navbar-brand-logo {
 a {
     color: var(--main-color-2)
 }
-a:not(.nav-link,.btn-lg, .img-box, .lightbox):hover {
+a:not(.nav-link,.btn-lg, .img-box, .lightbox, .no-underline):hover {
     color: var(--main-color);
     border-bottom: 1px solid var(--main-color);
 }
