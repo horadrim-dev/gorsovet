@@ -7,10 +7,29 @@
 
 <div class="news-container ">
 
+  {% if instance.layout == "list" %}
+
+    {% for obj in object_list %}
+
+    <div class="row">
+      <div class="col-xs-12">
+        {% render_model_block obj %}
+          {% include 'news/includes/post.item.horizontal.html' %}
+        {% endrender_model_block %}
+      </div>
+    </div>
+
+    {% empty %}
+      <p> Записей не найдено.</p>
+    {% endfor %}
+
+
+  {% elif instance.layout == "blocks" %}
+
   <div class="row">
     {% for obj in object_list %}
 
-      <div class="col-sm-6 col-md-4 ">
+      <div class="col-md-{{ instance.bootstrap_col }} ">
         {% render_model_block obj %}
           {% include 'news/includes/post.item.vertical.html' %}
         {% endrender_model_block %}
@@ -21,6 +40,7 @@
     {% endfor %}
 
   </div>
+  {% endif %}
 </div>
 
 <div class="text-center">

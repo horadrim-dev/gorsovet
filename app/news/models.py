@@ -256,11 +256,17 @@ class AttachmentPost(Attachment):
         verbose_name_plural = "вложения"
         ordering = ["-updated_at"]
 
+LAYOUT_CHOICES = [ ("blocks", "Блоки"), ("list", "Список") ] # (ширина колонки, кол-во элементов)
+BOOTSTRAP_COL_CHOICES = [ ("12", 1), ("6", 2), ("4", 3), ] # (ширина колонки, кол-во элементов)
 class NewsPlugin(CMSPlugin):
 
     num_objects = models.PositiveIntegerField("Количество новостей", default=3)
     category = models.ForeignKey(PostCategory, on_delete=models.CASCADE, blank=True, null=True,
                                  verbose_name="Категория")
+    layout = models.CharField("Макет отображения", max_length=16,
+                                     choices=LAYOUT_CHOICES, default=LAYOUT_CHOICES[0][0])
+    bootstrap_col = models.CharField("Количество блоков в строке", max_length=8,
+                                     choices=BOOTSTRAP_COL_CHOICES, default=BOOTSTRAP_COL_CHOICES[2][0])
 
     def generate_id(self):
         return str(uuid.uuid4().fields[-1])[:7]
