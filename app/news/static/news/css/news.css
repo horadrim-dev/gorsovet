@@ -116,10 +116,13 @@
 .news-container .layout-toggler[disabled] {
   opacity: .5;
 }
-.news-item.horizontal {
+.news-container.layout-blocks .news-item.horizontal {
   background: #fff;
   padding: 30px 20px 20px 20px;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.10);
+}
+.news-container.layout-list .news-item.horizontal hr {
+  display: none;
 }
 .news-item.horizontal .img-box {
   /* margin: 0 !important; */
