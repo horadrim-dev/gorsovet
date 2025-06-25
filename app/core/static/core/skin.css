@@ -1398,7 +1398,7 @@ div.adv-img p {
 }
 
 .advs-box h2 a {
-    color: #4C4C4C;
+    color: var(--main-color);
     font-weight: 400;
 }
 
