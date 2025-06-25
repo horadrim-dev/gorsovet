@@ -208,3 +208,7 @@ ul.slides li .news-item {
   margin-right: 10px;
   margin-bottom: 10px;
 }
+.news-item.no-borders {
+  box-shadow: none !important;
+  border: none !important;
+}

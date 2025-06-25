@@ -1,6 +1,7 @@
 {% load cms_tags core_tags easy_thumbnails_tags %}
 
 <div class="news-item horizontal niche-box-blog
+        {% if HIDE_BORDERS %} no-borders {% endif %}
         {% if not obj.pubdate_has_arrived %} too-early-to-publish {% endif %}
         {% if not obj.published %} not-published {% endif %}
      ">

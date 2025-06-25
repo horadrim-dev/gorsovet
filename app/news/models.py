@@ -256,7 +256,7 @@ class AttachmentPost(Attachment):
         verbose_name_plural = "вложения"
         ordering = ["-updated_at"]
 
-LAYOUT_CHOICES = [ ("blocks", "Блоки"), ("list", "Список") ] # (ширина колонки, кол-во элементов)
+LAYOUT_CHOICES = [ ("blocks", "Блоки"), ("list", "Список") ] 
 BOOTSTRAP_COL_CHOICES = [ ("12", 1), ("6", 2), ("4", 3), ] # (ширина колонки, кол-во элементов)
 class NewsPlugin(CMSPlugin):
 
@@ -267,6 +267,8 @@ class NewsPlugin(CMSPlugin):
                                      choices=LAYOUT_CHOICES, default=LAYOUT_CHOICES[0][0])
     bootstrap_col = models.CharField("Количество блоков в строке", max_length=8,
                                      choices=BOOTSTRAP_COL_CHOICES, default=BOOTSTRAP_COL_CHOICES[2][0])
+    hide_borders = models.BooleanField("Скрыть границу блоков", default=False)
+
 
     def generate_id(self):
         return str(uuid.uuid4().fields[-1])[:7]

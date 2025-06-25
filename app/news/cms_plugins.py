@@ -17,6 +17,7 @@ class NewsPlugin(CMSPluginBase):
         context.update({
             'id': instance.generate_id(),
             'instance': instance,
+            'HIDE_BORDERS': instance.hide_borders,
         })
 
         if context['request'].user.is_authenticated:
