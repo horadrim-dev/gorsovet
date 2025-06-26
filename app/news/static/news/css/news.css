@@ -116,7 +116,7 @@
 .news-container .layout-toggler[disabled] {
   opacity: .5;
 }
-.news-container.layout-blocks .news-item.horizontal {
+.news-container:not(.layout-list) .news-item.horizontal {
   background: #fff;
   padding: 30px 20px 20px 20px;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.10);
