@@ -215,4 +215,5 @@ ul.slides li .news-item {
 .news-item.no-borders {
   box-shadow: none !important;
   border: none !important;
+  padding: 0 !important;
 }
