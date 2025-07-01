@@ -1,4 +1,5 @@
 {{ object.name }}
+{{ object.full_name }}
 {{ object.number }}
 {{ object.date }} 
 {{ object.subname }}
