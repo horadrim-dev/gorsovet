@@ -1,4 +1,4 @@
-FROM python:3.9.2-alpine
+FROM python:3.8-alpine
 
 ENV PYTHONBUFFERED 1
 
@@ -7,9 +7,15 @@ WORKDIR /app
 
 # install psycopg2 dependencies
 RUN apk update && apk add --update py3-pip \
-	&& apk add postgresql-dev gcc freetype-dev python3-dev musl-dev jpeg-dev zlib-dev \
+	&& apk add  postgresql-dev gcc freetype-dev python3-dev musl-dev jpeg-dev zlib-dev \
 	graphviz-dev \
-	curl
+	curl 
+
+# mysql dependencies
+# RUN apk add pkg-config  
+# RUN apk add libmysqlclient-dev 
+RUN apk add mysql-dev
+
 
 	#python3-setuptools
 	

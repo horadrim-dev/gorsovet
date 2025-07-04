@@ -51,8 +51,8 @@ class Post(models.Model):
     title = models.CharField(
         default="", max_length=1000, verbose_name="Заголовок")
 
-    alias = models.SlugField(default="", blank=True, unique=True,
-                             max_length=1000, help_text="Краткое название транслитом через тире (пример: 'kratkoe-nazvanie-translitom'). Чем короче тем лучше. Для автоматического заполнения - оставьте пустым.")
+    alias = models.SlugField(default="", blank=True, # unique=True,
+                             max_length=512, help_text="Краткое название транслитом через тире (пример: 'kratkoe-nazvanie-translitom'). Чем короче тем лучше. Для автоматического заполнения - оставьте пустым.")
     category = models.ForeignKey(PostCategory, verbose_name="Категория", on_delete=models.SET_NULL, blank=True, null=True)
     published = models.BooleanField(default=True, verbose_name='Опубликовано')
     published_at = models.DateTimeField(default=datetime.datetime.now, 

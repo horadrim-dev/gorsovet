@@ -75,3 +75,10 @@ environment/test-prod.env
 environment/dev.env
 app/mediafiles
 app/staticfiles
+dbdata
+app/core/migrations_
+app/deputaty/migrations_
+app/news/migrations_
+app/popups/migrations_
+app/dump-mysql.sql
+app/dump.json

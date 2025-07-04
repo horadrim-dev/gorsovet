@@ -1,20 +1,29 @@
 version: '3.2'
 services:
   gorsovet-db-dev:
-    image: postgres:15.3-alpine
-    container_name: gorsovet-db-dev
-    networks:
-      - default
-    volumes:
-      - ./postgres_data:/var/lib/postgresql/data/
-      - /etc/localtime:/etc/localtime:ro
-      #- ./my_db_scripts:/docker-entrypoint-initdb.d:ro
+    # image: postgres:15.3-alpine
+    # container_name: gorsovet-db-dev
+    # networks:
+    #   - default
+    # volumes:
+    #   - ./postgres_data:/var/lib/postgresql/data/
+    #   - /etc/localtime:/etc/localtime:ro
+    #   #- ./my_db_scripts:/docker-entrypoint-initdb.d:ro
+    # env_file:
+    #   - environment/dev.env
+    # restart: unless-stopped
+    # healthcheck:
+    #   test: "exit 0"
+    image: mysql:8
+    ports:
+      - "3306:3306"
     env_file:
       - environment/dev.env
+    volumes:
+      - ./dbdata:/var/lib/mysql/
     restart: unless-stopped
     healthcheck:
       test: "exit 0"
-
 
   gorsovet-es-dev:
     container_name: gorsovet-es-dev

@@ -11,7 +11,8 @@ POPUP_POSITION_CHOICES = [
     ('top', 'Вверху во всю ширину'),
 ]
 class Popup(CMSPlugin):
-    layout = models.CharField("Расположение", choices=POPUP_POSITION_CHOICES,
+    layout = models.CharField("Расположение", max_length=32,
+                               choices=POPUP_POSITION_CHOICES,
                                 default=POPUP_POSITION_CHOICES[0][0])
     title = models.CharField("Заголовок", max_length=256, blank=True, null=True)
     content = HTMLField("Содержимое")

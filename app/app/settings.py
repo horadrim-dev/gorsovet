@@ -28,6 +28,7 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # Initialise environment variables
 env = environ.Env(
     # set casting, default value
@@ -38,25 +39,30 @@ env = environ.Env(
     RECIPIENTS_EMAIL=(list, []),
     EMAIL_USE_TLS=(bool, True),
 )
-# environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
-environ.Env.read_env()
+
+ENV_FILE = os.environ['ENV_FILE_PATH'] # if env_file is set, will read it
+
+if ENV_FILE:
+    environ.Env.read_env(env_file=ENV_FILE)
+else:
+    environ.Env.read_env()
 
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-# print(DEBUG)
 
-# ALLOWED_HOSTS = ['localhost']
 ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 if env('CSRF_TRUSTED_ORIGINS'):
     CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS')
 
-POSTGRES_USER=env("POSTGRES_USER")
-POSTGRES_PASSWORD=env("POSTGRES_PASSWORD")
+DATABASE_TYPE=env("DATABASE_TYPE") # postgres | mysql
+
 POSTGRES_HOST=env("POSTGRES_HOST")
 POSTGRES_PORT=env("POSTGRES_PORT")
+POSTGRES_USER=env("POSTGRES_USER")
+POSTGRES_PASSWORD=env("POSTGRES_PASSWORD")
 POSTGRES_DB=env("POSTGRES_DB")
 POSTGRES_IS_AVAIL = all([
         POSTGRES_USER, 
@@ -66,6 +72,21 @@ POSTGRES_IS_AVAIL = all([
         POSTGRES_DB
 ])
 
+MYSQL_HOST=env("MYSQL_HOST")
+MYSQL_PORT=env("MYSQL_PORT")
+MYSQL_ROOT_PASSWORD=env("MYSQL_ROOT_PASSWORD")
+MYSQL_DATABASE=env("MYSQL_DATABASE")
+MYSQL_USER=env("MYSQL_USER")
+MYSQL_PASSWORD=env("MYSQL_PASSWORD")
+
+MYSQL_IS_AVAIL = all([
+        MYSQL_HOST, 
+        MYSQL_PORT, 
+        MYSQL_ROOT_PASSWORD,
+        MYSQL_DATABASE,
+        MYSQL_USER,
+        MYSQL_PASSWORD
+])
 
 INSTALLED_APPS = [
     'django.contrib.sites',
@@ -207,7 +228,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if POSTGRES_IS_AVAIL:
+if DATABASE_TYPE == "postgres" and POSTGRES_IS_AVAIL:
     DATABASES = {
         "default": {
             "ENGINE": "django_prometheus.db.backends.postgresql",
@@ -219,6 +240,21 @@ if POSTGRES_IS_AVAIL:
             "PASSWORD": POSTGRES_PASSWORD,
             "HOST": POSTGRES_HOST,
             "PORT": POSTGRES_PORT,
+        }
+    }
+elif DATABASE_TYPE == "mysql" and MYSQL_IS_AVAIL:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', 
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+                'collation': 'utf8mb4_unicode_ci', # or utf8mb4_general_ci
+            },
+            'HOST': MYSQL_HOST,  
+            'PORT': MYSQL_PORT,
+            'NAME': MYSQL_DATABASE,
+            'USER': MYSQL_USER,
+            'PASSWORD': MYSQL_PASSWORD,
         }
     }
 else:

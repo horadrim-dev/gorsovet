@@ -167,10 +167,10 @@ HEADER_ALIGN_CHOICES = [
 ]
 class HeaderPlugin(CMSPlugin):
     """Модель плагина выводящего заголовок"""
-    title = models.CharField("Заголовок", default=" ")
-    subtitle = models.CharField("Подзаголовок (не обязательно)", blank=True, null=True)
-    layout = models.CharField("Стиль", choices=HEADER_LAYOUT_CHOICES, default=HEADER_LAYOUT_CHOICES[0][0])
-    align = models.CharField("Выравнивание", choices=HEADER_ALIGN_CHOICES, default=HEADER_ALIGN_CHOICES[0][0])
+    title = models.CharField("Заголовок", default=" ", max_length=1024)
+    subtitle = models.CharField("Подзаголовок (не обязательно)", max_length=1024, blank=True, null=True)
+    layout = models.CharField("Стиль", max_length=32, choices=HEADER_LAYOUT_CHOICES, default=HEADER_LAYOUT_CHOICES[0][0])
+    align = models.CharField("Выравнивание", max_length=32, choices=HEADER_ALIGN_CHOICES, default=HEADER_ALIGN_CHOICES[0][0])
 
     def __str__(self):
         return self.title
@@ -183,7 +183,7 @@ WHITESPACE_CHOICES = [
 ]
 class WhitespacePlugin(CMSPlugin):
     """Модель плагина выводящего просто пустое место"""
-    size = models.CharField("Размер", choices=WHITESPACE_CHOICES, default=WHITESPACE_CHOICES[0][0])
+    size = models.CharField("Размер",max_length=32, choices=WHITESPACE_CHOICES, default=WHITESPACE_CHOICES[0][0])
 
 
 SUBMENU_LAYOUT_CHOICES = [
@@ -192,7 +192,7 @@ SUBMENU_LAYOUT_CHOICES = [
 ]
 class SubmenuPlugin(CMSPlugin):
     """Модель плагина выводящего дочернее меню"""
-    layout = models.CharField("Макет", choices=SUBMENU_LAYOUT_CHOICES, default=SUBMENU_LAYOUT_CHOICES[0][0])
+    layout = models.CharField("Макет",max_length=32, choices=SUBMENU_LAYOUT_CHOICES, default=SUBMENU_LAYOUT_CHOICES[0][0])
     parent_page = models.CharField("ID родителя (не обязательно)", max_length=32, blank=True, null=True,
                                help_text="Указывается идентификатор страницы, дочернее меню которой будет отображено. \
                                 (ID заполняется в расширенных настройках страницы). Если не указано, будет отображено \

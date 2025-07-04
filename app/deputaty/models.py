@@ -11,8 +11,8 @@ class DeputatyBase(OrderedModel):
         abstract = True
 
 class Sozyv(DeputatyBase):
-    name = models.CharField("Название", help_text="Пример: Созыв 3")
-    period = models.CharField("Период", help_text="Пример: 04.2003 - 10.2008",
+    name = models.CharField("Название", max_length=256, help_text="Пример: Созыв 3")
+    period = models.CharField("Период", max_length=256, help_text="Пример: 04.2003 - 10.2008",
                               blank=True, null=True)
 
     def save(self, lock_recursion=False, *args, **kwargs):
