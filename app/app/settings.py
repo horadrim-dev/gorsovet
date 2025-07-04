@@ -40,12 +40,8 @@ env = environ.Env(
     EMAIL_USE_TLS=(bool, True),
 )
 
-ENV_FILE = os.environ['ENV_FILE_PATH'] # if env_file is set, will read it
-
-if ENV_FILE:
-    environ.Env.read_env(env_file=ENV_FILE)
-else:
-    environ.Env.read_env()
+# environ.Env.read_env(env_file=ENV_FILE)
+environ.Env.read_env()
 
 SECRET_KEY = env('SECRET_KEY')
 
