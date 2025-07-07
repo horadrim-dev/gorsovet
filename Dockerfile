@@ -1,4 +1,4 @@
-FROM python:3.8-alpine
+FROM python:3.11-alpine
 
 ENV PYTHONBUFFERED 1
 
@@ -22,6 +22,8 @@ RUN apk add mysql-dev
  
 # install dependencies
 RUN pip install --upgrade pip
+RUN pip install "setuptools<58.0.0" wheel
+
 COPY ./app/requirements.txt .
 RUN pip install -r requirements.txt
 
