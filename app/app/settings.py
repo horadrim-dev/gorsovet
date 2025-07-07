@@ -108,7 +108,7 @@ INSTALLED_APPS = [
     'taggit_labels',
     "phonenumber_field",
     # "captcha",
-    'haystack',  # search engine
+    # 'haystack',  # search engine
     'django_prometheus',
     'corsheaders',
     # 'recurrence', # repeating for events

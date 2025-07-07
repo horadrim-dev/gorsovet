@@ -31,7 +31,7 @@ urlpatterns = [
     re_path(r'^sitemap\.xml$', sitemap, {'sitemaps': {'cmspages': CMSSitemap}}),
     re_path(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict),
     # re_path(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
-    path('search/', include('haystack.urls')),
+    # path('search/', include('haystack.urls')),
     path('core/', include('core.system_urls')),
     path("prometheus/", include("django_prometheus.urls")),
     path('admin/', admin.site.urls),
