@@ -1149,16 +1149,16 @@ header .scroll-css .search-box {
 TOP SECTION - MINI
 ------------------------------
 */
-.navbar-mini {
+/* .navbar-mini {
     background-color: #f8f8f8;
     color: #7B7B7B;
     font-size: 12px;
     border-bottom: 1px solid rgb(228,228,228);
-}
+} */
 
-    .navbar-mini .navbar-left span:first-child {
+    /* .navbar-mini .navbar-left span:first-child {
         padding-left: 0;
-    }
+    } */
 
     .navbar-mini span {
         padding: 0 7px;
@@ -1182,14 +1182,14 @@ TOP SECTION - MINI
 }
 
     .minisocial-group i {
-        font-size: 15px;
+        font-size: 21px;
         line-height: 33px !important;
         padding-top: 1px;
         display: block !important;
         float: left;
         color: rgb(183,183,183);
         cursor: pointer;
-        border-right: 1px solid #DBDBDB;
+        /* border-right: 1px solid #DBDBDB; */
         width: 35px;
         text-align: center;
     }
@@ -3700,7 +3700,7 @@ SOCIAL
 }
 
 .social-group i:hover, .minisocial-group i:hover {
-    background: rgba(31,31,31,0.05);
+    background: var(--main-color-4);
 }
 
 .social-group .fa:hover {

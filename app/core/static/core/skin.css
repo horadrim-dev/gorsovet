@@ -886,7 +886,7 @@ header.scroll-css .navbar-brand {
 }
 
 .minisocial-group i {
-    color: rgb(125, 125, 125);
+    color: var(--main-color);
 }
 
 .navbar-mini .navbar-left {
@@ -900,14 +900,16 @@ header.scroll-css .navbar-brand {
     font-size: 13px;
     transform: translateY(-0.5px);
     display: inline-block;
-    color: #a9a9a9;
+    color: var(--main-color);
 }
 
 .navbar-mini span {
     padding: 0 7px;
     font-weight: 400;
     letter-spacing: .5px;
-    opacity: .9;
+    opacity: .8;
+    display: inherit;
+    line-height: 16px;
 }
 
 .navbar-mini>.container {

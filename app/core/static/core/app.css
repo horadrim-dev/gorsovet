@@ -473,8 +473,9 @@ a.dashed:hover {
   font-family: inherit;
 } */
 .navbar-mini {
-    background-color: var(--menu-bg-color);
-    color: var(--menu-font-color);
+    background: none;
+    font-size: 15px;
+    /* color: var(--menu-font-color); */
 }
 .navbar-main, .nav.inner {
     background-color: var(--menu-bg-color);
@@ -483,7 +484,7 @@ a.dashed:hover {
     color: var(--menu-font-color);
     font-weight: 500;
 }
-.minisocial-group i {
+footer .minisocial-group i {
   color: #fff;
 }
 .navbar-collapse:not(.open) .caret::before {

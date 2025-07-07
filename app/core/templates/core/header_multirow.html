@@ -39,7 +39,7 @@
         <div class="navbar-middle scroll-hide">
             <div class="container">
                 <div class="row vertical-row">
-                    <div class="col-xs-12 col-md-5 col-lg-4">
+                    <div class="col-xs-12 col-md-5 col-lg-5">
                         <a class="navbar-brand" href="/">
                             <img class="navbar-brand-logo" src="{% thumbnail site_settings.logo 40x50 upscale crop %}" />
                             <div class="navbar-brand-title">
@@ -48,17 +48,29 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-xs-8 col-md-4 col-lg-6 hidden-sm">
-                        {% comment %} <div class="nav navbar-nav navbar-right">
-                            <div class="nav navbar-nav"> {% endcomment %}
-                                <form action="/search" method="get" class="navbar-form search-input" role="search">
-                                    <div class="form-group">
-                                        <input type="text" name="q" class="form-control" placeholder="Найти..." {% if "q" in request.GET %}value={{request.GET.q}}{% endif %}>
-                                    </div>
-                                    <button type="submit" class="search-button btn btn-default btn-border"><span class="fa fa-search"></span></button>
-                                </form>
-                            {% comment %} </div>
-                        </div> {% endcomment %}
+                    <div class="col-xs-6 col-md-3 col-lg-4 hidden-sm navbar-mini">
+                        {% comment %} <form action="/search" method="get" class="navbar-form search-input" role="search">
+                            <div class="form-group">
+                                <input type="text" name="q" class="form-control" placeholder="Найти..." {% if "q" in request.GET %}value={{request.GET.q}}{% endif %}>
+                            </div>
+                            <button type="submit" class="search-button btn btn-default btn-border"><span class="fa fa-search"></span></button>
+                        </form> {% endcomment %}
+                        <div class="nav navbar-nav navbar-left">
+                            {% if site_settings.phone %}<span><i class="fa fa-phone"></i>{{site_settings.phone}}</span>{% endif %}
+                            {% if site_settings.email %}<span><i class="fa fa-envelope"></i>{{site_settings.email }}</span>{% endif %}
+                            {% if site_settings.address %}<span><i class="fa fa-map-marker"></i>{{site_settings.address}}</span>{% endif %}
+                            {% comment %} <hr />
+                            <span><i class="fa fa-calendar"></i>Mon - Sat: 8.00 - 19:00</span> {% endcomment %}
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-md-1 col-lg-1 hidden-sm">
+                        <div class="minisocial-group">
+                            {% for social in site_settings.socials %}
+                            <a target="_blank" href="{{social.url}}" alt="{{social.text}}">
+                                <i class="fa fa-{{social.icon}}"></i>
+                            </a>
+                            {% endfor %}
+                        </div>
                     </div>
                     <div class="col-xs-4 col-md-3 col-lg-2 hidden-sm">
                         <ul class="navbar-links text-center">

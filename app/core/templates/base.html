@@ -38,7 +38,7 @@
       {% addtoblock "css" %}<link rel="stylesheet" href="{% static 'core/scripts/font-awesome/css/font-awesome.min.css' %}">{% endaddtoblock %}
 
         
-      {% addtoblock "js" %}<script src="{% static 'core/js/accessibility.min.js' %}"></script>{% endaddtoblock %}
+      {% comment %} {% addtoblock "js" %}<script src="{% static 'core/js/accessibility.min.js' %}"></script>{% endaddtoblock %} {% endcomment %}
 
       {% addtoblock "js" %}<script src="{% static 'core/scripts/script.js' %}"></script>{% endaddtoblock %}
       {% addtoblock "js" %}<script  src="{% static 'core/js/toastr.min.js' %}"></script>{% endaddtoblock %}
