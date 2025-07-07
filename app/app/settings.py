@@ -40,8 +40,13 @@ env = environ.Env(
     EMAIL_USE_TLS=(bool, True),
 )
 
-# environ.Env.read_env(env_file=ENV_FILE)
-environ.Env.read_env()
+
+try:
+    ENV_FILE = os.environ['ENV_FILE']
+    environ.Env.read_env(env_file=ENV_FILE)
+except KeyError:
+    environ.Env.read_env()
+
 
 SECRET_KEY = env('SECRET_KEY')
 
