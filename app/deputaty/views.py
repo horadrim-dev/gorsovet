@@ -23,7 +23,8 @@ class DeputatyListView(ListView):
         qs = Deputat.objects.filter(sozyvy=sozyv)
 
         fraction_id = self.request.GET.get("fraction", None)
-        qs = qs.filter(fractions=fraction_id)
+        if fraction_id:
+            qs = qs.filter(fractions=fraction_id)
 
         return qs
     
