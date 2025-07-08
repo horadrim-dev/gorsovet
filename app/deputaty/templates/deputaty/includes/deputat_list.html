@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags static %}
+{% load cms_tags sekizai_tags static core_tags %}
 
 
 <div class="container">
@@ -10,7 +10,7 @@
               
               {% for sozyv in sozyv_list %}
                 <div class="list-item {% if sozyv.id == active_sozyv.id %}active{% endif %}">
-                  <a href="?sozyv={{ sozyv.pk }}">
+                  <a href="?{% param_replace sozyv=sozyv.pk %}">
                     {{ sozyv.name }}
                     <p>{{ sozyv.period }}</p>
                   </a>
@@ -18,10 +18,30 @@
               {% endfor %}
           </div>
       </div>
+      <div class="block">
+          <div class="list-items">
+              <p class="list-group-item">Депутатские объединения</p>
+              
+              {% for fraction in fraction_list %}
+                <div class="list-item {% if active_fraction and fraction.id == active_fraction.id %}active{% endif %}">
+                  <a href="?{% param_replace fraction=fraction.pk %}">
+                    {{ fraction.name }}
+                  </a>
+                </div>
+              {% endfor %}
+              
+              <br>
+              <div class="w-100 text-right">
+                <a class="" href="?{% param_replace fraction='' %}">
+                  <i class="fa fa-trash-o"></i> 
+                </a>
+              </div>
+          </div>
+      </div>
     </div>
     <div class="col-md-9">
 
-      <h1>{{ active_sozyv.name }}</h1>
+      <h1>{{ active_sozyv.name }}{% if active_fraction %} ({{ active_fraction.name }}){% endif %}</h1>
       
       <hr>
 

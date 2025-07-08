@@ -42,8 +42,35 @@ class Sozyv(DeputatyBase):
         verbose_name_plural = "созывы"
 
 
+class Fraction(DeputatyBase):
+    name = models.CharField("Название", max_length=256)
+
+    def save(self, lock_recursion=False, *args, **kwargs):
+        # save method для OrderedModel
+        super().save(*args, **kwargs)
+
+        if not lock_recursion:
+            self.update_order(
+                list_of_objects = list(
+                    Fraction.objects.all().exclude(id=self.id)
+                    )
+            )
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return "{}?fraction={}".format(reverse('deputaty:index'), str(self.id))
+
+    class Meta:
+        ordering = ['order' ]
+        verbose_name = "фракция"
+        verbose_name_plural = "фракции"
+
+
 class Deputat(DeputatyBase):
     sozyvy = models.ManyToManyField(Sozyv, verbose_name="Созыв", )
+    fractions = models.ManyToManyField(Fraction, verbose_name="Фракции", )
     lastname = models.CharField(verbose_name="Фамилия", max_length=128)
     firstname = models.CharField(verbose_name="Имя", max_length=128)
     surname = models.CharField(verbose_name="Отчество", max_length=128)

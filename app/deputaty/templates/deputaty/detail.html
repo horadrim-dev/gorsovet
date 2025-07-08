@@ -27,14 +27,33 @@
               {{ object.name }}
             </h1>
             <hr>
+
+            <h4>Член депутатских созывов:</h4>
               {% for sozyv in object.sozyvy.all %}
                 <div class="list-items">
                   <div class="list-item">
-                    <b>{{ sozyv.name }}</b> ({{ sozyv.period }})
+                    <a href="{{sozyv.get_absolute_url}}">
+                      <b>{{ sozyv.name }}</b> ({{ sozyv.period }})
+                    </a>
                   </div>
                 </div>
               {% endfor %}
             <hr>
+
+            {% if object.fractions.all %}
+            <h4>Член депутатских объединений:</h4>
+              {% for fraction in object.fractions.all %}
+                <div class="list-items">
+                  <div class="list-item">
+                    <a href="{{ fraction.get_absolute_url }}">
+                      <b>{{ fraction.name }}</b> 
+                    </a>
+                  </div>
+                </div>
+              {% endfor %}
+            <hr>
+            {% endif %}
+
             <p>{{ object.description|safe }}</p>
         </div>
       </div>

@@ -29,6 +29,10 @@ class DeputatyToolbar(CMSToolbar):
             name='Созывы',
             url=admin_reverse('deputaty_sozyv_changelist')
         )
+        deputaty_menu.add_modal_item(
+            name='Депутатские объединения',
+            url=admin_reverse('deputaty_fraction_changelist')
+        )
 
         self.toolbar.add_modal_button(
             name='Депутат', 

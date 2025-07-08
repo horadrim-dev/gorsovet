@@ -6,6 +6,9 @@ from .models import *
 class SozyvAdmin(admin.ModelAdmin):
     model = Sozyv
 
+@admin.register(Fraction)
+class FractionAdmin(admin.ModelAdmin):
+    model = Fraction
 
 @admin.register(Deputat)
 class EventAdmin(admin.ModelAdmin):
