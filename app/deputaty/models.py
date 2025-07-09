@@ -70,7 +70,7 @@ class Fraction(DeputatyBase):
 
 class Deputat(DeputatyBase):
     sozyvy = models.ManyToManyField(Sozyv, verbose_name="Созыв", )
-    fractions = models.ManyToManyField(Fraction, verbose_name="Фракции", )
+    fractions = models.ManyToManyField(Fraction, verbose_name="Фракции", blank=True)
     lastname = models.CharField(verbose_name="Фамилия", max_length=128)
     firstname = models.CharField(verbose_name="Имя", max_length=128)
     surname = models.CharField(verbose_name="Отчество", max_length=128)
